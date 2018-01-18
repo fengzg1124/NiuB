@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=11" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <!-- <link rel="icon"  href="../../favicon.ico"> -->
+
+    <title>猎多金财富</title>
+
+    <!-- Bootstrap core CSS -->
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet" />
+
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <link th:href="@{/website/css/ie10-viewport-bug-workaround.css}" rel="stylesheet" />
+
+    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+    <script th:src="@{/website/js/ie-emulation-modes-warning.js}"></script>
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Custom styles for this template -->
+    <link th:href="@{/website/css/carousel.css}" rel="stylesheet" />
+    <style type="text/css">
+    	.outer:hover{
+		  background-color: burlywood;
+		}
+    </style>
+  </head>
+<!-- NAVBAR
+================================================== -->
+  <body>
+    <div class="navbar-wrapper">
+      <div class="container">
+
+        <nav class="navbar navbar-inverse navbar-static-top">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <span class="navbar-brand">猎多金财富</span>
+              <!-- <a class="navbar-brand" href="#">公司或项目名称</a> -->
+              <span class="navbar-brand">登录/注册</span>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse">
+            
+              <!-- <ul class="nav navbar-nav">
+                <li class="active"><a href="#">首页</a></li>
+                <li><a href="#about">菜单1</a></li>
+                <li><a href="#contact">菜单2</a></li>
+                <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">菜单3 <span class="caret"></span></a>
+                  <ul class="dropdown-menu">
+                    <li><a href="#">子菜单1</a></li>
+                    <li><a href="#">子菜单2</a></li>
+                    <li><a href="#">子菜单3</a></li>
+                    <li role="separator" class="divider"></li>
+                    <li class="dropdown-header">子菜单4</li>
+                    <li><a href="#">子菜单5</a></li>
+                    <li><a href="#">子菜单6</a></li>
+                  </ul>
+                </li>
+              </ul>
+              <form class="navbar-form navbar-right" action="/login">
+		            <div class="form-group">
+		              <input type="text" placeholder="手机号" class="form-control" />
+		            </div>
+		            <div class="form-group">
+		              <input type="password" placeholder="密码" class="form-control" />
+		            </div>
+		            <button type="submit" class="btn btn-success">登录</button>
+		            <button type="button" class="btn btn-success">注册</button>
+		      </form>
+		       -->
+            </div>
+          </div>
+        </nav>
+
+      </div>
+    </div>
+
+
+    <!-- Carousel
+    ================================================== -->
+    <div id="myCarousel" class="carousel slide" data-ride="carousel">
+      <div class="carousel-inner" role="listbox">
+        <div class="item active">
+    	  <img class="first-slide" width="1349px" height="500px" th:src="@{/website/image/youqian.png}" alt="First slide" />
+          <!-- <div class="container">
+            <div class="carousel-caption" style="text-align: left;">
+              <h1>标题</h1>
+              <p>内容，此处可以换成一整张图片Note: If you're viewing this page via a <code>file://</code> URL, the "next" and "previous" Glyphicon buttons on the left and right might not load/display properly due to web browser security rules.</p>
+              <p><a class="btn btn-lg btn-primary" href="#" role="button">Sign up today</a></p>
+            </div>
+          </div> -->
+      	</div>
+      </div>
+      <!-- Indicators -->
+      <!-- <ol class="carousel-indicators">
+        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+        <li data-target="#myCarousel" data-slide-to="1"></li>
+        <li data-target="#myCarousel" data-slide-to="2"></li>
+      </ol>
+      <div class="carousel-inner" role="listbox">
+        <div class="item active">
+          <img class="first-slide" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="First slide" />
+          <div class="container">
+            <div class="carousel-caption">
+              <h1>标题</h1>
+              <p>内容，此处可以换成一整张图片Note: If you're viewing this page via a <code>file://</code> URL, the "next" and "previous" Glyphicon buttons on the left and right might not load/display properly due to web browser security rules.</p>
+              <p><a class="btn btn-lg btn-primary" href="#" role="button">Sign up today</a></p>
+            </div>
+          </div>
+        </div>
+        <div class="item">
+          <img class="second-slide" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Second slide" />
+          <div class="container">
+            <div class="carousel-caption">
+              <h1>标题</h1>
+              <p>内容，此处可以换成一整张图片Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+              <p><a class="btn btn-lg btn-primary" href="#" role="button">Learn more</a></p>
+            </div>
+          </div>
+        </div>
+        <div class="item">
+          <img class="third-slide" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Third slide" />
+          <div class="container">
+            <div class="carousel-caption">
+              <h1>标题</h1>
+              <p>内容，此处可以换成一整张图片Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+              <p><a class="btn btn-lg btn-primary" href="#" role="button">Browse gallery</a></p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+      </a>
+      <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+      </a> -->
+    </div><!-- /.carousel -->
+
+<hr class="featurette-divider" />
+    <!-- Marketing messaging and featurettes
+    ================================================== -->
+    <!-- Wrap the rest of the page in another container to center all the content. -->
+
+    <div class="container marketing">
+
+      <!-- Three columns of text below the carousel -->
+      <div class="row">
+        <div class="col-lg-4 outer" onclick="loanDetail()">
+          <img class="img-circle" th:src="@{/website/image/gong.png}" width="140" height="140" />
+          <h2>工薪贷</h2>
+          <p>上班人群，额度5～15万<span style="color: blue;font-size: 10px;">详细</span> </p>
+          <!-- <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p> -->
+        </div><!-- /.col-lg-4 -->
+        <div class="col-lg-4 outer" onclick="loanDetail()">
+          <img class="img-circle" th:src="@{/website/image/nong.png}" alt="Generic placeholder image" width="140" height="140" />
+          <h2>新农贷</h2>
+          <p>养殖种植户，额度5～20万<span style="color: blue;font-size: 10px;">详细</span></p>
+          <!-- <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p> -->
+        </div><!-- /.col-lg-4 -->
+        <div class="col-lg-4 outer" onclick="loanDetail()">
+          <img class="img-circle" th:src="@{/website/image/sheng.png}" width="140" height="140" />
+          <h2>生意贷</h2>
+          <p>在本地有生意，额度5～30万<span style="color: blue;font-size: 10px;">详细</span></p>
+          <!-- <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p> -->
+        </div><!-- /.col-lg-4 -->
+      </div><!-- /.row -->
+      
+      <div class="row">
+        <div class="col-lg-4 outer" onclick="loanDetail()">
+          <img class="img-circle" th:src="@{/website/image/fang.png}" alt="Generic placeholder image" width="140" height="140" />
+          <h2>房贷</h2>
+          <p>在本地有房产，额度5～50万<span style="color: blue;font-size: 10px;">详细</span></p>
+          <!-- <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p> -->
+        </div><!-- /.col-lg-4 -->
+        <div class="col-lg-4 outer" onclick="loanDetail()">
+          <img class="img-circle" th:src="@{/website/image/che.png}" alt="Generic placeholder image" width="140" height="140" />
+          <h2>车贷</h2>
+          <p>只要是车就可以，看车高额度<span style="color: blue;font-size: 10px;">详细</span></p>
+          <!-- <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p> -->
+        </div><!-- /.col-lg-4 -->
+        <div class="col-lg-4 outer" onclick="loanDetail()">
+          <img class="img-circle" th:src="@{/website/image/dian.png}" alt="Generic placeholder image" width="140" height="140" />
+          <h2>垫资过桥</h2>
+          <p>公司自有资金，费用最低<br/> <span style="color: blue;font-size: 10px;">详细</span></p>
+          <!-- <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p> -->
+        </div><!-- /.col-lg-4 -->
+      </div><!-- /.row -->
+
+
+      <!-- START THE FEATURETTES -->
+<!-- 
+      <hr class="featurette-divider" />
+
+      <div class="row featurette">
+        <div class="col-md-7">
+          <h2 class="featurette-heading">大标题 <span class="text-muted">小标题</span></h2>
+          <p class="lead">内容一大堆，右边图片Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
+        </div>
+        <div class="col-md-5">
+          <img class="featurette-image img-responsive center-block" data-src="holder.js/500x500/auto" alt="Generic placeholder image" />
+        </div>
+      </div>
+
+      <hr class="featurette-divider" />
+
+      <div class="row featurette">
+        <div class="col-md-7 col-md-push-5">
+          <h2 class="featurette-heading">大标题 <span class="text-muted">小标题</span></h2>
+          <p class="lead">内容一大堆，左边图片Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
+        </div>
+        <div class="col-md-5 col-md-pull-7">
+          <img class="featurette-image img-responsive center-block" data-src="holder.js/500x500/auto" alt="Generic placeholder image" />
+        </div>
+      </div>
+
+      <hr class="featurette-divider" />
+
+      <div class="row featurette">
+        <div class="col-md-7">
+          <form id="mainform" class="form-signin" action="">
+          	<input type="hidden" id="phid" th:value="${phid}"/>
+          	<h2 class="form-signin-heading">马上注册</h2>
+          	<h4>姓名：</h4><input type="text" class="form-control" name="userName"/>
+          	<h4>手机号：</h4><input type="text" class="form-control" name="phoneNumber"/>
+          	<h4>密码：</h4><input type="password" class="form-control" name="password"/>
+          	<br />
+          	<input type="button" onclick="registered()" class="btn btn-lg btn-primary btn-block" value="注册" />
+          </form>
+        </div>
+        <div class="col-md-5">
+          <img class="featurette-image img-responsive center-block" data-src="holder.js/500x500/auto" alt="Generic placeholder image" />
+        </div>
+      </div>
+
+      <hr class="featurette-divider" />
+-->
+
+      <!-- /END THE FEATURETTES -->
+
+
+      <!-- FOOTER -->
+      <footer>
+        <p class="pull-right"><a href="#">回到最上</a></p>
+        <p>&copy; 2018 LieDuoJin.f All Rights Reserved. <!-- &middot; <a href="#">隐私</a> &middot; <a href="#">条款</a> --></p>
+      </footer>
+
+    </div><!-- /.container -->
+
+	<input type="hidden" id="phid" th:value="${phid}"/>
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script th:src="@{/js/jquery-2.1.1.js}"></script>
+    <!-- <script>window.jQuery || document.write('<script th:src="@{/js/jquery-3.2.1.min.js}"><\/script>')</script> -->
+    <script th:src="@{/js/bootstrap.min.js}"></script>
+    <!-- Just to make our placeholder images work. Don't actually copy the next line! -->
+    <script th:src="@{/website/js/holder.min.js}"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script th:src="@{/website/js/ie10-viewport-bug-workaround.js}"></script>
+    <script th:src="@{/website/js/popover.js}"></script>
+    <script th:src="@{/website/js/tooltip.js}"></script>
+    <script type="text/javascript">
+	    function loanDetail(){
+	    	var phid = $("#phid").val();
+	    	window.location.href="/user/loanDetail-"+phid;
+	    }
+    </script>
+  </body>
+</html>
