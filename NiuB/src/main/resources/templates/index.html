@@ -30,7 +30,7 @@
 
 </head>
 <body>
-
+<input type="hidden" id="phid" th:value="${phid}"/>
 <!-- Preloader -->
 <div id="preloader">
 <div class="loader"></div>
@@ -87,16 +87,15 @@
 				<!-- Navigation -->
 				<div id="main-menu" class="navbar-collapse collapse">
 					<ul class="nav navbar-nav navbar-right">
-						<li><a href="index.html">注册</a></li>
-						<li><a href="about.html">登录</a></li>
+						<li><a onclick="toRegister()">注册</a></li>
+						<li><a onclick="toLogin()">登录</a></li>
 						<li class="dropdown">
 							<a href="#" class="dropdown-toggle">我的二维码</a>
 							<ul class="dropdown-menu">
-								<li><img src="website/image/logo.png" class="logo-big" alt=""/></li>
+								<li><div id="code"></div>&nbsp;&nbsp;&nbsp;分享出去，有大礼哦！</li>
 							</ul>
 						</li>
 					</ul>
-					
 				</div>
 				<!-- /Navigation -->
 
@@ -121,10 +120,11 @@
 
 			<div class="col-sm-6 col-md-6 height-100p bounceInLeft wow" data-wow-duration="1.3s" data-wow-delay="0.3s" data-stellar-ratio="0.7">
 				<div class="vertical-middle">
-					<h1 class="text-white">Welcome to <span class="text-theme">CleaThin</span></h1>
-					<div class="text-white h4">
-						It is a long established fact that a reader will be distracted by the readable content of a
-						page when looking at its layout.
+					<h1 class="text-white"><span class="text-theme">猎多金财富</span></h1>
+					<div class="text-white h3">
+						立行业丰碑，交天下朋友！
+						<br/>
+						本地白户<span class="text-theme" style="font-size: 90px">100%</span>放款，敢于旁人的承诺！
 					</div>
 				</div>
 			</div>
@@ -272,6 +272,7 @@
 </footer>
 <!-- SCRIPTS -->
 <script src="website/js/jquery-2.2.0.min.js"></script>
+<script src="website/js/jquery.qrcode.min.js"></script>
 <script src="website/js/bootstrap.min.js"></script>
 <script src="website/js/owl.carousel.min.js"></script>
 <script src="website/js/jquery.magnific-popup.min.js"></script>
@@ -324,15 +325,35 @@
 <script src="website/js/styleswitcher.js"></script>
 <!-- /Styleswitcher -->
 <script type="text/javascript">
-	
+
+	var url="http://www.lieduojin.com.cn/index-"
 	window.onload = function(){ 
-		//switchStyle('theme-yellow-sea');
-		//switchStyle('theme-vida-loca');
+		url=url+$("#phid").val()
 	} 
+	
     function loanDetail(){
     	var phid = $("#phid").val();
     	window.location.href="/user/loanDetail-"+phid;
     }
+    
+    function toLogin(){
+    	var phid = $("#phid").val();
+    	window.location.href="/toLogin-"+phid;
+    }
+    
+    function toRegister(){
+    	var phid = $("#phid").val();
+    	window.location.href="/toRegister-"+phid;
+    }
+    
+    $("#code").show(function(){
+    	$('#code').qrcode({  
+            width: 160,  
+            height: 160,  
+            text: url 
+        }); 
+    });
+    
 </script>
 </body>
 </html>

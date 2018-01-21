@@ -25,10 +25,18 @@ public class HomeController {
 	UserService userService;
 	
 	
-	/*@RequestMapping(value="/")
-	public String goLogin(){
+	@RequestMapping(value="/toLogin-{phid}")
+	public String toLogin(Model model,@PathVariable(name="phid")String phid){
+		model.addAttribute("phid", phid);
 		return "login";
-	}*/
+	}
+	
+	
+	@RequestMapping(value="/toRegister-{phid}")
+	public String toRegister(Model model,@PathVariable(name="phid")String phid){
+		model.addAttribute("phid", phid);
+		return "register";
+	}
 	
 	@RequestMapping(value="/login")
 	public String login(Model model,User user,HttpServletRequest request){
