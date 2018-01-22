@@ -11,8 +11,5 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping(value="/adminUser")
 public class AdminUserController {
 
-	@RequestMapping(value="/userLogin")
-	public String userLogin(Model model,HttpServletRequest request,HttpServletResponse response){
-		return "admin/index";
-	}
+	
 }

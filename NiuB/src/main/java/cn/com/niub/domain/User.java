@@ -29,6 +29,10 @@ public class User {
 
     private Date updateTime;
 
+    private String parentId;
+
+    private String hierarchyId;
+
     public String getId() {
         return id;
     }
@@ -74,7 +78,7 @@ public class User {
     }
 
     public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
+        this.phoneNumber = phoneNumber == null ? null : phoneNumber.trim();
     }
 
     public Integer getState() {
@@ -133,6 +137,22 @@ public class User {
         this.updateTime = updateTime;
     }
 
+    public String getParentId() {
+        return parentId;
+    }
+
+    public void setParentId(String parentId) {
+        this.parentId = parentId == null ? null : parentId.trim();
+    }
+
+    public String getHierarchyId() {
+        return hierarchyId;
+    }
+
+    public void setHierarchyId(String hierarchyId) {
+        this.hierarchyId = hierarchyId == null ? null : hierarchyId.trim();
+    }
+
     @Override
     public boolean equals(Object that) {
         if (this == that) {
@@ -157,7 +177,9 @@ public class User {
             && (this.getCreator() == null ? other.getCreator() == null : this.getCreator().equals(other.getCreator()))
             && (this.getCreateTime() == null ? other.getCreateTime() == null : this.getCreateTime().equals(other.getCreateTime()))
             && (this.getUpdator() == null ? other.getUpdator() == null : this.getUpdator().equals(other.getUpdator()))
-            && (this.getUpdateTime() == null ? other.getUpdateTime() == null : this.getUpdateTime().equals(other.getUpdateTime()));
+            && (this.getUpdateTime() == null ? other.getUpdateTime() == null : this.getUpdateTime().equals(other.getUpdateTime()))
+            && (this.getParentId() == null ? other.getParentId() == null : this.getParentId().equals(other.getParentId()))
+            && (this.getHierarchyId() == null ? other.getHierarchyId() == null : this.getHierarchyId().equals(other.getHierarchyId()));
     }
 
     @Override
@@ -177,6 +199,8 @@ public class User {
         result = prime * result + ((getCreateTime() == null) ? 0 : getCreateTime().hashCode());
         result = prime * result + ((getUpdator() == null) ? 0 : getUpdator().hashCode());
         result = prime * result + ((getUpdateTime() == null) ? 0 : getUpdateTime().hashCode());
+        result = prime * result + ((getParentId() == null) ? 0 : getParentId().hashCode());
+        result = prime * result + ((getHierarchyId() == null) ? 0 : getHierarchyId().hashCode());
         return result;
     }
 }

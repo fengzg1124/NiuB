@@ -89,7 +89,7 @@
 					<ul class="nav navbar-nav navbar-right">
 						<li><a onclick="toRegister()">注册</a></li>
 						<li><a onclick="toLogin()">登录</a></li>
-						<li class="dropdown">
+						<li class="dropdown" th:if="${''!=phid and null!=phid}">
 							<a href="#" class="dropdown-toggle">我的二维码</a>
 							<ul class="dropdown-menu">
 								<li><div id="code"></div>&nbsp;&nbsp;&nbsp;分享出去，有大礼哦！</li>
@@ -222,7 +222,7 @@
 		<br/><br/>
 		<div class="row">
 			<!-- Feature Block -->
-			<div class="col-sm-4 feature fadeIn wow" data-wow-duration="1.3s">
+			<div class="col-sm-4 feature fadeIn wow" data-wow-duration="1.3s" data-wow-delay="1.2s">
 				<span class="icon" style="font-family: 楷体;font-size: 70px;">房</span>
 				<div class="h3 title">房贷</div>
 				<p class="description">
@@ -233,7 +233,7 @@
 			<!-- /Feature Block -->
 
 			<!-- Feature Block -->
-			<div class="col-sm-4 feature fadeIn wow" data-wow-duration="1.3s" data-wow-delay="0.4s">
+			<div class="col-sm-4 feature fadeIn wow" data-wow-duration="1.3s" data-wow-delay="1.6s">
 				<span class="icon" style="font-family: 楷体;font-size: 70px;">车</span>
 				<div class="h3 title">车贷</div>
 				<p class="description">
@@ -244,7 +244,7 @@
 			<!-- /Feature Block -->
 
 			<!-- Feature Block -->
-			<div class="col-sm-4 feature fadeIn wow" data-wow-duration="1.3s" data-wow-delay="0.8s">
+			<div class="col-sm-4 feature fadeIn wow" data-wow-duration="1.3s" data-wow-delay="2.0s">
 				<span class="icon" style="font-family: 楷体;font-size: 70px;">垫</span>
 				<div class="h3 title">垫资过桥</div>
 				<p class="description">
@@ -325,25 +325,25 @@
 <script src="website/js/styleswitcher.js"></script>
 <!-- /Styleswitcher -->
 <script type="text/javascript">
-
+/*<![CDATA[*/
 	var url="http://www.lieduojin.com.cn/index-"
-	window.onload = function(){ 
-		url=url+$("#phid").val()
+	window.onload = function(){
+		var phid = $("#phid").val();
+		if("" != phid && null != phid){
+			url=url+phid;
+		}
 	} 
 	
     function loanDetail(){
-    	var phid = $("#phid").val();
-    	window.location.href="/user/loanDetail-"+phid;
+    	window.location.href="/user/loanDetail";
     }
     
     function toLogin(){
-    	var phid = $("#phid").val();
-    	window.location.href="/toLogin-"+phid;
+    	window.location.href="/toLogin";
     }
     
     function toRegister(){
-    	var phid = $("#phid").val();
-    	window.location.href="/toRegister-"+phid;
+    	window.location.href="/toRegister";
     }
     
     $("#code").show(function(){
@@ -354,6 +354,7 @@
         }); 
     });
     
+/*]]>*/
 </script>
 </body>
 </html>

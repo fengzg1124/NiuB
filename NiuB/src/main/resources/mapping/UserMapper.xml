@@ -15,6 +15,8 @@
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="updator" jdbcType="VARCHAR" property="updator" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="parent_id" jdbcType="VARCHAR" property="parentId" />
+    <result column="hierarchy_id" jdbcType="VARCHAR" property="hierarchyId" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -76,7 +78,7 @@
   </sql>
   <sql id="Base_Column_List">
     id, user_name, password, user_index, login_name, phone_number, state, remark, icard_code, 
-    creator, create_time, updator, update_time
+    creator, create_time, updator, update_time, parent_id, hierarchy_id
   </sql>
   <select id="selectByExample" parameterType="cn.com.niub.domain.UserExample" resultMap="BaseResultMap">
     select
@@ -113,12 +115,14 @@
       user_index, login_name, phone_number, 
       state, remark, icard_code, 
       creator, create_time, updator, 
-      update_time)
+      update_time, parent_id, hierarchy_id
+      )
     values (#{id,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
-      #{userIndex,jdbcType=INTEGER}, #{loginName,jdbcType=VARCHAR}, #{phoneNumber,jdbcType=INTEGER}, 
+      #{userIndex,jdbcType=INTEGER}, #{loginName,jdbcType=VARCHAR}, #{phoneNumber,jdbcType=VARCHAR}, 
       #{state,jdbcType=INTEGER}, #{remark,jdbcType=VARCHAR}, #{icardCode,jdbcType=VARCHAR}, 
       #{creator,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updator,jdbcType=VARCHAR}, 
-      #{updateTime,jdbcType=TIMESTAMP})
+      #{updateTime,jdbcType=TIMESTAMP}, #{parentId,jdbcType=VARCHAR}, #{hierarchyId,jdbcType=VARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="cn.com.niub.domain.User">
     insert into tbl_user_info
@@ -162,6 +166,12 @@
       <if test="updateTime != null">
         update_time,
       </if>
+      <if test="parentId != null">
+        parent_id,
+      </if>
+      <if test="hierarchyId != null">
+        hierarchy_id,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -180,7 +190,7 @@
         #{loginName,jdbcType=VARCHAR},
       </if>
       <if test="phoneNumber != null">
-        #{phoneNumber,jdbcType=INTEGER},
+        #{phoneNumber,jdbcType=VARCHAR},
       </if>
       <if test="state != null">
         #{state,jdbcType=INTEGER},
@@ -202,6 +212,12 @@
       </if>
       <if test="updateTime != null">
         #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="parentId != null">
+        #{parentId,jdbcType=VARCHAR},
+      </if>
+      <if test="hierarchyId != null">
+        #{hierarchyId,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -230,7 +246,7 @@
         login_name = #{record.loginName,jdbcType=VARCHAR},
       </if>
       <if test="record.phoneNumber != null">
-        phone_number = #{record.phoneNumber,jdbcType=INTEGER},
+        phone_number = #{record.phoneNumber,jdbcType=VARCHAR},
       </if>
       <if test="record.state != null">
         state = #{record.state,jdbcType=INTEGER},
@@ -253,6 +269,12 @@
       <if test="record.updateTime != null">
         update_time = #{record.updateTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="record.parentId != null">
+        parent_id = #{record.parentId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.hierarchyId != null">
+        hierarchy_id = #{record.hierarchyId,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -265,14 +287,16 @@
       password = #{record.password,jdbcType=VARCHAR},
       user_index = #{record.userIndex,jdbcType=INTEGER},
       login_name = #{record.loginName,jdbcType=VARCHAR},
-      phone_number = #{record.phoneNumber,jdbcType=INTEGER},
+      phone_number = #{record.phoneNumber,jdbcType=VARCHAR},
       state = #{record.state,jdbcType=INTEGER},
       remark = #{record.remark,jdbcType=VARCHAR},
       icard_code = #{record.icardCode,jdbcType=VARCHAR},
       creator = #{record.creator,jdbcType=VARCHAR},
       create_time = #{record.createTime,jdbcType=TIMESTAMP},
       updator = #{record.updator,jdbcType=VARCHAR},
-      update_time = #{record.updateTime,jdbcType=TIMESTAMP}
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      parent_id = #{record.parentId,jdbcType=VARCHAR},
+      hierarchy_id = #{record.hierarchyId,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -293,7 +317,7 @@
         login_name = #{loginName,jdbcType=VARCHAR},
       </if>
       <if test="phoneNumber != null">
-        phone_number = #{phoneNumber,jdbcType=INTEGER},
+        phone_number = #{phoneNumber,jdbcType=VARCHAR},
       </if>
       <if test="state != null">
         state = #{state,jdbcType=INTEGER},
@@ -316,6 +340,12 @@
       <if test="updateTime != null">
         update_time = #{updateTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="parentId != null">
+        parent_id = #{parentId,jdbcType=VARCHAR},
+      </if>
+      <if test="hierarchyId != null">
+        hierarchy_id = #{hierarchyId,jdbcType=VARCHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=VARCHAR}
   </update>
@@ -325,14 +355,16 @@
       password = #{password,jdbcType=VARCHAR},
       user_index = #{userIndex,jdbcType=INTEGER},
       login_name = #{loginName,jdbcType=VARCHAR},
-      phone_number = #{phoneNumber,jdbcType=INTEGER},
+      phone_number = #{phoneNumber,jdbcType=VARCHAR},
       state = #{state,jdbcType=INTEGER},
       remark = #{remark,jdbcType=VARCHAR},
       icard_code = #{icardCode,jdbcType=VARCHAR},
       creator = #{creator,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       updator = #{updator,jdbcType=VARCHAR},
-      update_time = #{updateTime,jdbcType=TIMESTAMP}
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      parent_id = #{parentId,jdbcType=VARCHAR},
+      hierarchy_id = #{hierarchyId,jdbcType=VARCHAR}
     where id = #{id,jdbcType=VARCHAR}
   </update>
 </mapper>

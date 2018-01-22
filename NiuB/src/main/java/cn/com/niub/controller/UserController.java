@@ -17,18 +17,7 @@ public class UserController {
 
 	@Autowired
 	UserService userService;
-	@RequestMapping(value="/saveUser-{phid}")
-	public String saveUser(Model model,User user,HttpServletRequest request,@PathVariable(name="phid")String phid){
-		if(user!=null){
-			user.setRemark(phid);
-			userService.saveUser(user);
-			phid = user.getPhoneNumber().toString().substring(user.getPhoneNumber().toString().length()-4, user.getPhoneNumber().toString().length()); 
-			model.addAttribute("phid", phid);
-			return "redirect:/index-"+phid;
-		}else{
-			return "redirect:/index-";
-		}
-	}
+	
 	@RequestMapping(value="/loanDetail-{phid}")
 	public String loanDetail(Model model,User user,HttpServletRequest request,@PathVariable(name="phid")String phid){
 		model.addAttribute("phid", phid);
