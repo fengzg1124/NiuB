@@ -47,7 +47,7 @@
             </div>
             <div class="col-md-6">
                 <div class="ibox-content">
-                    <form class="m-t" role="form" action="/login">
+                    <form class="m-t" role="form" method="post" action="/login">
                         <div class="form-group">
                             <input type="text" name="phoneNumber" class="form-control" placeholder="手机号" required="required"/>
                         </div>
@@ -82,7 +82,7 @@
 <script type="text/javascript">
 
 $(document).ready(function () { 
-	alert("222"+$("#phid").val());
+	//alert("222"+$("#phid").val());
 }); 
 
 function toRegister(){

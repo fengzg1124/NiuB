@@ -24,21 +24,20 @@
     <div class="middle-box text-center loginscreen   animated fadeInDown">
         <div>
             <div>
-
-                <h1 class="logo-name">猎多金</h1>
-
+                <h1 class="logo-name">金</h1>
             </div>
             <h3>注册到猎多金财富</h3>
-            <form class="m-t" role="form" action="/register">
+            <form class="m-t" role="form" method="post" action="/register">
                 <div class="form-group">
-                    <input type="text" class="form-control" placeholder="姓名" required="required"/>
+                    <input type="text" name="userName" class="form-control" placeholder="姓名" required="required"/>
                 </div>
                 <div class="form-group">
-                    <input type="email" class="form-control" placeholder="电话" required="required"/>
+                    <input type="text" name="phoneNumber" class="form-control" placeholder="电话" required="required"/>
                 </div>
                 <div class="form-group">
-                    <input type="password" class="form-control" placeholder="密码" required="required"/>
+                    <input type="password" name="password" class="form-control" placeholder="密码" required="required"/>
                 </div>
+                <input type="hidden" name="state" value="1"/>
                 <!-- <div class="form-group">
                         <div class="checkbox i-checks"><label> <input type="checkbox"><i></i> Agree the terms and policy </label></div>
                 </div> -->

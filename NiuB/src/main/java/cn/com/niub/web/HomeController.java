@@ -89,7 +89,7 @@ public class HomeController {
 		criteria.andPhoneNumberEqualTo(user.getPhoneNumber());
 		criteria.andPasswordEqualTo(user.getPassword());
 		List<User> users = userService.findUsers(example);
-		if(users.size()<0){
+		if(users.size()<=0){
 			log.setLog("登录失败");
 			model.addAttribute("mes", "登录失败,手机号或密码错误！");
 			return "login";
@@ -106,14 +106,13 @@ public class HomeController {
 	}
 	
 	@RequestMapping(value="/register")
-	public String register(Model model,User user,HttpServletRequest request,@PathVariable(name="phid")String phid){
+	public String register(Model model,User user,HttpServletRequest request){
 			
 		//记录日志
 		Log log = new Log();
 		log.setId(ServiceUtils.getUUID());
 		log.setStartTime(new Date());
 		log.setType("register");
-		log.setUserId(user.getId());
 		
 		UserExample example = new UserExample();
 		Criteria criteria = example.createCriteria();
@@ -126,16 +125,18 @@ public class HomeController {
 		}
 		
 		user.setId(ServiceUtils.getUUID());
+		String phid = (String) request.getSession().getAttribute("phid");
 		user.setParentId(phid);
 		User userp = userService.findUserById(phid);
-		if(StringUtils.isNotBlank(userp.getHierarchyId())){
-			user.setHierarchyId(userp.getHierarchyId()+"-"+phid);
-		}else{
-			user.setHierarchyId(phid);
+		if(null != userp){
+			if(StringUtils.isNotBlank(userp.getHierarchyId())){
+				user.setHierarchyId(userp.getHierarchyId()+"-"+phid);
+			}else{
+				user.setHierarchyId(phid);
+			}
 		}
 		user.setCreateTime(new Date());
 		user.setUpdateTime(new Date());
-		user.setState(1);
 		
 		userService.saveUser(user);
 		

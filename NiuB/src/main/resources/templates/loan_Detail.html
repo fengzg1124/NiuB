@@ -1,67 +1,235 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8"/>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <meta name="description" content=""/>
-    <meta name="author" content=""/>
-    <link rel="icon" href="../../favicon.ico"/>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
 
-    <title>详细信息</title>
+<!-- Page title -->
+<title>猎多金财富</title>
 
-    <!-- Bootstrap core CSS -->
-    <link th:href="@{/bootstrap/css/bootstrap.min.css}" rel="stylesheet"/>
+<!-- Meta -->
+<meta charset="utf-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
 
-    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <link th:href="@{/css/ie10-viewport-bug-workaround.css}" rel="stylesheet"/>
+<!-- Favicon -->
+<link rel="shortcut icon" href="/website/image/logo-small.png"/>
 
-    <!-- Custom styles for this template -->
-    <link th:href="@{/css/signin.css}" rel="stylesheet"/>
+<!-- Style -->
+<link rel="stylesheet" href="/website/css/theme.css"/>
 
-    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
-    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
-    <script th:src="@{/js/ie-emulation-modes-warning.js}"></script>
+<!-- Toastr style -->
+<link href="css/plugins/toastr/toastr.min.css" rel="stylesheet"/>
 
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
-  </head>
+<!-- TODO: Predefined Schemes (select one of the presented) -->
+<link rel="alternate stylesheet" href="/website/css/theme-persimmon.css" title="theme-persimmon"/>
+<link rel="alternate stylesheet" href="/website/css/theme-atomic-tangerine.css" title="theme-atomic-tangerine"/>
+<link rel="alternate stylesheet" href="/website/css/theme-yellow-sea.css" title="theme-yellow-sea"/>
+<link rel="alternate stylesheet" href="/website/css/theme-rio-grande.css" title="theme-rio-grande"/>
+<link rel="alternate stylesheet" href="/website/css/theme-vida-loca.css" title="theme-vida-loca"/>
+<link rel="alternate stylesheet" href="/website/css/theme-mountain-meadow.css" title="theme-mountain-meadow"/>
+<link rel="alternate stylesheet" href="/website/css/theme-java.css" title="theme-java"/>
+<link rel="alternate stylesheet" href="/website/css/theme-mariner.css" title="theme-mariner"/>
+<link rel="alternate stylesheet" href="/website/css/theme-medium-purple.css" title="theme-medium-purple"/>
+<link rel="alternate stylesheet" href="/website/css/theme-lavender-magenta.css" title="theme-lavender-magenta"/>
+<link rel="stylesheet" type="text/css" href="/website/css/styleswitcher.css" property=""/>
+</head>
+<body>
+<input type="hidden" id="phid" th:value="${phid}"/>
+<input type="hidden" id="type" th:value="${type}"/>
+<!-- Preloader -->
+<div id="preloader">
+<div class="loader"></div>
+</div>
+<!-- /Preloader -->
 
-  <body>
+<!-- Header -->
+<header id="home" class="header">
 
-    <div class="container">
+<!-- Navigation -->
+<nav id="navigation" class="navbar affix">
 
-     	<form id="mainform" class="form-signin" action="">
-          	<input type="hidden" id="phid" th:value="${phid}"/>
-          	<h2 class="form-signin-heading">马上贷款</h2>
-          	<h4>姓名：</h4><input type="text" class="form-control" name="userName"/>
-          	<h4>手机号：</h4><input type="text" class="form-control" name="phoneNumber"/>
-          	<br />
-          	<input type="button" onclick="registered()" class="btn btn-lg btn-primary btn-block" value="贷款" />
-        </form>
-		<div class="row featurette">
-          <h2 class="featurette-heading">详细介绍</h2>
-          <p class="lead">老牛逼了
-          	<br/>
-          	填写信息，让我们最专业的客户经理马上联系您，为您策划最完美的借贷方案。
-          </p>
-	    </div>
-    </div> <!-- /container -->
+	<div class="container">
+
+		<div class="row">
+			<div class="col-md-12">
+
+				<!-- Navigation Header -->
+				<div class="navbar-header">
+
+					<!-- Brand -->
+					<a href="#" class="brand">
+
+						<!-- Logo Big -->
+						<img src="/website/image/logo.png" class="logo-big" alt=""/>
+						<!-- /Logo Big -->
+
+						<!-- Logo Small -->
+						<img src="/website/image/logo-small.png" class="logo-small" alt=""/>
+						<!-- /Logo Small -->
+
+					</a>
+					<!-- /Brand -->
+
+				</div>
+				
+			</div>
+		</div>
+
+	</div>
+</nav>
+<!-- /Navigation -->
+
+</header>
+<!-- /Header -->
 
 
-    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <script th:src="@{/js/ie10-viewport-bug-workaround.js}"></script>
-    <script type="text/javascript">
-	    function registered(){
-	    	var phid = $("#phid").val();
-	    	alert(phid);
-	    	mainform.action = "/user/saveUser-"+phid;
-	    	mainform.submit();
-	    }
-    </script>
-  </body>
+
+<!-- Main -->
+<main class="main-container">
+<div class="row">
+    <div>
+        <div>
+            <div style="text-align: center;padding: 100px 400px;">
+            	<h3>我要贷款</h3>
+                <form id="form" class="m-t" method="post" role="form" action="">
+			        <div class="form-group">
+			            <input type="text" name="userName" class="form-control" placeholder="姓名" required="required"/>
+			        </div>
+			        <div class="form-group">
+			            <input type="text" name="phoneNumber" class="form-control" placeholder="电话" required="required"/>
+			        </div>
+			        <input type="hidden" name="state" value="2"/>
+			        <button type="button" class="btn" onclick="saveLoanUser()">申请贷款</button>
+			    </form>
+			    <br/>
+                <div style="text-align: left;">
+                    <h3>
+                        详细介绍
+                    </h3>
+                    <h5 th:if="${type=='gong'}">
+	                	地区：泰安
+	                	<br/>
+	                	<br/>
+	                	年龄：25-57岁
+	                	<br/>
+	                	<br/>
+	                	条件：在本地工作，工作发放现金或打卡
+	                	<br/>
+	                	<br/>
+	                    你没看错，找我们，贷款就是这么简单
+	                </h5>
+	                
+	                <h5 th:if="${type=='che'}">
+	                	地区：泰安
+	                	<br/>
+	                	<br/>
+	                	年龄：18岁以上
+	                	<br/><br/>
+	                	条件：按揭车还款大于6个月
+	                	<br/><br/>
+	                    你没看错，找我们，贷款就是这么简单
+	                </h5>
+	                
+	                <h5 th:if="${type=='sheng'}">
+	                	地区：泰安
+	                	<br/>
+	                	年龄：25-57岁
+	                	<br/>
+	                	条件：在本地有实体经营生意，<strong>有无营业执照均可！！！</strong>。
+	                	<br/>
+	                    你没看错，找我们，贷款就是这么简单
+	                </h5>
+	                
+	                <h5 th:if="${type=='fang'}">
+	                	地区：泰安
+	                	<br/>
+	                	年龄：25-57岁
+	                	<br/>
+	                	条件：<strong>收入无限制</strong>，在本地做生意且有房产（自建房，大产权房，小产权房）。
+	                	<br/>
+	                    你没看错，找我们，贷款就是这么简单
+	                </h5>
+	                <h5 th:if="${type=='nong'}">
+	                	地区：泰安
+	                	<br/><br/>
+	                	年龄：25-57岁
+	                	<br/><br/>
+	                	条件：<strong>收入无限制</strong>，在本地有养殖、种植场地或用途证明。
+	                	<br/><br/>
+	                    你没看错，找我们，贷款就是这么简单
+	                </h5>
+	                
+	                <h5 th:if="${type=='dian'}">
+	                	地区：泰安
+	                	<br/><br/>
+	                	各种垫资过桥业务是专门针对于已经申请了贷款，但由于某种原因无法按时偿还贷款的人，而推出的一种专门化的服务。
+	                	是由第三方的机构代替贷款者提前偿还所欠的贷款，从而避免让贷款者被银行处罚或被列入失信黑名单
+	                	<br/><br/>
+	                    你没看错，找我们，贷款就是这么简单
+	                    
+	                </h5>
+	                
+	                <h5>
+	                	提交申请，我们将安排最专业的财富经理，在最快的时间联系您，一对一为您服务，为您制定最完美的方案。
+	                </h5>
+	                
+	                <h5>
+	                	不要被现实的冷漠打到，有困难找猎多金，我们时刻恭候您的光临，我们期待在您成功的道路上帮一把手！
+	                </h5>
+	                
+	                <h5>
+	                	祝您：万事如意发大财！
+	                </h5>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+</main>
+<!-- /Main -->
+
+
+
+<!-- Scroll To Top -->
+<div id="scroll-to-top" class="scroll-to-top">
+<i class="icon fa fa-angle-up"></i>
+</div>
+<!-- /Scroll To Top -->
+<footer>
+	<p style="text-align: center;">&copy; 2018 LieDuoJin.f All Rights Reserved. <!-- &middot; <a href="#">隐私</a> &middot; <a href="#">条款</a> --></p>
+</footer>
+<!-- SCRIPTS -->
+<script src="/website/js/jquery-2.2.0.min.js"></script>
+<script src="/website/js/jquery.qrcode.min.js"></script>
+<script src="/website/js/bootstrap.min.js"></script>
+<script src="/website/js/owl.carousel.min.js"></script>
+<script src="/website/js/jquery.magnific-popup.min.js"></script>
+<script src="/website/js/jquery.validate.min.js"></script>
+<script src="/website/js/jquery.stellar.min.js"></script>
+<script src="/website/js/wow.min.js"></script>
+<script src="/website/js/masonry.pkgd.min.js"></script>
+<script src="/website/js/jquery.appear.js"></script>
+<script src="/website/js/jquery.animateNumber.min.js"></script>
+<script src="/website/js/general.js"></script>
+<!-- /SCRIPTS -->
+<!-- Toastr script -->
+<script src="/js/plugins/toastr/toastr.min.js"></script>
+
+<!-- Custom and plugin javascript -->
+<script src="/js/inspinia.js"></script>
+<script src="/js/plugins/pace/pace.min.js"></script>
+
+<script src="/website/js/styleswitcher.js"></script>
+<!-- /Styleswitcher -->
+<script type="text/javascript">
+/*<![CDATA[*/
+function saveLoanUser(){
+	var type = $("#type").val();
+	form.action="/user/saveLoanUser-"+type;
+	form.submit();
+}
+    
+/*]]>*/
+</script>
+</body>
 </html>

@@ -11,26 +11,30 @@
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 
 <!-- Favicon -->
-<link rel="shortcut icon" href="website/image/logo-small.png"/>
+<link rel="shortcut icon" href="/website/image/logo-small.png"/>
 
 <!-- Style -->
-<link rel="stylesheet" href="website/css/theme.css"/>
+<link rel="stylesheet" href="/website/css/theme.css"/>
+
+<!-- Toastr style -->
+<link href="/css/plugins/toastr/toastr.min.css" rel="stylesheet"/>
 
 <!-- TODO: Predefined Schemes (select one of the presented) -->
-<link rel="alternate stylesheet" href="website/css/theme-persimmon.css" title="theme-persimmon"/>
-<link rel="alternate stylesheet" href="website/css/theme-atomic-tangerine.css" title="theme-atomic-tangerine"/>
-<link rel="alternate stylesheet" href="website/css/theme-yellow-sea.css" title="theme-yellow-sea"/>
-<link rel="alternate stylesheet" href="website/css/theme-rio-grande.css" title="theme-rio-grande"/>
-<link rel="alternate stylesheet" href="website/css/theme-vida-loca.css" title="theme-vida-loca"/>
-<link rel="alternate stylesheet" href="website/css/theme-mountain-meadow.css" title="theme-mountain-meadow"/>
-<link rel="alternate stylesheet" href="website/css/theme-java.css" title="theme-java"/>
-<link rel="alternate stylesheet" href="website/css/theme-mariner.css" title="theme-mariner"/>
-<link rel="alternate stylesheet" href="website/css/theme-medium-purple.css" title="theme-medium-purple"/>
-<link rel="alternate stylesheet" href="website/css/theme-lavender-magenta.css" title="theme-lavender-magenta"/>
-
+<link rel="alternate stylesheet" href="/website/css/theme-persimmon.css" title="theme-persimmon"/>
+<link rel="alternate stylesheet" href="/website/css/theme-atomic-tangerine.css" title="theme-atomic-tangerine"/>
+<link rel="alternate stylesheet" href="/website/css/theme-yellow-sea.css" title="theme-yellow-sea"/>
+<link rel="alternate stylesheet" href="/website/css/theme-rio-grande.css" title="theme-rio-grande"/>
+<link rel="alternate stylesheet" href="/website/css/theme-vida-loca.css" title="theme-vida-loca"/>
+<link rel="alternate stylesheet" href="/website/css/theme-mountain-meadow.css" title="theme-mountain-meadow"/>
+<link rel="alternate stylesheet" href="/website/css/theme-java.css" title="theme-java"/>
+<link rel="alternate stylesheet" href="/website/css/theme-mariner.css" title="theme-mariner"/>
+<link rel="alternate stylesheet" href="/website/css/theme-medium-purple.css" title="theme-medium-purple"/>
+<link rel="alternate stylesheet" href="/website/css/theme-lavender-magenta.css" title="theme-lavender-magenta"/>
+<link rel="stylesheet" type="text/css" href="/website/css/styleswitcher.css" property=""/>
 </head>
 <body>
 <input type="hidden" id="phid" th:value="${phid}"/>
+<input type="hidden" id="mes" th:value="${mes}"/>
 <!-- Preloader -->
 <div id="preloader">
 <div class="loader"></div>
@@ -52,7 +56,7 @@
 				<div class="navbar-header">
 
 					<!-- Toggle Button -->
-					<button type="button"
+					<!-- <button type="button"
 							class="navbar-toggle collapsed"
 							data-toggle="collapse"
 							data-target="#main-menu"
@@ -64,18 +68,18 @@
 						<span class="icon-bar"></span>
 						<span class="icon-bar"></span>
 
-					</button>
+					</button> -->
 					<!-- /Toggle Button -->
 
 					<!-- Brand -->
 					<a href="#" class="brand">
 
 						<!-- Logo Big -->
-						<img src="website/image/logo.png" class="logo-big" alt=""/>
+						<img src="/website/image/logo.png" class="logo-big" alt=""/>
 						<!-- /Logo Big -->
 
 						<!-- Logo Small -->
-						<img src="website/image/logo-small.png" class="logo-small" alt=""/>
+						<img src="/website/image/logo-small.png" class="logo-small" alt=""/>
 						<!-- /Logo Small -->
 
 					</a>
@@ -113,7 +117,7 @@
 <div class="slider owl-carousel owl-theme">
 
 <!-- Slide -->
-<div class="item mask" style="background: url(website/image/home.png) no-repeat center top / cover;" data-stellar-background-ratio="0.4">
+<div class="item mask" style="background: url(/website/image/home.png) no-repeat center top / cover;" data-stellar-background-ratio="0.4">
 
 	<div class="container height-100p">
 		<div class="row height-100p">
@@ -193,64 +197,64 @@
 				<p class="description">
 					上班人群，额度5～15万
 				</p>
-				<a onclick="loanDetail()" class="btn btn-theme">详细</a>
+				<a onclick="loanDetail('gong')" class="btn btn-theme">申请</a>
 			</div>
 			<!-- /Feature Block -->
 
 			<!-- Feature Block -->
-			<div class="col-sm-4 feature fadeIn wow" data-wow-duration="1.3s" data-wow-delay="0.4s">
+			<div class="col-sm-4 feature fadeIn wow" data-wow-duration="1.3s" data-wow-delay="0.2s">
 				<span class="icon" style="font-family: 楷体;font-size: 70px;">农</span>
 				<div class="h3 title">新农贷</div>
 				<p class="description">
 					养殖种植户，额度5～20万
 				</p>
-				<a onclick="loanDetail()" class="btn btn-theme">详细</a>
+				<a onclick="loanDetail('nong')" class="btn btn-theme">申请</a>
 			</div>
 			<!-- /Feature Block -->
 
 			<!-- Feature Block -->
-			<div class="col-sm-4 feature fadeIn wow" data-wow-duration="1.3s" data-wow-delay="0.8s">
+			<div class="col-sm-4 feature fadeIn wow" data-wow-duration="1.3s" data-wow-delay="0.4s">
 				<span class="icon" style="font-family: 楷体;font-size: 70px;">生</span>
 				<div class="h3 title">生意贷</div>
 				<p class="description">
 					在本地有生意，额度5～30万
 				</p>
-				<a onclick="loanDetail()" class="btn btn-theme">详细</a>
+				<a onclick="loanDetail('sheng')" class="btn btn-theme">申请</a>
 			</div>
 			<!-- /Feature Block -->
 		</div>
 		<br/><br/>
 		<div class="row">
 			<!-- Feature Block -->
-			<div class="col-sm-4 feature fadeIn wow" data-wow-duration="1.3s" data-wow-delay="1.2s">
+			<div class="col-sm-4 feature fadeIn wow" data-wow-duration="1.3s" data-wow-delay="0.6s">
 				<span class="icon" style="font-family: 楷体;font-size: 70px;">房</span>
 				<div class="h3 title">房贷</div>
 				<p class="description">
 					在本地有房产，额度5～50万
 				</p>
-				<a onclick="loanDetail()" class="btn btn-theme">详细</a>
+				<a onclick="loanDetail('fang')" class="btn btn-theme">申请</a>
 			</div>
 			<!-- /Feature Block -->
 
 			<!-- Feature Block -->
-			<div class="col-sm-4 feature fadeIn wow" data-wow-duration="1.3s" data-wow-delay="1.6s">
+			<div class="col-sm-4 feature fadeIn wow" data-wow-duration="1.3s" data-wow-delay="0.8s">
 				<span class="icon" style="font-family: 楷体;font-size: 70px;">车</span>
 				<div class="h3 title">车贷</div>
 				<p class="description">
 					只要是车就可以，看车高额度
 				</p>
-				<a onclick="loanDetail()" class="btn btn-theme">详细</a>
+				<a onclick="loanDetail('che')" class="btn btn-theme">申请</a>
 			</div>
 			<!-- /Feature Block -->
 
 			<!-- Feature Block -->
-			<div class="col-sm-4 feature fadeIn wow" data-wow-duration="1.3s" data-wow-delay="2.0s">
+			<div class="col-sm-4 feature fadeIn wow" data-wow-duration="1.3s" data-wow-delay="1.0s">
 				<span class="icon" style="font-family: 楷体;font-size: 70px;">垫</span>
 				<div class="h3 title">垫资过桥</div>
 				<p class="description">
 					公司自有资金，费用最低
 				</p>
-				<a onclick="loanDetail()" class="btn btn-theme">详细</a>
+				<a onclick="loanDetail('dian')" class="btn btn-theme">申请</a>
 			</div>
 			<!-- /Feature Block -->
 		</div>
@@ -271,21 +275,27 @@
 	<p style="text-align: center;">&copy; 2018 LieDuoJin.f All Rights Reserved. <!-- &middot; <a href="#">隐私</a> &middot; <a href="#">条款</a> --></p>
 </footer>
 <!-- SCRIPTS -->
-<script src="website/js/jquery-2.2.0.min.js"></script>
-<script src="website/js/jquery.qrcode.min.js"></script>
-<script src="website/js/bootstrap.min.js"></script>
-<script src="website/js/owl.carousel.min.js"></script>
-<script src="website/js/jquery.magnific-popup.min.js"></script>
-<script src="website/js/jquery.validate.min.js"></script>
-<script src="website/js/jquery.stellar.min.js"></script>
-<script src="website/js/wow.min.js"></script>
-<script src="website/js/masonry.pkgd.min.js"></script>
-<script src="website/js/jquery.appear.js"></script>
-<script src="website/js/jquery.animateNumber.min.js"></script>
-<script src="website/js/general.js"></script>
+<script src="/website/js/jquery-2.2.0.min.js"></script>
+<script src="/website/js/jquery.qrcode.min.js"></script>
+<script src="/website/js/bootstrap.min.js"></script>
+<script src="/website/js/owl.carousel.min.js"></script>
+<script src="/website/js/jquery.magnific-popup.min.js"></script>
+<script src="/website/js/jquery.validate.min.js"></script>
+<script src="/website/js/jquery.stellar.min.js"></script>
+<script src="/website/js/wow.min.js"></script>
+<script src="/website/js/masonry.pkgd.min.js"></script>
+<script src="/website/js/jquery.appear.js"></script>
+<script src="/website/js/jquery.animateNumber.min.js"></script>
+<script src="/website/js/general.js"></script>
 <!-- /SCRIPTS -->
+<!-- Toastr script -->
+<script src="/js/plugins/toastr/toastr.min.js"></script>
 
-
+<!-- Custom and plugin javascript -->
+<script src="/js/inspinia.js"></script>
+<script src="/js/plugins/pace/pace.min.js"></script>
+    
+    
 <!-- TODO: Remove this block, Demo-version only -->
 <!-- Styleswitcher -->
 <!-- <div id="styleswitcher" class="styleswitcher">
@@ -321,21 +331,16 @@
 <div class="styleswitcher-button vertical-middle"><i class="fa fa-gear"></i></div>
 </div> -->
 
-<link rel="stylesheet" type="text/css" href="website/css/styleswitcher.css" property=""/>
-<script src="website/js/styleswitcher.js"></script>
+
+<script src="/website/js/styleswitcher.js"></script>
 <!-- /Styleswitcher -->
 <script type="text/javascript">
 /*<![CDATA[*/
 	var url="http://www.lieduojin.com.cn/index-"
-	window.onload = function(){
-		var phid = $("#phid").val();
-		if("" != phid && null != phid){
-			url=url+phid;
-		}
-	} 
 	
-    function loanDetail(){
-    	window.location.href="/user/loanDetail";
+	
+    function loanDetail(type){
+    	window.location.href="/user/loanDetail-"+type;
     }
     
     function toLogin(){
@@ -347,6 +352,10 @@
     }
     
     $("#code").show(function(){
+    	var phid = $("#phid").val();
+		if("" != phid && null != phid){
+			url=url+phid;
+		}
     	$('#code').qrcode({  
             width: 160,  
             height: 160,  
@@ -354,6 +363,38 @@
         }); 
     });
     
+    
+    window.onload = function(){
+        var i = -1;
+        var toastCount = 0;
+        var $toastlast;
+        var msg=$("#mes").val();
+
+        if(null!=msg && ""!=msg){
+            var shortCutFunction = 'success';
+            var title = '';
+            
+            var toastIndex = toastCount++;
+            toastr.options = {
+                positionClass: 'toast-top-center',
+                onclick: null
+            };
+            
+            var $toast = toastr[shortCutFunction](msg, title); // Wire up an event handler to a button in the toast, if it exists
+            $toastlast = $toast;
+            if ($toast.find('#okBtn').length) {
+                $toast.delegate('#okBtn', 'click', function () {
+                    alert('you clicked me. i was toast #' + toastIndex + '. goodbye!');
+                    $toast.remove();
+                });
+            }
+            if ($toast.find('#surpriseBtn').length) {
+                $toast.delegate('#surpriseBtn', 'click', function () {
+                    alert('Surprise! you clicked me. i was toast #' + toastIndex + '. You could perform an action here.');
+                });
+            }
+        }
+	} 
 /*]]>*/
 </script>
 </body>
