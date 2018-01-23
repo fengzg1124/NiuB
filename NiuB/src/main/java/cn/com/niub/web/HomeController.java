@@ -47,13 +47,8 @@ public class HomeController {
 		HttpSession session = request.getSession();
 		
 		//未登录保存推广信息
-		if(null == session.getAttribute("phid") && StringUtils.isNotBlank(phid)){
+		if(StringUtils.isNotBlank(phid)){
 			session.setAttribute("phid", phid);
-		}
-		
-		//登录或注册成功
-		if(null != session.getAttribute("user")){
-			model.addAttribute("phid", phid);
 		}
 		
 		log.setEndTime(new Date());
@@ -99,10 +94,13 @@ public class HomeController {
 		HttpSession session = request.getSession();
 		session.setAttribute("user", user);
 		
+		model.addAttribute("phid", user.getId());
+		model.addAttribute("mes", "登录成功");
+		
 		log.setLog("登录成功");
 		log.setEndTime(new Date());
 		logService.saveLog(log);
-		return "redirect:/index-"+user.getId();
+		return "index";
 	}
 	
 	@RequestMapping(value="/register")
@@ -143,16 +141,24 @@ public class HomeController {
 		HttpSession session = request.getSession();
 		session.setAttribute("user", user);
 		
+		model.addAttribute("phid", user.getId());
+		model.addAttribute("mes", "注册成功");
+		
 		log.setLog("注册成功，用户名："+user.getUserName()+",手机号："+user.getPhoneNumber());
 		log.setEndTime(new Date());
 		logService.saveLog(log);
-		return "redirect:/index-"+user.getId();
+		return "index";
 	}
 	
 	//管理员登录
-	@RequestMapping(value="/userLogin")
-	public String userLogin(Model model,HttpServletRequest request,HttpServletResponse response){
+	@RequestMapping(value="/adminLogin")
+	public String adminLogin(Model model,HttpServletRequest request,HttpServletResponse response){
 		return "admin/index";
 	}
 	
+	//管理员注册
+	@RequestMapping(value="/adminRegister")
+	public String adminRegister(Model model,HttpServletRequest request,HttpServletResponse response){
+		return "admin/register";
+	}
 }

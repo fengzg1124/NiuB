@@ -1,58 +1,54 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
     <meta charset="utf-8"/>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <meta name="description" content=""/>
-    <meta name="author" content=""/>
-    <link rel="icon" href="../../favicon.ico"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
-    <title>Signin Template for Bootstrap</title>
+    <title>登录</title>
 
-    <!-- Bootstrap core CSS -->
-    <link th:href="@{/bootstrap/css/bootstrap.min.css}" rel="stylesheet"/>
+    <link href="css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="font-awesome/css/font-awesome.css" rel="stylesheet"/>
 
-    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <link th:href="@{/css/ie10-viewport-bug-workaround.css}" rel="stylesheet"/>
+    <link href="css/animate.css" rel="stylesheet"/>
+    <link href="css/style.css" rel="stylesheet"/>
 
-    <!-- Custom styles for this template -->
-    <link th:href="@{/css/signin.css}" rel="stylesheet"/>
+</head>
 
-    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
-    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
-    <script th:src="@{/js/ie-emulation-modes-warning.js}"></script>
+<body class="gray-bg">
 
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
-  </head>
+    <div class="middle-box text-center loginscreen animated fadeInDown">
+        <div>
+            <div>
 
-  <body>
+                <h1 class="logo-name">金</h1>
 
-    <div class="container">
+            </div>
+            <h3>欢迎登录猎多金</h3>
+            <p>后台管理程序
+            </p>
+            <p>登录到猎多金</p>
+            <form class="m-t" role="form" action="/adminLogin">
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="手机号" required="required"/>
+                </div>
+                <div class="form-group">
+                    <input type="password" class="form-control" placeholder="密码" required="required"/>
+                </div>
+                <button type="submit" class="btn btn-primary block full-width m-b">登录</button>
 
-      <form class="form-signin" action="../adminUser/userLogin">
-        <h2 class="form-signin-heading">请登录</h2>
-        <label for="inputEmail" class="sr-only">手机号</label>
-        <input type="text" id="inputEmail" class="form-control" placeholder="手机号" required="required" autofocus="autofocus"/>
-        <label for="inputPassword" class="sr-only">密码</label>
-        <input type="password" id="inputPassword" class="form-control" placeholder="密码" required="required"/>
-        <div class="checkbox">
-          <label>
-            <input type="checkbox" value="remember-me"/>记住我
-          </label>
+                <p class="text-muted text-center"><small>还没有账户?</small></p>
+                <a class="btn btn-sm btn-white btn-block" href="/adminRegister">创建一个账户</a>
+            </form>
+            <p class="m-t"> <small>LieDuoJin.f All Rights Reserved.&copy; 2018 </small> </p>
         </div>
-        <button class="btn btn-lg btn-primary btn-block" type="submit">登录</button>
-      </form>
+    </div>
 
-    </div> <!-- /container -->
+    <!-- Mainly scripts -->
+    <script src="js/jquery-2.1.1.js"></script>
+    <script src="js/bootstrap.min.js"></script>
 
+</body>
 
-    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <script th:src="@{/js/ie10-viewport-bug-workaround.js}"></script>
-  </body>
 </html>
