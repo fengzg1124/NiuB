@@ -89,18 +89,7 @@
     <div>
         <div>
             <div style="text-align: center;">
-            	<h3>我要贷款</h3>
-                <form id="form" class="m-t" method="post" role="form" action="">
-			        <div class="form-group">
-			            <input type="text" name="userName" class="form-control" placeholder="姓名" required="required"/>
-			        </div>
-			        <div class="form-group">
-			            <input type="text" name="phoneNumber" class="form-control" placeholder="电话" required="required"/>
-			        </div>
-			        <input type="hidden" name="state" value="2"/>
-			        <button type="button" class="btn" onclick="saveLoanUser()">申请贷款</button>
-			    </form>
-			    <br/>
+            	
                 <div style="text-align: left;">
                     <h3>
                         详细介绍
@@ -109,7 +98,7 @@
 	                	地区：泰安
 	                	<br/>
 	                	<br/>
-	                	年龄：25-57岁
+	                	年龄：20-60岁
 	                	<br/>
 	                	<br/>
 	                	条件：在本地工作，工作发放现金或打卡
@@ -124,7 +113,7 @@
 	                	<br/>
 	                	年龄：18岁以上
 	                	<br/><br/>
-	                	条件：按揭车还款大于6个月
+	                	条件：全款车，分期车，抵押车，来车就能贷
 	                	<br/><br/>
 	                    你没看错，找我们，贷款就是这么简单
 	                </h5>
@@ -132,7 +121,7 @@
 	                <h5 th:if="${type=='sheng'}">
 	                	地区：泰安
 	                	<br/><br/>
-	                	年龄：25-57岁
+	                	年龄：20-60岁
 	                	<br/><br/>
 	                	条件：在本地有实体经营生意，有无营业执照均可！！！。
 	                	<br/><br/>
@@ -142,7 +131,7 @@
 	                <h5 th:if="${type=='fang'}">
 	                	地区：泰安
 	                	<br/><br/>
-	                	年龄：25-57岁
+	                	年龄：20-60岁
 	                	<br/><br/>
 	                	条件：收入无限制，在本地做生意且有房产（自建房，大产权房，小产权房）。
 	                	<br/><br/>
@@ -151,7 +140,7 @@
 	                <h5 th:if="${type=='nong'}">
 	                	地区：泰安
 	                	<br/><br/>
-	                	年龄：25-57岁
+	                	年龄：20-60岁
 	                	<br/><br/>
 	                	条件：收入无限制，在本地有养殖、种植场地或用途证明。
 	                	<br/><br/>
@@ -181,6 +170,18 @@
 	                </h5>
                 </div>
                 
+                <br/><br/><br/><br/>
+                <h3>我要贷款</h3>
+                <form id="form" class="m-t" method="post" role="form" action="">
+			        <div class="form-group">
+			            <input type="text" name="userName" class="form-control" placeholder="姓名" required="required"/>
+			        </div>
+			        <div class="form-group">
+			            <input type="text" name="phoneNumber" class="form-control" placeholder="电话" required="required"/>
+			        </div>
+			        <input type="hidden" name="state" value="2"/>
+			        <button type="button" class="btn" onclick="saveLoanUser()">申请贷款</button>
+			    </form>
             </div>
         </div>
     </div>
