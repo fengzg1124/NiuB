@@ -11,26 +11,26 @@
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 
 <!-- Favicon -->
-<link rel="shortcut icon" href="/website/image/logo-small.png"/>
+<link rel="shortcut icon" href="/img/logo-small.png"/>
 
 <!-- Style -->
-<link rel="stylesheet" href="/website/css/theme.css"/>
+<link rel="stylesheet" href="/css/theme.css"/>
 
 <!-- Toastr style -->
 <link href="/css/plugins/toastr/toastr.min.css" rel="stylesheet"/>
 
 <!-- TODO: Predefined Schemes (select one of the presented) -->
-<link rel="alternate stylesheet" href="/website/css/theme-persimmon.css" title="theme-persimmon"/>
-<link rel="alternate stylesheet" href="/website/css/theme-atomic-tangerine.css" title="theme-atomic-tangerine"/>
-<link rel="alternate stylesheet" href="/website/css/theme-yellow-sea.css" title="theme-yellow-sea"/>
-<link rel="alternate stylesheet" href="/website/css/theme-rio-grande.css" title="theme-rio-grande"/>
-<link rel="alternate stylesheet" href="/website/css/theme-vida-loca.css" title="theme-vida-loca"/>
-<link rel="alternate stylesheet" href="/website/css/theme-mountain-meadow.css" title="theme-mountain-meadow"/>
-<link rel="alternate stylesheet" href="/website/css/theme-java.css" title="theme-java"/>
-<link rel="alternate stylesheet" href="/website/css/theme-mariner.css" title="theme-mariner"/>
-<link rel="alternate stylesheet" href="/website/css/theme-medium-purple.css" title="theme-medium-purple"/>
-<link rel="alternate stylesheet" href="/website/css/theme-lavender-magenta.css" title="theme-lavender-magenta"/>
-<link rel="stylesheet" type="text/css" href="/website/css/styleswitcher.css" property=""/>
+<!-- <link rel="alternate stylesheet" href="/css/theme-persimmon.css" title="theme-persimmon"/>
+<link rel="alternate stylesheet" href="/css/theme-atomic-tangerine.css" title="theme-atomic-tangerine"/>
+<link rel="alternate stylesheet" href="/css/theme-yellow-sea.css" title="theme-yellow-sea"/>
+<link rel="alternate stylesheet" href="/css/theme-rio-grande.css" title="theme-rio-grande"/>
+<link rel="alternate stylesheet" href="/css/theme-vida-loca.css" title="theme-vida-loca"/>
+<link rel="alternate stylesheet" href="/css/theme-mountain-meadow.css" title="theme-mountain-meadow"/>
+<link rel="alternate stylesheet" href="/css/theme-java.css" title="theme-java"/>
+<link rel="alternate stylesheet" href="/css/theme-mariner.css" title="theme-mariner"/>
+<link rel="alternate stylesheet" href="/css/theme-medium-purple.css" title="theme-medium-purple"/>
+<link rel="alternate stylesheet" href="/css/theme-lavender-magenta.css" title="theme-lavender-magenta"/> -->
+<link rel="stylesheet" type="text/css" href="/css/styleswitcher.css" property=""/>
 </head>
 <body>
 <input type="hidden" id="phid" th:value="${phid}"/>
@@ -56,30 +56,31 @@
 				<div class="navbar-header">
 
 					<!-- Toggle Button -->
-					<!-- <button type="button"
+					<button type="button"
 							class="navbar-toggle collapsed"
 							data-toggle="collapse"
 							data-target="#main-menu"
 							aria-expanded="false"
 							aria-controls="main-menu">
 
-						<span class="sr-only">Toggle Navigation</span>
-						<span class="icon-bar"></span>
-						<span class="icon-bar"></span>
-						<span class="icon-bar"></span>
+						<span class="sr-only">注/登</span>
+						<span th:if="${''==phid or null==phid}" >注册/登录</span>
+						<span th:if="${''!=phid and null!=phid}" >我的二维码</span>
+						<span ></span>
+						<span ></span>
 
-					</button> -->
+					</button>
 					<!-- /Toggle Button -->
 
 					<!-- Brand -->
 					<a href="#" class="brand">
 
 						<!-- Logo Big -->
-						<img src="/website/image/logo.png" class="logo-big" alt=""/>
+						<img src="/img/logo.png" class="logo-big" alt=""/>
 						<!-- /Logo Big -->
 
 						<!-- Logo Small -->
-						<img src="/website/image/logo-small.png" class="logo-small" alt=""/>
+						<img src="/img/logo-small.png" class="logo-small" alt=""/>
 						<!-- /Logo Small -->
 
 					</a>
@@ -91,8 +92,9 @@
 				<!-- Navigation -->
 				<div id="main-menu" class="navbar-collapse collapse">
 					<ul class="nav navbar-nav navbar-right">
-						<li><a onclick="toRegister()">注册</a></li>
-						<li><a onclick="toLogin()">登录</a></li>
+						<li th:if="${''==phid or null==phid}"><a onclick="toRegister()">注册</a></li>
+						<li th:if="${''==phid or null==phid}"><a onclick="toLogin()">登录</a></li>
+						<li th:if="${''!=phid and null!=phid}" ><a th:text="${userName}"></a></li>
 						<li class="dropdown" th:if="${''!=phid and null!=phid}">
 							<a href="#" class="dropdown-toggle">我的二维码</a>
 							<ul class="dropdown-menu">
@@ -117,7 +119,7 @@
 <div class="slider owl-carousel owl-theme">
 
 <!-- Slide -->
-<div class="item mask" style="background: url(/website/image/home.png) no-repeat center top / cover;" data-stellar-background-ratio="0.4">
+<div class="item mask" style="background: url(/img/home.png) no-repeat center top / cover;" data-stellar-background-ratio="0.4">
 
 	<div class="container height-100p">
 		<div class="row height-100p">
@@ -128,7 +130,7 @@
 					<div class="text-white h3">
 						立行业丰碑，交天下朋友！
 						<br/>
-						本地白户<span class="text-theme" style="font-size: 90px">100%</span>放款，敢于旁人的承诺！
+						纯白户<span class="text-theme" style="font-size: 90px">100%</span>放款，敢于旁人的承诺！
 					</div>
 				</div>
 			</div>
@@ -275,24 +277,24 @@
 	<p style="text-align: center;">&copy; 2018 LieDuoJin.f All Rights Reserved. <!-- &middot; <a href="#">隐私</a> &middot; <a href="#">条款</a> --></p>
 </footer>
 <!-- SCRIPTS -->
-<script src="/website/js/jquery-2.2.0.min.js"></script>
-<script src="/website/js/jquery.qrcode.min.js"></script>
-<script src="/website/js/bootstrap.min.js"></script>
-<script src="/website/js/owl.carousel.min.js"></script>
-<script src="/website/js/jquery.magnific-popup.min.js"></script>
-<script src="/website/js/jquery.validate.min.js"></script>
-<script src="/website/js/jquery.stellar.min.js"></script>
-<script src="/website/js/wow.min.js"></script>
-<script src="/website/js/masonry.pkgd.min.js"></script>
-<script src="/website/js/jquery.appear.js"></script>
-<script src="/website/js/jquery.animateNumber.min.js"></script>
-<script src="/website/js/general.js"></script>
+<script src="/js/jquery-2.1.1.js"></script>
+<script src="/js/jquery.qrcode.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/owl.carousel.min.js"></script>
+<script src="/js/jquery.magnific-popup.min.js"></script>
+<script src="/js/jquery.validate.min.js"></script>
+<script src="/js/jquery.stellar.min.js"></script>
+<script src="/js/wow.min.js"></script>
+<script src="/js/masonry.pkgd.min.js"></script>
+<script src="/js/jquery.appear.js"></script>
+<script src="/js/jquery.animateNumber.min.js"></script>
+<script src="/js/general.js"></script>
 <!-- /SCRIPTS -->
 <!-- Toastr script -->
 <script src="/js/plugins/toastr/toastr.min.js"></script>
 
 <!-- Custom and plugin javascript -->
-<script src="/js/inspinia.js"></script>
+<script src="/js/inspiniaHome.js"></script>
 <script src="/js/plugins/pace/pace.min.js"></script>
     
     
@@ -332,7 +334,7 @@
 </div> -->
 
 
-<script src="/website/js/styleswitcher.js"></script>
+<script src="/js/styleswitcher.js"></script>
 <!-- /Styleswitcher -->
 <script type="text/javascript">
 /*<![CDATA[*/
@@ -365,6 +367,7 @@
     
     
     window.onload = function(){
+    	
         var i = -1;
         var toastCount = 0;
         var $toastlast;
@@ -379,6 +382,8 @@
                 positionClass: 'toast-top-center',
                 onclick: null
             };
+           
+            toastr.options.timeOut = '1000';
             
             var $toast = toastr[shortCutFunction](msg, title); // Wire up an event handler to a button in the toast, if it exists
             $toastlast = $toast;

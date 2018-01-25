@@ -11,26 +11,26 @@
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 
 <!-- Favicon -->
-<link rel="shortcut icon" href="/website/image/logo-small.png"/>
+<link rel="shortcut icon" href="/img/logo-small.png"/>
 
 <!-- Style -->
-<link rel="stylesheet" href="/website/css/theme.css"/>
+<link rel="stylesheet" href="/css/theme.css"/>
 
 <!-- Toastr style -->
-<link href="css/plugins/toastr/toastr.min.css" rel="stylesheet"/>
+<link href="/css/plugins/toastr/toastr.min.css" rel="stylesheet"/>
 
 <!-- TODO: Predefined Schemes (select one of the presented) -->
-<link rel="alternate stylesheet" href="/website/css/theme-persimmon.css" title="theme-persimmon"/>
-<link rel="alternate stylesheet" href="/website/css/theme-atomic-tangerine.css" title="theme-atomic-tangerine"/>
-<link rel="alternate stylesheet" href="/website/css/theme-yellow-sea.css" title="theme-yellow-sea"/>
-<link rel="alternate stylesheet" href="/website/css/theme-rio-grande.css" title="theme-rio-grande"/>
-<link rel="alternate stylesheet" href="/website/css/theme-vida-loca.css" title="theme-vida-loca"/>
-<link rel="alternate stylesheet" href="/website/css/theme-mountain-meadow.css" title="theme-mountain-meadow"/>
-<link rel="alternate stylesheet" href="/website/css/theme-java.css" title="theme-java"/>
-<link rel="alternate stylesheet" href="/website/css/theme-mariner.css" title="theme-mariner"/>
-<link rel="alternate stylesheet" href="/website/css/theme-medium-purple.css" title="theme-medium-purple"/>
-<link rel="alternate stylesheet" href="/website/css/theme-lavender-magenta.css" title="theme-lavender-magenta"/>
-<link rel="stylesheet" type="text/css" href="/website/css/styleswitcher.css" property=""/>
+<!-- <link rel="alternate stylesheet" href="/css/theme-persimmon.css" title="theme-persimmon"/>
+<link rel="alternate stylesheet" href="/css/theme-atomic-tangerine.css" title="theme-atomic-tangerine"/>
+<link rel="alternate stylesheet" href="/css/theme-yellow-sea.css" title="theme-yellow-sea"/>
+<link rel="alternate stylesheet" href="/css/theme-rio-grande.css" title="theme-rio-grande"/>
+<link rel="alternate stylesheet" href="/css/theme-vida-loca.css" title="theme-vida-loca"/>
+<link rel="alternate stylesheet" href="/css/theme-mountain-meadow.css" title="theme-mountain-meadow"/>
+<link rel="alternate stylesheet" href="/css/theme-java.css" title="theme-java"/>
+<link rel="alternate stylesheet" href="/css/theme-mariner.css" title="theme-mariner"/>
+<link rel="alternate stylesheet" href="/css/theme-medium-purple.css" title="theme-medium-purple"/>
+<link rel="alternate stylesheet" href="/css/theme-lavender-magenta.css" title="theme-lavender-magenta"/> -->
+<link rel="stylesheet" type="text/css" href="/css/styleswitcher.css" property=""/>
 </head>
 <body>
 <input type="hidden" id="phid" th:value="${phid}"/>
@@ -59,11 +59,11 @@
 					<a href="#" class="brand">
 
 						<!-- Logo Big -->
-						<img src="/website/image/logo.png" class="logo-big" alt=""/>
+						<img src="/img/logo.png" class="logo-big" alt=""/>
 						<!-- /Logo Big -->
 
 						<!-- Logo Small -->
-						<img src="/website/image/logo-small.png" class="logo-small" alt=""/>
+						<img src="/img/logo-small.png" class="logo-small" alt=""/>
 						<!-- /Logo Small -->
 
 					</a>
@@ -84,11 +84,11 @@
 
 
 <!-- Main -->
-<main class="main-container">
+<div style="max-width: 800px;margin: 0 auto;padding: 100px 20px 20px 20px;">
 <div class="row">
     <div>
         <div>
-            <div style="text-align: center;padding: 100px 400px;">
+            <div style="text-align: center;">
             	<h3>我要贷款</h3>
                 <form id="form" class="m-t" method="post" role="form" action="">
 			        <div class="form-group">
@@ -131,21 +131,21 @@
 	                
 	                <h5 th:if="${type=='sheng'}">
 	                	地区：泰安
-	                	<br/>
+	                	<br/><br/>
 	                	年龄：25-57岁
-	                	<br/>
-	                	条件：在本地有实体经营生意，<strong>有无营业执照均可！！！</strong>。
-	                	<br/>
+	                	<br/><br/>
+	                	条件：在本地有实体经营生意，有无营业执照均可！！！。
+	                	<br/><br/>
 	                    你没看错，找我们，贷款就是这么简单
 	                </h5>
 	                
 	                <h5 th:if="${type=='fang'}">
 	                	地区：泰安
-	                	<br/>
+	                	<br/><br/>
 	                	年龄：25-57岁
-	                	<br/>
-	                	条件：<strong>收入无限制</strong>，在本地做生意且有房产（自建房，大产权房，小产权房）。
-	                	<br/>
+	                	<br/><br/>
+	                	条件：收入无限制，在本地做生意且有房产（自建房，大产权房，小产权房）。
+	                	<br/><br/>
 	                    你没看错，找我们，贷款就是这么简单
 	                </h5>
 	                <h5 th:if="${type=='nong'}">
@@ -153,7 +153,7 @@
 	                	<br/><br/>
 	                	年龄：25-57岁
 	                	<br/><br/>
-	                	条件：<strong>收入无限制</strong>，在本地有养殖、种植场地或用途证明。
+	                	条件：收入无限制，在本地有养殖、种植场地或用途证明。
 	                	<br/><br/>
 	                    你没看错，找我们，贷款就是这么简单
 	                </h5>
@@ -185,7 +185,7 @@
         </div>
     </div>
 </div>
-</main>
+</div>
 <!-- /Main -->
 
 
@@ -199,27 +199,27 @@
 	<p style="text-align: center;">&copy; 2018 LieDuoJin.f All Rights Reserved. <!-- &middot; <a href="#">隐私</a> &middot; <a href="#">条款</a> --></p>
 </footer>
 <!-- SCRIPTS -->
-<script src="/website/js/jquery-2.2.0.min.js"></script>
-<script src="/website/js/jquery.qrcode.min.js"></script>
-<script src="/website/js/bootstrap.min.js"></script>
-<script src="/website/js/owl.carousel.min.js"></script>
-<script src="/website/js/jquery.magnific-popup.min.js"></script>
-<script src="/website/js/jquery.validate.min.js"></script>
-<script src="/website/js/jquery.stellar.min.js"></script>
-<script src="/website/js/wow.min.js"></script>
-<script src="/website/js/masonry.pkgd.min.js"></script>
-<script src="/website/js/jquery.appear.js"></script>
-<script src="/website/js/jquery.animateNumber.min.js"></script>
-<script src="/website/js/general.js"></script>
+<script src="/js/jquery-2.1.1.js"></script>
+<script src="/js/jquery.qrcode.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/owl.carousel.min.js"></script>
+<script src="/js/jquery.magnific-popup.min.js"></script>
+<script src="/js/jquery.validate.min.js"></script>
+<script src="/js/jquery.stellar.min.js"></script>
+<script src="/js/wow.min.js"></script>
+<script src="/js/masonry.pkgd.min.js"></script>
+<script src="/js/jquery.appear.js"></script>
+<script src="/js/jquery.animateNumber.min.js"></script>
+<script src="/js/general.js"></script>
 <!-- /SCRIPTS -->
 <!-- Toastr script -->
 <script src="/js/plugins/toastr/toastr.min.js"></script>
 
 <!-- Custom and plugin javascript -->
-<script src="/js/inspinia.js"></script>
+<script src="/js/inspiniaHome.js"></script>
 <script src="/js/plugins/pace/pace.min.js"></script>
 
-<script src="/website/js/styleswitcher.js"></script>
+<script src="/js/styleswitcher.js"></script>
 <!-- /Styleswitcher -->
 <script type="text/javascript">
 /*<![CDATA[*/

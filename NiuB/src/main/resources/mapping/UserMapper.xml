@@ -17,6 +17,11 @@
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
     <result column="parent_id" jdbcType="VARCHAR" property="parentId" />
     <result column="hierarchy_id" jdbcType="VARCHAR" property="hierarchyId" />
+    <result column="ip" jdbcType="VARCHAR" property="ip" />
+    <result column="add1" jdbcType="VARCHAR" property="add1" />
+    <result column="add2" jdbcType="VARCHAR" property="add2" />
+    <result column="add3" jdbcType="VARCHAR" property="add3" />
+    <result column="type" jdbcType="VARCHAR" property="type" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -78,7 +83,8 @@
   </sql>
   <sql id="Base_Column_List">
     id, user_name, password, user_index, login_name, phone_number, state, remark, icard_code, 
-    creator, create_time, updator, update_time, parent_id, hierarchy_id
+    creator, create_time, updator, update_time, parent_id, hierarchy_id, ip, add1, add2, 
+    add3, type
   </sql>
   <select id="selectByExample" parameterType="cn.com.niub.domain.UserExample" resultMap="BaseResultMap">
     select
@@ -115,14 +121,16 @@
       user_index, login_name, phone_number, 
       state, remark, icard_code, 
       creator, create_time, updator, 
-      update_time, parent_id, hierarchy_id
-      )
+      update_time, parent_id, hierarchy_id, 
+      ip, add1, add2, add3, 
+      type)
     values (#{id,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
       #{userIndex,jdbcType=INTEGER}, #{loginName,jdbcType=VARCHAR}, #{phoneNumber,jdbcType=VARCHAR}, 
       #{state,jdbcType=INTEGER}, #{remark,jdbcType=VARCHAR}, #{icardCode,jdbcType=VARCHAR}, 
       #{creator,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updator,jdbcType=VARCHAR}, 
-      #{updateTime,jdbcType=TIMESTAMP}, #{parentId,jdbcType=VARCHAR}, #{hierarchyId,jdbcType=VARCHAR}
-      )
+      #{updateTime,jdbcType=TIMESTAMP}, #{parentId,jdbcType=VARCHAR}, #{hierarchyId,jdbcType=VARCHAR}, 
+      #{ip,jdbcType=VARCHAR}, #{add1,jdbcType=VARCHAR}, #{add2,jdbcType=VARCHAR}, #{add3,jdbcType=VARCHAR}, 
+      #{type,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="cn.com.niub.domain.User">
     insert into tbl_user_info
@@ -172,6 +180,21 @@
       <if test="hierarchyId != null">
         hierarchy_id,
       </if>
+      <if test="ip != null">
+        ip,
+      </if>
+      <if test="add1 != null">
+        add1,
+      </if>
+      <if test="add2 != null">
+        add2,
+      </if>
+      <if test="add3 != null">
+        add3,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -218,6 +241,21 @@
       </if>
       <if test="hierarchyId != null">
         #{hierarchyId,jdbcType=VARCHAR},
+      </if>
+      <if test="ip != null">
+        #{ip,jdbcType=VARCHAR},
+      </if>
+      <if test="add1 != null">
+        #{add1,jdbcType=VARCHAR},
+      </if>
+      <if test="add2 != null">
+        #{add2,jdbcType=VARCHAR},
+      </if>
+      <if test="add3 != null">
+        #{add3,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -275,6 +313,21 @@
       <if test="record.hierarchyId != null">
         hierarchy_id = #{record.hierarchyId,jdbcType=VARCHAR},
       </if>
+      <if test="record.ip != null">
+        ip = #{record.ip,jdbcType=VARCHAR},
+      </if>
+      <if test="record.add1 != null">
+        add1 = #{record.add1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.add2 != null">
+        add2 = #{record.add2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.add3 != null">
+        add3 = #{record.add3,jdbcType=VARCHAR},
+      </if>
+      <if test="record.type != null">
+        type = #{record.type,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -296,7 +349,12 @@
       updator = #{record.updator,jdbcType=VARCHAR},
       update_time = #{record.updateTime,jdbcType=TIMESTAMP},
       parent_id = #{record.parentId,jdbcType=VARCHAR},
-      hierarchy_id = #{record.hierarchyId,jdbcType=VARCHAR}
+      hierarchy_id = #{record.hierarchyId,jdbcType=VARCHAR},
+      ip = #{record.ip,jdbcType=VARCHAR},
+      add1 = #{record.add1,jdbcType=VARCHAR},
+      add2 = #{record.add2,jdbcType=VARCHAR},
+      add3 = #{record.add3,jdbcType=VARCHAR},
+      type = #{record.type,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -346,6 +404,21 @@
       <if test="hierarchyId != null">
         hierarchy_id = #{hierarchyId,jdbcType=VARCHAR},
       </if>
+      <if test="ip != null">
+        ip = #{ip,jdbcType=VARCHAR},
+      </if>
+      <if test="add1 != null">
+        add1 = #{add1,jdbcType=VARCHAR},
+      </if>
+      <if test="add2 != null">
+        add2 = #{add2,jdbcType=VARCHAR},
+      </if>
+      <if test="add3 != null">
+        add3 = #{add3,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        type = #{type,jdbcType=VARCHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=VARCHAR}
   </update>
@@ -364,7 +437,12 @@
       updator = #{updator,jdbcType=VARCHAR},
       update_time = #{updateTime,jdbcType=TIMESTAMP},
       parent_id = #{parentId,jdbcType=VARCHAR},
-      hierarchy_id = #{hierarchyId,jdbcType=VARCHAR}
+      hierarchy_id = #{hierarchyId,jdbcType=VARCHAR},
+      ip = #{ip,jdbcType=VARCHAR},
+      add1 = #{add1,jdbcType=VARCHAR},
+      add2 = #{add2,jdbcType=VARCHAR},
+      add3 = #{add3,jdbcType=VARCHAR},
+      type = #{type,jdbcType=VARCHAR}
     where id = #{id,jdbcType=VARCHAR}
   </update>
 </mapper>

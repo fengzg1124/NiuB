@@ -33,6 +33,16 @@ public class User {
 
     private String hierarchyId;
 
+    private String ip;
+
+    private String add1;
+
+    private String add2;
+
+    private String add3;
+
+    private String type;
+
     public String getId() {
         return id;
     }
@@ -153,6 +163,46 @@ public class User {
         this.hierarchyId = hierarchyId == null ? null : hierarchyId.trim();
     }
 
+    public String getIp() {
+        return ip;
+    }
+
+    public void setIp(String ip) {
+        this.ip = ip == null ? null : ip.trim();
+    }
+
+    public String getAdd1() {
+        return add1;
+    }
+
+    public void setAdd1(String add1) {
+        this.add1 = add1 == null ? null : add1.trim();
+    }
+
+    public String getAdd2() {
+        return add2;
+    }
+
+    public void setAdd2(String add2) {
+        this.add2 = add2 == null ? null : add2.trim();
+    }
+
+    public String getAdd3() {
+        return add3;
+    }
+
+    public void setAdd3(String add3) {
+        this.add3 = add3 == null ? null : add3.trim();
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type == null ? null : type.trim();
+    }
+
     @Override
     public boolean equals(Object that) {
         if (this == that) {
@@ -179,7 +229,12 @@ public class User {
             && (this.getUpdator() == null ? other.getUpdator() == null : this.getUpdator().equals(other.getUpdator()))
             && (this.getUpdateTime() == null ? other.getUpdateTime() == null : this.getUpdateTime().equals(other.getUpdateTime()))
             && (this.getParentId() == null ? other.getParentId() == null : this.getParentId().equals(other.getParentId()))
-            && (this.getHierarchyId() == null ? other.getHierarchyId() == null : this.getHierarchyId().equals(other.getHierarchyId()));
+            && (this.getHierarchyId() == null ? other.getHierarchyId() == null : this.getHierarchyId().equals(other.getHierarchyId()))
+            && (this.getIp() == null ? other.getIp() == null : this.getIp().equals(other.getIp()))
+            && (this.getAdd1() == null ? other.getAdd1() == null : this.getAdd1().equals(other.getAdd1()))
+            && (this.getAdd2() == null ? other.getAdd2() == null : this.getAdd2().equals(other.getAdd2()))
+            && (this.getAdd3() == null ? other.getAdd3() == null : this.getAdd3().equals(other.getAdd3()))
+            && (this.getType() == null ? other.getType() == null : this.getType().equals(other.getType()));
     }
 
     @Override
@@ -201,6 +256,11 @@ public class User {
         result = prime * result + ((getUpdateTime() == null) ? 0 : getUpdateTime().hashCode());
         result = prime * result + ((getParentId() == null) ? 0 : getParentId().hashCode());
         result = prime * result + ((getHierarchyId() == null) ? 0 : getHierarchyId().hashCode());
+        result = prime * result + ((getIp() == null) ? 0 : getIp().hashCode());
+        result = prime * result + ((getAdd1() == null) ? 0 : getAdd1().hashCode());
+        result = prime * result + ((getAdd2() == null) ? 0 : getAdd2().hashCode());
+        result = prime * result + ((getAdd3() == null) ? 0 : getAdd3().hashCode());
+        result = prime * result + ((getType() == null) ? 0 : getType().hashCode());
         return result;
     }
 }

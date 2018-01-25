@@ -20,7 +20,7 @@ import cn.com.niub.domain.UserExample;
 import cn.com.niub.domain.UserExample.Criteria;
 import cn.com.niub.service.LogService;
 import cn.com.niub.service.UserService;
-import cn.com.niub.utils.ServiceUtils;
+import cn.com.niub.utils.ControllerUtils;
 
 
 
@@ -33,24 +33,31 @@ public class HomeController {
 	@Autowired
 	LogService logService;
 	
+	//首页
+	@RequestMapping(value="/")
+	public String home(){
+		return "redirect:/index-";
+	}
 	//打开首页
-	@RequestMapping(value="/index-{phid}")
-	public String index(Model model,@PathVariable(name="phid")String phid,HttpServletRequest request){
+	@RequestMapping(value="/index-{tid}")
+	public String index(Model model,@PathVariable(name="tid")String tid,HttpServletRequest request){
+		
+		HttpSession session = request.getSession();
+		session.setAttribute("Tphid", "");
 		
 		//记录日志
 		Log log = new Log();
-		log.setId(ServiceUtils.getUUID());
+		log.setId(ControllerUtils.getUUID());
 		log.setStartTime(new Date());
 		log.setType("index-");
-		log.setLog("打开首页，推广用户："+phid);
+		log.setLog("打开首页，推广用户："+tid+",打开ip："+ControllerUtils.getIp(request));
 		
-		HttpSession session = request.getSession();
 		
 		//未登录保存推广信息
-		if(StringUtils.isNotBlank(phid)){
-			session.setAttribute("phid", phid);
+		if(StringUtils.isNotBlank(tid)){
+			session.setAttribute("Tphid", tid);
 		}
-		
+		model.addAttribute("phid", "");
 		log.setEndTime(new Date());
 		logService.saveLog(log);
 		return "index";
@@ -74,7 +81,7 @@ public class HomeController {
 		
 		//记录日志
 		Log log = new Log();
-		log.setId(ServiceUtils.getUUID());
+		log.setId(ControllerUtils.getUUID());
 		log.setStartTime(new Date());
 		log.setType("login");
 		log.setUserId(user.getId());
@@ -83,6 +90,7 @@ public class HomeController {
 		Criteria criteria = example.createCriteria();
 		criteria.andPhoneNumberEqualTo(user.getPhoneNumber());
 		criteria.andPasswordEqualTo(user.getPassword());
+		criteria.andStateEqualTo(1);
 		List<User> users = userService.findUsers(example);
 		if(users.size()<=0){
 			log.setLog("登录失败");
@@ -95,9 +103,10 @@ public class HomeController {
 		session.setAttribute("user", user);
 		
 		model.addAttribute("phid", user.getId());
-		model.addAttribute("mes", "登录成功");
+		model.addAttribute("mes", user.getUserName()+",登录成功");
+		model.addAttribute("userName", user.getUserName());
 		
-		log.setLog("登录成功");
+		log.setLog("登录成功,登录ip："+ControllerUtils.getIp(request));
 		log.setEndTime(new Date());
 		logService.saveLog(log);
 		return "index";
@@ -108,7 +117,7 @@ public class HomeController {
 			
 		//记录日志
 		Log log = new Log();
-		log.setId(ServiceUtils.getUUID());
+		log.setId(ControllerUtils.getUUID());
 		log.setStartTime(new Date());
 		log.setType("register");
 		
@@ -122,8 +131,8 @@ public class HomeController {
 			return "register";
 		}
 		
-		user.setId(ServiceUtils.getUUID());
-		String phid = (String) request.getSession().getAttribute("phid");
+		user.setId(ControllerUtils.getUUID());
+		String phid = (String) request.getSession().getAttribute("Tphid");
 		user.setParentId(phid);
 		User userp = userService.findUserById(phid);
 		if(null != userp){
@@ -142,9 +151,10 @@ public class HomeController {
 		session.setAttribute("user", user);
 		
 		model.addAttribute("phid", user.getId());
-		model.addAttribute("mes", "注册成功");
+		model.addAttribute("mes", user.getUserName()+",注册成功");
+		model.addAttribute("userName", user.getUserName());
 		
-		log.setLog("注册成功，用户名："+user.getUserName()+",手机号："+user.getPhoneNumber());
+		log.setLog("注册成功，用户名："+user.getUserName()+",手机号："+user.getPhoneNumber()+",注册ip："+ControllerUtils.getIp(request));
 		log.setEndTime(new Date());
 		logService.saveLog(log);
 		return "index";
@@ -153,7 +163,7 @@ public class HomeController {
 	//管理员登录
 	@RequestMapping(value="/adminLogin")
 	public String adminLogin(Model model,HttpServletRequest request,HttpServletResponse response){
-		return "admin/index";
+		return "admin/frames/sysframe_index";
 	}
 	
 	//管理员注册
