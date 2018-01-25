@@ -64,13 +64,13 @@ public class UserController {
 		criteria.andStateEqualTo(2);//申请标记
 		criteria.andTypeEqualTo(type);
 		List<User> users = userService.findUsers(example);
-        if(users.size()>0){
+        /*if(users.size()>0){
         	model.addAttribute("mes", "提交失败，您在近期已提交过此贷款类型的申请，请勿重复提交哦！");
         	log.setLog("贷款用户信息提交失败，30天内申请信息重复，用户名："+user.getUserName()+",手机号："+user.getPhoneNumber()+",头信息"+request.getHeader("User-Agent")+",ip:"+ip+";"+request.getHeader("X-Forwarded-For"));
     		log.setEndTime(new Date());
     		logService.saveLog(log);
     		return "index";
-        }
+        }*/
         
         
 		user.setId(ControllerUtils.getUUID());

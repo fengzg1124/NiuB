@@ -84,7 +84,7 @@ public class HomeController {
 		log.setId(ControllerUtils.getUUID());
 		log.setStartTime(new Date());
 		log.setType("login");
-		log.setUserId(user.getId());
+		
 		
 		UserExample example = new UserExample();
 		Criteria criteria = example.createCriteria();
@@ -106,6 +106,7 @@ public class HomeController {
 		model.addAttribute("mes", user.getUserName()+",登录成功");
 		model.addAttribute("userName", user.getUserName());
 		
+		log.setUserId(user.getId());
 		log.setLog("登录成功,登录ip："+ControllerUtils.getIp(request));
 		log.setEndTime(new Date());
 		logService.saveLog(log);
@@ -125,11 +126,11 @@ public class HomeController {
 		Criteria criteria = example.createCriteria();
 		criteria.andPhoneNumberEqualTo(user.getPhoneNumber());
 		List<User> users = userService.findUsers(example);
-		if(users.size()>0){
+		/*if(users.size()>0){
 			log.setLog("失败，手机号码已存在"+user.getPhoneNumber());
 			model.addAttribute("mes", "手机号码已存在！");
 			return "register";
-		}
+		}*/
 		
 		user.setId(ControllerUtils.getUUID());
 		String phid = (String) request.getSession().getAttribute("Tphid");
