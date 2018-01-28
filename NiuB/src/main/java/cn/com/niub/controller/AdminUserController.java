@@ -12,4 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class AdminUserController {
 
 	
+	@RequestMapping(value="/dashboard5")
+	public String dashboard() {
+		
+		return "admin/frames/dashboard_5";
+	}
 }

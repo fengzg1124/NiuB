@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+</head>
+
+<body>
+	<div th:fragment="setting">
+		<div id="right-sidebar">
+			<div class="sidebar-container">
+
+				<ul class="nav nav-tabs navs-3">
+
+					<li class="active"><a data-toggle="tab"
+						href="index.html#tab-1"> 笔记 </a></li>
+					<li><a data-toggle="tab" href="index.html#tab-2"> 项目 </a></li>
+					<li class=""><a data-toggle="tab" href="index.html#tab-3">
+							<i class="fa fa-gear"></i>
+					</a></li>
+				</ul>
+
+				<div class="tab-content">
+
+
+					<div id="tab-1" class="tab-pane active">
+
+						<div class="sidebar-title">
+							<h3>
+								<i class="fa fa-comments-o"></i>笔记
+							</h3>
+							<small><i class="fa fa-tim"></i> 你有10条消息.</small>
+						</div>
+
+						<div>
+
+							<div class="sidebar-message">
+								<a href="index.html#">
+									<div class="pull-left text-center">
+										<!-- 头像 -->
+										<img alt="image" class="img-circle message-avatar"
+											src="img/a1.jpg" />
+
+										<!-- 星星 -->
+										<div class="m-t-xs">
+											<i class="fa fa-star text-warning"></i> <i
+												class="fa fa-star text-warning"></i>
+										</div>
+									</div>
+									<div class="media-body">
+
+										内容 <br /> <small class="text-muted">时间</small>
+									</div>
+								</a>
+							</div>
+						</div>
+
+					</div>
+
+					<div id="tab-2" class="tab-pane">
+
+						<div class="sidebar-title">
+							<h3>
+								<i class="fa fa-cube"></i>项目
+							</h3>
+							<small><i class="fa fa-tim"></i> 你有18个订单. 10个未完成.</small>
+						</div>
+
+						<ul class="sidebar-list">
+							<li><a href="index.html#">
+
+									<div class="small pull-right m-t-xs">9 hours ago</div> <!-- <span class="label label-primary pull-right">新</span> -->
+
+									<h4>客户名称</h4> 订单内容.
+
+									<div class="small">进度: 22%</div>
+									<div class="progress progress-mini">
+										<!-- 蓝色： class="progress-bar progress-bar-info" 绿色：class="progress-bar" 下面是黄色 -->
+										<div style="width: 22%;"
+											class="progress-bar progress-bar-warning"></div>
+									</div>
+									<div class="small text-muted m-t-xs">时间</div>
+							</a></li>
+						</ul>
+
+					</div>
+
+					<div id="tab-3" class="tab-pane">
+
+						<div class="sidebar-title">
+							<h3>
+								<i class="fa fa-gears"></i> 设置
+							</h3>
+							<small><i class="fa fa-tim"></i> You have 14 projects. 10
+								not completed.</small>
+						</div>
+
+						<div class="setings-item">
+							<span> 显示通知 </span>
+							<div class="switch">
+								<div class="onoffswitch">
+									<input type="checkbox" name="collapsemenu"
+										class="onoffswitch-checkbox" id="example" /> <label
+										class="onoffswitch-label" for="example"> <span
+										class="onoffswitch-inner"></span> <span
+										class="onoffswitch-switch"></span>
+									</label>
+								</div>
+							</div>
+						</div>
+						<div class="setings-item">
+							<span> 禁用聊天 </span>
+							<div class="switch">
+								<div class="onoffswitch">
+									<input type="checkbox" name="collapsemenu" checked="checked"
+										class="onoffswitch-checkbox" id="example2" /> <label
+										class="onoffswitch-label" for="example2"> <span
+										class="onoffswitch-inner"></span> <span
+										class="onoffswitch-switch"></span>
+									</label>
+								</div>
+							</div>
+						</div>
+						<div class="setings-item">
+							<span> 启用历史记录 </span>
+							<div class="switch">
+								<div class="onoffswitch">
+									<input type="checkbox" name="collapsemenu"
+										class="onoffswitch-checkbox" id="example3" /> <label
+										class="onoffswitch-label" for="example3"> <span
+										class="onoffswitch-inner"></span> <span
+										class="onoffswitch-switch"></span>
+									</label>
+								</div>
+							</div>
+						</div>
+						<div class="setings-item">
+							<span> 显示图表 </span>
+							<div class="switch">
+								<div class="onoffswitch">
+									<input type="checkbox" name="collapsemenu"
+										class="onoffswitch-checkbox" id="example4" /> <label
+										class="onoffswitch-label" for="example4"> <span
+										class="onoffswitch-inner"></span> <span
+										class="onoffswitch-switch"></span>
+									</label>
+								</div>
+							</div>
+						</div>
+						<div class="setings-item">
+							<span> 离线用户 </span>
+							<div class="switch">
+								<div class="onoffswitch">
+									<input type="checkbox" checked="checked" name="collapsemenu"
+										class="onoffswitch-checkbox" id="example5" /> <label
+										class="onoffswitch-label" for="example5"> <span
+										class="onoffswitch-inner"></span> <span
+										class="onoffswitch-switch"></span>
+									</label>
+								</div>
+							</div>
+						</div>
+						<div class="setings-item">
+							<span> 全球搜索 </span>
+							<div class="switch">
+								<div class="onoffswitch">
+									<input type="checkbox" checked="checked" name="collapsemenu"
+										class="onoffswitch-checkbox" id="example6" /> <label
+										class="onoffswitch-label" for="example6"> <span
+										class="onoffswitch-inner"></span> <span
+										class="onoffswitch-switch"></span>
+									</label>
+								</div>
+							</div>
+						</div>
+						<div class="setings-item">
+							<span> 每天都更新 </span>
+							<div class="switch">
+								<div class="onoffswitch">
+									<input type="checkbox" name="collapsemenu"
+										class="onoffswitch-checkbox" id="example7" /> <label
+										class="onoffswitch-label" for="example7"> <span
+										class="onoffswitch-inner"></span> <span
+										class="onoffswitch-switch"></span>
+									</label>
+								</div>
+							</div>
+						</div>
+						<div class="sidebar-content">
+							<h4>设置</h4>
+							<div class="small">这是一堆说明</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
