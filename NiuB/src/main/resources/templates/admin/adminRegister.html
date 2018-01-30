@@ -6,6 +6,9 @@
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
+	<!-- Favicon -->
+	<link rel="shortcut icon" href="/img/logo-small.png"/>
+	
     <title>注册</title>
 
     <link href="/css/bootstrap.min.css" rel="stylesheet"/>
@@ -16,33 +19,41 @@
 
 </head>
 
-<body class="gray-bg">
+<body style="background: url(/img/bei.jpg) no-repeat center top / cover;">
 
     <div class="middle-box text-center loginscreen   animated fadeInDown">
         <div>
             <div>
-
                 <h1 class="logo-name">金</h1>
-
             </div>
-            <h3>注册猎多金账户</h3>
-            <p>创建账户.</p>
-            <form class="m-t" role="form" action="login.html">
+            <h3>注册到猎多金财富</h3>
+            <form id="mainform" class="m-t" role="form" method="post" action="">
                 <div class="form-group">
-                    <input type="text" class="form-control" placeholder="姓名" required="required"/>
+                	<small><span id="prompt1">7位以内中文字符！</span><span id="userNamemsg" style="color: red;"></span></small>
+                    <input type="text" id="userName" name="userName" class="form-control" placeholder="姓名" />
                 </div>
                 <div class="form-group">
-                    <input type="text" class="form-control" placeholder="手机号" required="required"/>
+                	<small><span id="prompt2">11位手机号或者05386666666格式电话号码！</span><span id="phoneNumbermsg" style="color: red;"></span></small>
+                    <input type="text" id="phoneNumber" name="phoneNumber" class="form-control" placeholder="手机号" />
                 </div>
                 <div class="form-group">
-                    <input type="password" class="form-control" placeholder="密码" required="required"/>
+                	<small><span id="prompt3">6-16位字母加数字！</span><span id="passwordmsg" style="color: red;"></span></small>
+                    <input type="password" id="password" name="password" class="form-control" placeholder="密码" />
+                    
                 </div>
-                <button type="submit" class="btn btn-primary block full-width m-b">注册</button>
+                <input type="hidden" name="state" value="3"/>
+                <!-- <div class="form-group">
+                        <div class="checkbox i-checks"><label> <input type="checkbox"><i></i> Agree the terms and policy </label></div>
+                </div> -->
+                <button type="button" class="btn btn-primary block full-width m-b" onclick="register()">注册</button>
 
-                <p class="text-muted text-center"><small>已有账户?</small></p>
-                <a class="btn btn-sm btn-white btn-block" href="/adminLogin">登录</a>
+                <p class="text-muted text-center"><small>已经有一个帐户？</small></p>
+                <a class="btn btn-sm btn-white btn-block" href="/toAdminLogin">登录</a>
             </form>
-            <p class="m-t"> <small>LieDuoJin.f All Rights Reserved.&copy; 2018</small> </p>
+            <p class="m-t">
+                <small><span style="color: red;" th:text="${mes}"></span></small>
+            </p>
+            <p class="m-t"> <small>LieDuoJin.f All Rights Reserved. &copy; 2018</small> </p>
         </div>
     </div>
 
@@ -51,13 +62,65 @@
     <script src="/js/bootstrap.min.js"></script>
     <!-- iCheck -->
     <script src="/js/plugins/iCheck/icheck.min.js"></script>
+    <!-- 加密密码 -->
+    <script src="/js/encrypt.js"></script>
     <script>
+    /*<![CDATA[*/
         $(document).ready(function(){
             $('.i-checks').iCheck({
                 checkboxClass: 'icheckbox_square-green',
                 radioClass: 'iradio_square-green',
             });
         });
+        
+        
+        function register(){
+        	var check=0;
+        	var userName = $("#userName").val();
+        	var phoneNumber = $("#phoneNumber").val();
+        	var password = $("#password").val();
+        	
+        	//姓名
+        	if(userName.length<1 || userName.length>7){
+        		//msg="用户名必须是7位以内中文字符！";
+        		$("#prompt1").html("");
+        		$("#userNamemsg").html("必须是7位以内中文字符！");
+        		check = check-1;
+        	}else{
+        		$("#userNamemsg").html("");
+        		check = check+1;
+        	}
+        	//电话
+        	var myreg=/^[1,0][0-9]{10}$/; 
+        	if(!myreg.test(phoneNumber)){
+        		$("#prompt2").html("");
+        		$("#phoneNumbermsg").html("必须输入11位手机号或者05386666666格式电话号码！");
+        		check = check-1;
+			}else{
+				$("#phoneNumbermsg").html("");
+				check = check+1;
+        	}
+        	//密码
+			var reg=new RegExp(/[A-Za-z].*[0-9]|[0-9].*[A-Za-z]/);
+        	if(!reg.test(password)||password.length<6||password.length>16){
+        		$("#prompt3").html("");
+        		$("#passwordmsg").html("必须是6-16位字母加数字！");
+        		check = check-1;
+			}else{
+				$("#passwordmsg").html("");
+				check = check+1;
+        	}
+        	if(check!=3){
+        		//alert("未按要求正确填写！");
+        		return;
+        	}
+        	$("#password").val(hex_sha1(password));
+        	mainform.action="/adminRegister";
+        	mainform.submit();
+        }
+        
+        
+    /*]]>*/
     </script>
 </body>
 
