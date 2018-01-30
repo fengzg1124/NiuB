@@ -56,7 +56,7 @@
 				<div class="navbar-header">
 
 					<!-- Brand -->
-					<a href="#" class="brand">
+					<a href="/index-" class="brand">
 
 						<!-- Logo Big -->
 						<img src="/img/logo.png" class="logo-big" alt=""/>
@@ -84,12 +84,31 @@
 
 
 <!-- Main -->
-<div style="max-width: 800px;margin: 0 auto;padding: 100px 20px 20px 20px;">
-<div class="row">
+<div style="max-width: 800px;margin: 0 auto;padding: 100px 20px 20px 20px; ">
+<div class="row" >
     <div>
         <div>
             <div style="text-align: center;">
-            	
+            	<div>
+            		<h2 th:if="${type=='gong'}" style="color: #ff5555">
+                        工&nbsp;薪&nbsp;贷
+                    </h2>
+                    <h2 th:if="${type=='nong'}" style="color: #ff5555">
+                        新&nbsp;农&nbsp;贷
+                    </h2>
+                    <h2 th:if="${type=='sheng'}" style="color: #ff5555">
+                        生&nbsp;意&nbsp;贷
+                    </h2>
+                    <h2 th:if="${type=='fang'}" style="color: #ff5555">
+                        房&nbsp;贷
+                    </h2>
+                    <h2 th:if="${type=='che'}" style="color: #ff5555">
+                        车&nbsp;贷
+                    </h2>
+                    <h2 th:if="${type=='dian'}" style="color: #ff5555">
+                        垫&nbsp;资&nbsp;过&nbsp;桥
+                    </h2>
+            	</div>
                 <div style="text-align: left;">
                     <h3>
                         详细介绍
@@ -174,11 +193,13 @@
                 <h3>我要贷款</h3>
                 <form id="form" class="m-t" method="post" role="form" action="">
 			        <div class="form-group">
-			            <input type="text" name="userName" class="form-control" placeholder="姓名" required="required"/>
-			        </div>
-			        <div class="form-group">
-			            <input type="text" name="phoneNumber" class="form-control" placeholder="电话" required="required"/>
-			        </div>
+	                	<small><span id="prompt1">7位以内中文字符！</span><span id="userNamemsg" style="color: red;"></span></small>
+	                    <input type="text" id="userName" name="userName" class="form-control" placeholder="姓名" />
+	                </div>
+	                <div class="form-group">
+	                	<small><span id="prompt2">11位手机号或者05386666666格式电话号码！</span><span id="phoneNumbermsg" style="color: red;"></span></small>
+	                    <input type="text" id="phoneNumber" name="phoneNumber" class="form-control" placeholder="手机号" />
+	                </div>
 			        <input type="hidden" name="state" value="2"/>
 			        <button type="button" class="btn" onclick="saveLoanUser()">申请贷款</button>
 			    </form>
@@ -225,7 +246,37 @@
 <script type="text/javascript">
 /*<![CDATA[*/
 function saveLoanUser(){
+	
+	var check=0;
 	var type = $("#type").val();
+	
+	var userName = $("#userName").val();
+	var phoneNumber = $("#phoneNumber").val();
+	
+	//姓名
+	if(userName.length<1 || userName.length>7){
+		//msg="用户名必须是7位以内中文字符！";
+		$("#prompt1").html("");
+		$("#userNamemsg").html("必须是7位以内中文字符！");
+		check = check-1;
+	}else{
+		$("#userNamemsg").html("");
+		check = check+1;
+	}
+	//电话
+	var myreg=/^[1,0][0-9]{10}$/; 
+	if(!myreg.test(phoneNumber)){
+		$("#prompt2").html("");
+		$("#phoneNumbermsg").html("必须输入11位手机号或者05386666666格式电话号码！");
+		check = check-1;
+	}else{
+		$("#phoneNumbermsg").html("");
+		check = check+1;
+	}
+	if(check!=2){
+		//alert("未按要求正确填写！");
+		return;
+	}
 	form.action="/user/saveLoanUser-"+type;
 	form.submit();
 }

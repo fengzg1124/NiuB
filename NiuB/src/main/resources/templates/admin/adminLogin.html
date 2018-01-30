@@ -1,54 +1,102 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-
 <head>
-
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-
+	<!-- Favicon -->
+	<link rel="shortcut icon" href="/img/logo-small.png"/>
+	
     <title>登录</title>
 
-    <link href="css/bootstrap.min.css" rel="stylesheet"/>
-    <link href="font-awesome/css/font-awesome.css" rel="stylesheet"/>
+    <link href="/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="/font-awesome/css/font-awesome.css" rel="stylesheet"/>
 
-    <link href="css/animate.css" rel="stylesheet"/>
-    <link href="css/style.css" rel="stylesheet"/>
+    <link href="/css/animate.css" rel="stylesheet"/>
+    <link href="/css/style.css" rel="stylesheet"/>
 
 </head>
 
-<body class="gray-bg">
+<body style="background: url(/img/bei.jpg) no-repeat center top / cover;" >
 
-    <div class="middle-box text-center loginscreen animated fadeInDown">
-        <div>
-            <div>
+	<input type="hidden" id="phid" th:value="${phid}"/>
+	
+    <div class="loginColumns animated fadeInDown">
+        <div class="row">
 
-                <h1 class="logo-name">金</h1>
+            <div class="col-md-6">
+                <h2 class="font-bold">欢迎登录猎多金财富</h2>
+				<hr/>
+                <p>
+                   	立行业丰碑，交天下朋友！
+                </p>
+                <br/>
+                <p>
+                	本地最具实力信贷公司，给你最有力的保障！
+                </p>
+				<br/>
+                <p>
+                    最简单的流程，最快速的审核，你敢来，我就敢贷。
+                </p>
+				<br/>
+                <p>
+                   	原来贷款真的就是这么简单！
+                </p>
 
             </div>
-            <h3>欢迎登录猎多金</h3>
-            <p>后台管理程序
-            </p>
-            <p>登录到猎多金</p>
-            <form class="m-t" role="form" method="post" action="/adminLogin">
-                <div class="form-group">
-                    <input type="text" class="form-control" placeholder="手机号" required="required"/>
-                </div>
-                <div class="form-group">
-                    <input type="password" class="form-control" placeholder="密码" required="required"/>
-                </div>
-                <button type="submit" class="btn btn-primary block full-width m-b">登录</button>
+            <div class="col-md-6">
+                <div class="ibox-content">
+                    <form id="form" class="m-t" role="form" method="post" action="">
+                        <div class="form-group">
+                            <input type="text" name="phoneNumber" class="form-control" placeholder="手机号" required="required"/>
+                        </div>
+                        <div class="form-group">
+                            <input type="password" id="password" name="password" class="form-control" placeholder="密码" required="required"/>
+                        </div>
+                        <button type="button" onclick="login()" class="btn btn-primary block full-width m-b">登录</button>
 
-                <p class="text-muted text-center"><small>还没有账户?</small></p>
-                <a class="btn btn-sm btn-white btn-block" href="/adminRegister">创建一个账户</a>
-            </form>
-            <p class="m-t"> <small>LieDuoJin.f All Rights Reserved.&copy; 2018 </small> </p>
+                        <p class="text-muted text-center">
+                            <small>还没有账号？</small>
+                        </p>
+                        <a class="btn btn-sm btn-white btn-block" onclick="toRegister()">创建一个账户</a>
+                    </form>
+                    <p class="m-t">
+                        <small><span style="color: red;" th:text="${mes}"></span></small>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <hr/>
+        <div class="row">
+            
+            <div class="col-md-12 text-center">
+               <small>LieDuoJin.f All Rights Reserved.© 2018</small>
+            </div>
         </div>
     </div>
+<script src="/js/jquery-2.1.1.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<!-- 加密密码 -->
+<script src="/js/encrypt.js"></script>
+<script type="text/javascript">
 
-    <!-- Mainly scripts -->
-    <script src="js/jquery-2.1.1.js"></script>
-    <script src="js/bootstrap.min.js"></script>
+/* $(document).ready(function () { 
+	//alert("222"+$("#phid").val());
+}); */ 
 
+/* function toRegister(){
+	form.action="/toRegister";
+	form.submit();
+} */
+
+function login(){
+	var password = $("#password").val();
+	$("#password").val(hex_sha1(password))
+	form.action="/login";
+	form.submit();
+}
+
+
+</script>
 </body>
 
 </html>

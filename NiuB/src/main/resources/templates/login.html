@@ -19,7 +19,7 @@
 
 </head>
 
-<body class="gray-bg">
+<body style="background: url(/img/bei.jpg) no-repeat center top / cover;" >
 
 	<input type="hidden" id="phid" th:value="${phid}"/>
 	
@@ -28,18 +28,19 @@
 
             <div class="col-md-6">
                 <h2 class="font-bold">欢迎登录猎多金财富</h2>
-
+				<hr/>
                 <p>
                    	立行业丰碑，交天下朋友！
                 </p>
+                <br/>
                 <p>
                 	本地最具实力信贷公司，给你最有力的保障！
                 </p>
-					
+				<br/>
                 <p>
                     最简单的流程，最快速的审核，你敢来，我就敢贷。
                 </p>
-
+				<br/>
                 <p>
                    	原来贷款真的就是这么简单！
                 </p>
@@ -69,25 +70,25 @@
         </div>
         <hr/>
         <div class="row">
-            <div class="col-md-6">
-                LieDuoJin.f All Rights Reserved.
-            </div>
-            <div class="col-md-6 text-right">
-               <small>© 2018</small>
+            
+            <div class="col-md-12 text-center">
+               <small>LieDuoJin.f All Rights Reserved.© 2018</small>
             </div>
         </div>
     </div>
 <script src="/js/jquery-2.1.1.js"></script>
 <script src="/js/bootstrap.min.js"></script>
+<!-- 加密密码 -->
 <script src="/js/encrypt.js"></script>
 <script type="text/javascript">
 
-$(document).ready(function () { 
+/* $(document).ready(function () { 
 	//alert("222"+$("#phid").val());
-}); 
+}); */ 
 
 function toRegister(){
-	window.location.href="/toRegister";
+	form.action="/toRegister";
+	form.submit();
 }
 
 function login(){

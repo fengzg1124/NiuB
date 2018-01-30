@@ -33,8 +33,12 @@
 <link rel="stylesheet" type="text/css" href="/css/styleswitcher.css" property=""/>
 </head>
 <body>
+
+<form id="mainform" method="post" action="">
 <input type="hidden" id="phid" th:value="${phid}"/>
 <input type="hidden" id="mes" th:value="${mes}"/>
+</form>
+
 <!-- Preloader -->
 <div id="preloader">
 <div class="loader"></div>
@@ -66,8 +70,7 @@
 						<span class="sr-only">注/登</span>
 						<span th:if="${''==phid or null==phid}" >注册/登录</span>
 						<span th:if="${''!=phid and null!=phid}" >我的二维码</span>
-						<span ></span>
-						<span ></span>
+						
 
 					</button>
 					<!-- /Toggle Button -->
@@ -98,9 +101,10 @@
 						<li class="dropdown" th:if="${''!=phid and null!=phid}">
 							<a href="#" class="dropdown-toggle">我的二维码</a>
 							<ul class="dropdown-menu">
-								<li><div id="code"></div>&nbsp;&nbsp;&nbsp;分享出去，有大礼哦！</li>
+								<li><div style="text-align: center;"> <div id="code"></div>分享出去，有大礼哦！</div></li>
 							</ul>
 						</li>
+						<li th:if="${''!=phid and null!=phid}"><a href="/userExit">退出</a></li>
 					</ul>
 				</div>
 				<!-- /Navigation -->
@@ -338,19 +342,22 @@
 <!-- /Styleswitcher -->
 <script type="text/javascript">
 /*<![CDATA[*/
+           
 	var url="http://www.lieduojin.com.cn/index-"
 	
-	
     function loanDetail(type){
-    	window.location.href="/user/loanDetail-"+type;
+		mainform.action="/user/loanDetail-"+type;
+    	mainform.submit();
     }
     
     function toLogin(){
-    	window.location.href="/toLogin";
+    	mainform.action="/toLogin";
+    	mainform.submit();
     }
     
     function toRegister(){
-    	window.location.href="/toRegister";
+    	mainform.action="/toRegister";
+    	mainform.submit();
     }
     
     $("#code").show(function(){
