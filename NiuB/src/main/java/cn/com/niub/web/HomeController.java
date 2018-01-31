@@ -1,6 +1,7 @@
 package cn.com.niub.web;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -142,7 +143,7 @@ public class HomeController {
 		log.setType("register");
 		
 		if(StringUtils.isBlank(user.getUserName()) || StringUtils.isBlank(user.getPhoneNumber())|| StringUtils.isBlank(user.getPassword())){
-			log.setLog("失败，未输入用户信息");
+			log.setLog("注册失败，未输入用户信息");
 			log.setEndTime(new Date());
 			logService.saveLog(log);
 			model.addAttribute("mes", "用户信息填写不完整！");
@@ -155,14 +156,37 @@ public class HomeController {
 		criteria.andStateEqualTo(user.getState());
 		List<User> users = userService.findUsers(example);
 		if(users.size()>0){
-			log.setLog("失败，手机号码已存在"+user.getPhoneNumber());
+			log.setLog("注册失败，手机号码已存在"+user.getPhoneNumber());
 			log.setEndTime(new Date());
 			logService.saveLog(log);
 			model.addAttribute("mes", "手机号码已存在！");
 			return "register";
 		}
 		
+		//ip限制
+		String ip=ControllerUtils.getIp(request);
+		UserExample examplei = new UserExample();
+		Criteria criteriai = examplei.createCriteria();
+		criteriai.andIpEqualTo(ip);//ip
+		
+		Calendar theCa = Calendar.getInstance();
+		theCa.setTime(new Date());
+		theCa.add(theCa.DATE, -30);
+		criteriai.andCreateTimeGreaterThanOrEqualTo(theCa.getTime());//申请时间30天以内
+		
+		criteriai.andStateEqualTo(1);//注册标记
+		List<User> usersi = userService.findUsers(examplei);
+		if(usersi.size()>0){
+			log.setLog("注册失败，30天内重复注册！");
+			log.setEndTime(new Date());
+			logService.saveLog(log);
+			model.addAttribute("mes", "您在近期已经注册过账号，不能重复注册！");
+			return "register";
+		}
+		
+		
 		user.setId(ControllerUtils.getUUID());
+		user.setIp(ip);
 		String phid = (String) request.getSession().getAttribute("Tphid");
 		user.setParentId(phid);
 		User userp = userService.findUserById(phid);
@@ -207,7 +231,7 @@ public class HomeController {
 		log.setEndTime(new Date());
 		logService.saveLog(log);
 		
-		session.setAttribute("user", "");
+		session.setAttribute("user", null);
 		
 		return "index";
 	}
@@ -256,15 +280,20 @@ public class HomeController {
 		//查询用户信息
 		UserExample examplec = new UserExample();
 		Criteria criteriac = examplec.createCriteria();
-		criteriac.andHierarchyIdLike(users.get(0).getId());
-		if("ee3653fe07cc4513b41319090a2516be".equals(users.get(0).getId())){
-			List<Integer> st = new ArrayList<Integer>();
-			st.add(1);
-			st.add(2);
-			criteriac.andStateIn(st);
-		}
-		criteriac.andStateEqualTo(2);
+		criteriac.andHierarchyIdLike("%"+users.get(0).getId()+"%");
+		List<Integer> st = new ArrayList<Integer>();
+		st.add(1);
+		st.add(2);
+		criteriac.andStateIn(st);
 		List<User> userc = userService.findUsers(examplec);
+		if(!"ee3653fe07cc4513b41319090a2516be".equals(users.get(0).getId())){
+			for(User us:userc){
+				if(us.getState()==1){
+					us.setUserName(us.getUserName().substring(0,1));
+					us.setPhoneNumber("***********");
+				}
+			}
+		}
 		model.addAttribute("list", userc);
 		
 		return "admin/frames/sysframe_index";
@@ -351,7 +380,7 @@ public class HomeController {
 		log.setEndTime(new Date());
 		logService.saveLog(log);
 		
-		session.setAttribute("adminUser", "");
+		session.setAttribute("adminUser", null);
 		
 		return "admin/adminLogin";
 	}

@@ -39,7 +39,10 @@
                 <div class="form-group">
                 	<small><span id="prompt3">6-16位字母加数字！</span><span id="passwordmsg" style="color: red;"></span></small>
                     <input type="password" id="password" name="password" class="form-control" placeholder="密码" maxlength="16"/>
-                    
+                </div>
+                <div class="form-group">
+                	<small><span id="prompt4">6-16位字母加数字！</span><span id="qrpasswordmsg" style="color: red;"></span><span id="qrpasswordmsgs" style="color: green;"></span></small>
+                    <input type="password" id="qrpassword" name="qrpassword" class="form-control" placeholder="确认密码" maxlength="16" oninput="qrmm()"/>
                 </div>
                 <input type="hidden" name="state" value="1"/>
                 <!-- <div class="form-group">
@@ -73,7 +76,26 @@
             });
         });
         
-        
+    	//确认密码
+    	var mmqr=false;
+        function qrmm(){
+        	var password = $("#password").val();
+        	var qrpassword = $("#qrpassword").val();
+        	if(password==qrpassword){
+        		alert(password+"111"+qrpassword);
+        		$("#qrpasswordmsgs").html("密码一致！");
+        		$("#prompt4").html("");
+        		$("#qrpasswordmsg").html("");
+        		mmqr=true;
+        	}else{
+        		alert(password+"222"+qrpassword);
+        		$("#qrpasswordmsg").html("密码不一致！");
+        		$("#prompt4").html("");
+        		$("#qrpasswordmsgs").html("");
+        		mmqr=false;
+        	}
+        }
+        //注册
         function register(){
         	var check=0;
         	var userName = $("#userName").val();
@@ -110,7 +132,7 @@
 				$("#passwordmsg").html("");
 				check = check+1;
         	}
-        	if(check!=3){
+        	if(check!=3 && !mmqr){
         		//alert("未按要求正确填写！");
         		return;
         	}

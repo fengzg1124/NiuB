@@ -43,10 +43,15 @@
 												<td th:text="${user.userName}"></td>
 												<td th:text="${user.phoneNumber}"></td>
 												<td th:text="${session.adminUser.userName}"></td>
-												<td th:text="${user.createTime}"></td>
-												<td th:if="${user.state=='1'}">注册</td>
-												<td th:if="${user.state=='2'}">申请</td>
-												<td th:if="${user.state=='2'}" th:text="${user.type=='2'}"></td>
+												<td th:text="${user.createTime}? ${#dates.format(user.createTime, 'yyyy-MM-dd HH:mm:ss')}"></td>
+												<td th:if="${user.state==1}">注册</td>
+												<td th:if="${user.state==2}">申请</td>
+												<td th:if="${user.state==2 and user.type=='gong'}" >工薪贷</td>
+												<td th:if="${user.state==2 and user.type=='nong'}" >新农贷</td>
+												<td th:if="${user.state==2 and user.type=='sheng'}" >生意贷</td>
+												<td th:if="${user.state==2 and user.type=='fang'}" >房贷</td>
+												<td th:if="${user.state==2 and user.type=='che'}" >车贷</td>
+												<td th:if="${user.state==2 and user.type=='dian'}" >垫资过桥</td>
 											</tr>
 										</tbody>
 									</table>

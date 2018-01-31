@@ -72,7 +72,7 @@ public class UserController {
 		List<User> users = userService.findUsers(example);
         if(users.size()>0){
         	model.addAttribute("mes", "提交失败，您在近期已提交过此贷款类型的申请，请勿重复提交哦！");
-        	log.setLog("贷款用户信息提交失败，30天内申请信息重复，用户名："+user.getUserName()+",手机号："+user.getPhoneNumber()+",头信息"+request.getHeader("User-Agent")+",ip:"+ip+";"+request.getHeader("X-Forwarded-For"));
+        	log.setLog("贷款用户信息提交失败，30天内申请信息重复，用户名："+user.getUserName()+",手机号："+user.getPhoneNumber()+",申请类型："+type+",头信息"+request.getHeader("User-Agent")+",ip:"+ip+";"+request.getHeader("X-Forwarded-For"));
     		log.setEndTime(new Date());
     		logService.saveLog(log);
     		return "index";
@@ -92,7 +92,7 @@ public class UserController {
 		List<User> users1 = userService.findUsers(example1);
         if(users1.size()>0){
         	model.addAttribute("mes", "提交失败，您手机号在近期已提交过此贷款类型的申请，请勿重复提交哦！");
-        	log.setLog("贷款用户信息提交失败，180天内申请手机号重复，用户名："+user.getUserName()+",手机号："+user.getPhoneNumber()+",头信息"+request.getHeader("User-Agent")+",ip:"+ip+";"+request.getHeader("X-Forwarded-For"));
+        	log.setLog("贷款用户信息提交失败，180天内申请手机号重复，用户名："+user.getUserName()+",手机号："+user.getPhoneNumber()+",申请类型："+type+",头信息"+request.getHeader("User-Agent")+",ip:"+ip+";"+request.getHeader("X-Forwarded-For"));
     		log.setEndTime(new Date());
     		logService.saveLog(log);
     		return "index";
@@ -101,6 +101,11 @@ public class UserController {
         
 		user.setId(ControllerUtils.getUUID());
 		String phid = (String) request.getSession().getAttribute("Tphid");
+		
+		User userc = (User) request.getSession().getAttribute("user");
+		if(userc!=null){
+			phid=userc.getParentId();
+		}
 		user.setParentId(phid);
 		User userp = userService.findUserById(phid);
 		if(null != userp){
@@ -117,11 +122,11 @@ public class UserController {
 		userService.saveUser(user);
 		model.addAttribute("mes", "提交成功，感谢您相信猎多金，财富经理将尽快联系您！");
 		
-		log.setLog("贷款用户信息提交成功，用户名："+user.getUserName()+",手机号："+user.getPhoneNumber()+",头信息"+request.getHeader("User-Agent")+",ip:"+ip+";"+request.getHeader("X-Forwarded-For"));
+		log.setLog("贷款用户信息提交成功，用户名："+user.getUserName()+",手机号："+user.getPhoneNumber()+",申请类型："+type+",头信息"+request.getHeader("User-Agent")+",ip:"+ip+";"+request.getHeader("X-Forwarded-For"));
 		log.setEndTime(new Date());
 		logService.saveLog(log);
 		
-		User userc = (User) request.getSession().getAttribute("user");
+		
 		if(null != userc){
 			model.addAttribute("phid", userc.getId());
 			model.addAttribute("userName", userc.getUserName());
