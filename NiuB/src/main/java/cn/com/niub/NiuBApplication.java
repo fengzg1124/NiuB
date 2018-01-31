@@ -60,6 +60,6 @@ public class NiuBApplication extends WebMvcConfigurerAdapter{
     public void addViewControllers(ViewControllerRegistry registry) {
     	//registry.addViewController("/login").setViewName("login");
     	registry.addViewController("/toAdminLogin").setViewName("admin/adminLogin");
-    	registry.addViewController("/toAdminRegister").setViewName("admin/adminRegister");
+    	//registry.addViewController("/toAdminRegister").setViewName("admin/adminRegister");
 	}
 }

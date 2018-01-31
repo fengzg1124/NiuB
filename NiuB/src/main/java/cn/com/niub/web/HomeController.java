@@ -1,5 +1,6 @@
 package cn.com.niub.web;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -15,7 +16,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import cn.com.niub.domain.AdminUser;
+//import cn.com.niub.domain.AdminUser;
 import cn.com.niub.domain.AdminUserExample;
 import cn.com.niub.domain.Log;
 import cn.com.niub.domain.User;
@@ -34,8 +35,8 @@ public class HomeController {
 	@Autowired
 	UserService userService;
 	
-	@Autowired
-	AdminUserService adminUserService;
+	/*@Autowired
+	AdminUserService adminUserService;*/
 	
 	@Autowired
 	LogService logService;
@@ -214,7 +215,7 @@ public class HomeController {
 	
 	//管理员登录
 	@RequestMapping(value="/adminLogin")
-	public String adminLogin(Model model,AdminUser user,HttpServletRequest request){
+	public String adminLogin(Model model,User user,HttpServletRequest request){
 
 		//记录日志
 		Log log = new Log();
@@ -228,8 +229,12 @@ public class HomeController {
 			return "admin/adminLogin";
 		}
 		
-		
-		List<AdminUser> users = adminUserService.findUserByLogin(user);
+		UserExample example = new UserExample();
+		Criteria criteria = example.createCriteria();
+		criteria.andPhoneNumberEqualTo(user.getPhoneNumber());
+		criteria.andPasswordEqualTo(user.getPassword());
+		criteria.andStateEqualTo(1);
+		List<User> users = userService.findUsers(example);
 		if(users.size()!=1){
 			log.setLog("登录失败");
 			model.addAttribute("mes", "登录失败,手机号或密码错误！");
@@ -249,17 +254,23 @@ public class HomeController {
 		logService.saveLog(log);
 		
 		//查询用户信息
-		UserExample example = new UserExample();
-		Criteria criteria = example.createCriteria();
-		criteria.andHierarchyIdLike(users.get(0).getId());
-		criteria.andStateEqualTo(2);
-		List<User> userc = userService.findUsers(example);
+		UserExample examplec = new UserExample();
+		Criteria criteriac = examplec.createCriteria();
+		criteriac.andHierarchyIdLike(users.get(0).getId());
+		if("ee3653fe07cc4513b41319090a2516be".equals(users.get(0).getId())){
+			List<Integer> st = new ArrayList<Integer>();
+			st.add(1);
+			st.add(2);
+			criteriac.andStateIn(st);
+		}
+		criteriac.andStateEqualTo(2);
+		List<User> userc = userService.findUsers(examplec);
 		model.addAttribute("list", userc);
 		
 		return "admin/frames/sysframe_index";
 	}
 	
-	//管理员注册
+	/*//管理员注册
 	@RequestMapping(value="/adminRegister")
 	public String adminRegister(Model model,AdminUser adminUser,HttpServletRequest request){
 
@@ -322,7 +333,7 @@ public class HomeController {
 		logService.saveLog(log);
 	
 		return "admin/frames/sysframe_index";
-	}
+	}*/
 	
 	//管理员退出
 	@RequestMapping(value="/adminUserExit")
@@ -334,7 +345,7 @@ public class HomeController {
 		log.setType("adminUserExit");
 		
 		HttpSession session = request.getSession();
-		AdminUser userc = (AdminUser) session.getAttribute("adminUser");
+		User userc = (User) session.getAttribute("adminUser");
 		
 		log.setLog("退出登录，用户名："+userc.getUserName()+",手机号："+userc.getPhoneNumber());
 		log.setEndTime(new Date());

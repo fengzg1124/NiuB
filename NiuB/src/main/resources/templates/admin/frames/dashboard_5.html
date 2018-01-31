@@ -42,7 +42,7 @@
 												<td th:text="${userstate.count}"></td>
 												<td th:text="${user.userName}"></td>
 												<td th:text="${user.phoneNumber}"></td>
-												<td th:text="${user.parentId}"></td>
+												<td th:text="${session.adminUser.userName}"></td>
 												<td th:text="${user.createTime}"></td>
 												<td th:if="${user.state=='1'}">注册</td>
 												<td th:if="${user.state=='2'}">申请</td>
