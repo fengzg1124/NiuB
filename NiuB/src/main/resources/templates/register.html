@@ -82,13 +82,11 @@
         	var password = $("#password").val();
         	var qrpassword = $("#qrpassword").val();
         	if(password==qrpassword){
-        		alert(password+"111"+qrpassword);
         		$("#qrpasswordmsgs").html("密码一致！");
         		$("#prompt4").html("");
         		$("#qrpasswordmsg").html("");
         		mmqr=true;
         	}else{
-        		alert(password+"222"+qrpassword);
         		$("#qrpasswordmsg").html("密码不一致！");
         		$("#prompt4").html("");
         		$("#qrpasswordmsgs").html("");
