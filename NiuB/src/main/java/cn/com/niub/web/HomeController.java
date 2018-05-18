@@ -10,20 +10,17 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-//import cn.com.niub.domain.AdminUser;
-import cn.com.niub.domain.AdminUserExample;
 import cn.com.niub.domain.Log;
 import cn.com.niub.domain.User;
 import cn.com.niub.domain.UserExample;
 import cn.com.niub.domain.UserExample.Criteria;
-import cn.com.niub.service.AdminUserService;
+import cn.com.niub.dto.UserDto;
 import cn.com.niub.service.LogService;
 import cn.com.niub.service.UserService;
 import cn.com.niub.utils.ControllerUtils;
@@ -199,7 +196,6 @@ public class HomeController {
 		}
 		user.setCreateTime(new Date());
 		user.setUpdateTime(new Date());
-		
 		userService.saveUser(user);
 		
 		HttpSession session = request.getSession();
@@ -247,9 +243,20 @@ public class HomeController {
 		log.setStartTime(new Date());
 		log.setType("adminLogin");
 		
+		HttpSession session = request.getSession();
+		
+		//判断是否已经登录，登录后刷新页面
+		User adminuser = (User) session.getAttribute("adminUser");
+		if(null!=adminuser){
+			//查询用户列表
+			List<User> userc = getUserList(adminuser.getId());
+			model.addAttribute("list", userc);
+			return "admin/frames/sysframe_index";
+		}
+		
 		if(StringUtils.isBlank(user.getPassword()) || StringUtils.isBlank(user.getPhoneNumber())){
 			log.setLog("登录失败");
-			model.addAttribute("mes", "登录失败,登录信息填写不完整！");
+			//model.addAttribute("mes", "登录失败,登录信息填写不完整！");
 			return "admin/adminLogin";
 		}
 		
@@ -265,36 +272,20 @@ public class HomeController {
 			return "admin/adminLogin";
 		}
 		
-		HttpSession session = request.getSession();
 		session.setAttribute("adminUser", users.get(0));
 		
 		model.addAttribute("phid", users.get(0).getId());
 		model.addAttribute("mes", users.get(0).getUserName()+",登录成功");
 		model.addAttribute("userName", users.get(0).getUserName());
 		
+		//查询用户列表
+		List<User> userc = getUserList(users.get(0).getId());
+		model.addAttribute("list", userc);
+		
 		log.setUserId(user.getId());
 		log.setLog("登录成功,登录ip："+ControllerUtils.getIp(request));
 		log.setEndTime(new Date());
 		logService.saveLog(log);
-		
-		//查询用户信息
-		UserExample examplec = new UserExample();
-		Criteria criteriac = examplec.createCriteria();
-		criteriac.andHierarchyIdLike("%"+users.get(0).getId()+"%");
-		List<Integer> st = new ArrayList<Integer>();
-		st.add(1);
-		st.add(2);
-		criteriac.andStateIn(st);
-		List<User> userc = userService.findUsers(examplec);
-		if(!"ee3653fe07cc4513b41319090a2516be".equals(users.get(0).getId())){
-			for(User us:userc){
-				if(us.getState()==1){
-					us.setUserName(us.getUserName().substring(0,1));
-					us.setPhoneNumber("***********");
-				}
-			}
-		}
-		model.addAttribute("list", userc);
 		
 		return "admin/frames/sysframe_index";
 	}
@@ -383,5 +374,27 @@ public class HomeController {
 		session.setAttribute("adminUser", null);
 		
 		return "admin/adminLogin";
+	}
+	
+	//查询用户列表
+	public List<User> getUserList(String userid){
+		//查询用户信息
+		UserExample examplec = new UserExample();
+		Criteria criteriac = examplec.createCriteria();
+		criteriac.andHierarchyIdLike("%"+userid+"%");
+		List<Integer> st = new ArrayList<Integer>();
+		st.add(1);
+		st.add(2);
+		criteriac.andStateIn(st);
+		List<User> userc = userService.findUsers(examplec);
+		if(!"ee3653fe07cc4513b41319090a2516be".equals(userid)){
+			for(User us:userc){
+				if(us.getState()==1){
+					us.setUserName(us.getUserName().substring(0,1));
+					us.setPhoneNumber("***********");
+				}
+			}
+		}
+		return userc;
 	}
 }

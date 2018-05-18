@@ -1,12 +1,8 @@
-package cn.com.niub.domain;
+package cn.com.niub.dto;
 
 import java.util.Date;
 
-import org.springframework.beans.BeanUtils;
-
-import cn.com.niub.dto.UserDto;
-
-public class User {
+public class AdminUserDto {
     private String id;
 
     private String userName;
@@ -47,15 +43,6 @@ public class User {
 
     private String type;
 
-    public User() {
-	}
-	
-	public User(UserDto userDto) {
-		//BeanUtils是org.springframework.beans.BeanUtils，前给后
-		//BeanUtils是org.apache.commons.beanutils.BeanUtils，后给前
-		BeanUtils.copyProperties(userDto, this);
-	}
-	
     public String getId() {
         return id;
     }
@@ -227,7 +214,7 @@ public class User {
         if (getClass() != that.getClass()) {
             return false;
         }
-        User other = (User) that;
+        AdminUserDto other = (AdminUserDto) that;
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
             && (this.getUserName() == null ? other.getUserName() == null : this.getUserName().equals(other.getUserName()))
             && (this.getPassword() == null ? other.getPassword() == null : this.getPassword().equals(other.getPassword()))

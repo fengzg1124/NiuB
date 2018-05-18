@@ -2,8 +2,12 @@ package cn.com.niub.mapper;
 
 import cn.com.niub.domain.User;
 import cn.com.niub.domain.UserExample;
+import cn.com.niub.dto.UserDto;
+
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
+
+import com.github.pagehelper.Page;
 
 public interface UserMapper {
     long countByExample(UserExample example);
@@ -17,6 +21,8 @@ public interface UserMapper {
     int insertSelective(User record);
 
     List<User> selectByExample(UserExample example);
+    
+    Page<User> selectByExamplePage(UserExample example);
 
     User selectByPrimaryKey(String id);
 

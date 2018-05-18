@@ -1,12 +1,12 @@
-package cn.com.niub.domain;
+package cn.com.niub.dto;
 
 import java.util.Date;
 
 import org.springframework.beans.BeanUtils;
 
-import cn.com.niub.dto.RoleDto;
+import cn.com.niub.domain.Role;
 
-public class Role {
+public class RoleDto {
     private String id;
 
     private String roleName;
@@ -27,13 +27,13 @@ public class Role {
 
     private String add3;
 
-    public Role(){
+    public RoleDto(){
     }
     
-    public Role(RoleDto roleDto){
+    public RoleDto(Role role){
     	//BeanUtils是org.springframework.beans.BeanUtils，前给后
     	//BeanUtils是org.apache.commons.beanutils.BeanUtils，后给前
-    	BeanUtils.copyProperties(roleDto, this);
+    	BeanUtils.copyProperties(role, this);
     }
     
     public String getId() {
@@ -127,7 +127,7 @@ public class Role {
         if (getClass() != that.getClass()) {
             return false;
         }
-        Role other = (Role) that;
+        RoleDto other = (RoleDto) that;
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
             && (this.getRoleName() == null ? other.getRoleName() == null : this.getRoleName().equals(other.getRoleName()))
             && (this.getRoleCode() == null ? other.getRoleCode() == null : this.getRoleCode().equals(other.getRoleCode()))

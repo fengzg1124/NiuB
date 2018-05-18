@@ -1,12 +1,12 @@
-package cn.com.niub.domain;
+package cn.com.niub.dto;
 
 import java.util.Date;
 
 import org.springframework.beans.BeanUtils;
 
-import cn.com.niub.dto.LogDto;
+import cn.com.niub.domain.Log;
 
-public class Log {
+public class LogDto {
     private String id;
 
     private String type;
@@ -25,13 +25,13 @@ public class Log {
 
     private String add3;
 
-    public Log(){
+    public LogDto(){
     }
     
-    public Log(LogDto logDto){
+    public LogDto(Log log){
     	//BeanUtils是org.springframework.beans.BeanUtils，前给后
 		//BeanUtils是org.apache.commons.beanutils.BeanUtils，后给前
-		BeanUtils.copyProperties(logDto, this);
+		BeanUtils.copyProperties(log, this);
     }
     
     public String getId() {
@@ -117,7 +117,7 @@ public class Log {
         if (getClass() != that.getClass()) {
             return false;
         }
-        Log other = (Log) that;
+        LogDto other = (LogDto) that;
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
             && (this.getType() == null ? other.getType() == null : this.getType().equals(other.getType()))
             && (this.getStartTime() == null ? other.getStartTime() == null : this.getStartTime().equals(other.getStartTime()))
