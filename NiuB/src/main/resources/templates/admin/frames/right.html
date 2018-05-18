@@ -10,65 +10,72 @@
 
 <body>
 	<div th:fragment="right">
-		<div class="wrapper wrapper-content animated fadeIn">
-			<div class="p-w-md m-t-sm">
-				<div class="row">
-					<div class="col-lg-12">
-						<div class="ibox float-e-margins">
-							<div class="ibox-title">
-								<h5>用户列表</h5>
-								<div class="ibox-tools">
-									<a class="collapse-link"> <i class="fa fa-chevron-up"></i>
-									</a> <a class="close-link"> <i class="fa fa-times"></i>
-									</a>
+		<div id="right">
+			<div class="wrapper wrapper-content animated fadeIn">
+				<div class="p-w-md m-t-sm">
+					<div class="row">
+						<div class="col-lg-12">
+							<div class="ibox float-e-margins">
+								<div class="ibox-title">
+									<h5>用户列表</h5>
+									<div class="ibox-tools">
+										<a class="collapse-link"> <i class="fa fa-chevron-up"></i>
+										</a> <a class="close-link"> <i class="fa fa-times"></i>
+										</a>
+									</div>
 								</div>
-							</div>
-							<div class="ibox-content">
-								<div class="table-responsive">
-									<table class="table table-striped">
-										<thead>
-											<tr>
-												<th>序号</th>
-												<th>姓名</th>
-												<th>电话</th>
-												<th>推广人</th>
-												<th>创建时间</th>
-												<th>类型</th>
-												<th>贷款类型</th>
-											</tr>
-										</thead>
-										<tbody>
-											<tr th:each="user,userstate:${list}">
-												<td th:text="${userstate.count}"></td>
-												<td th:text="${user.userName}"></td>
-												<td th:text="${user.phoneNumber}"></td>
-												<td th:text="${session.adminUser.userName}"></td>
-												<td th:text="${user.createTime}? ${#dates.format(user.createTime, 'yyyy-MM-dd HH:mm:ss')}"></td>
-												<td th:if="${user.state==1}">注册</td>
-												<td th:if="${user.state==2}">申请</td>
-												<td th:if="${user.state==2 and user.type=='gong'}" >工薪贷</td>
-												<td th:if="${user.state==2 and user.type=='nong'}" >新农贷</td>
-												<td th:if="${user.state==2 and user.type=='sheng'}" >生意贷</td>
-												<td th:if="${user.state==2 and user.type=='fang'}" >房贷</td>
-												<td th:if="${user.state==2 and user.type=='che'}" >车贷</td>
-												<td th:if="${user.state==2 and user.type=='dian'}" >垫资过桥</td>
-											</tr>
-										</tbody>
-									</table>
+								<div class="ibox-content">
+									<div class="table-responsive">
+										<table class="table table-striped">
+											<thead>
+												<tr>
+													<th>序号</th>
+													<th>姓名</th>
+													<th>电话</th>
+													<th>推广人</th>
+													<th>创建时间</th>
+													<th>类型</th>
+													<th>贷款类型</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr th:each="user,userstate:${list}">
+													<td th:text="${userstate.count}"></td>
+													<td th:text="${user.userName}"></td>
+													<td th:text="${user.phoneNumber}"></td>
+													<td th:text="${session.adminUser.userName}"></td>
+													<td
+														th:text="${user.createTime}? ${#dates.format(user.createTime, 'yyyy-MM-dd HH:mm:ss')}"></td>
+													<td th:if="${user.state==1}">注册</td>
+													<td th:if="${user.state==2}">申请</td>
+													<td th:if="${user.state==2 and user.type=='gong'}">工薪贷</td>
+													<td th:if="${user.state==2 and user.type=='nong'}">新农贷</td>
+													<td th:if="${user.state==2 and user.type=='sheng'}">生意贷</td>
+													<td th:if="${user.state==2 and user.type=='fang'}">房贷</td>
+													<td th:if="${user.state==2 and user.type=='che'}">车贷</td>
+													<td th:if="${user.state==2 and user.type=='dian'}">垫资过桥</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-			<div class="footer">
-				<div class="pull-right">
-					10GB of <strong>250GB</strong> Free.
-				</div>
-				<div>
-					<strong>Copyright</strong> Example Company &copy; 2014-2015
-				</div>
+			<!-- 表格 -->
+			<!-- <script src="/js/plugins/dataTables/datatables.min.js"></script> -->
+		</div>
+		
+		<!-- 底部版权 -->
+		<div class="footer">
+			<div class="pull-right">
+				<strong>LieDuoJin.f </strong> All Rights Reserved. &copy; 2018
 			</div>
+			<!-- <div>
+				<strong>LieDuoJin.f </strong> All Rights Reserved. &copy; 2018
+			</div> -->
 		</div>
 	</div>
 </body>

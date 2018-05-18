@@ -1,0 +1,52 @@
+<!-- js引用 -->
+<!--/*/<th:block th:include="/admin/frames/js::custom"></th:block>/*/-->
+<div class="wrapper wrapper-content animated fadeIn">
+	<div class="p-w-md m-t-sm">
+		<div class="row">
+			<div class="col-lg-12">
+				<div class="ibox float-e-margins">
+					<div class="ibox-title">
+						<h5>菜单列表</h5>
+						<div class="ibox-tools">
+							<a class="collapse-link"> <i class="fa fa-chevron-up"></i>
+							</a> <a class="close-link"> <i class="fa fa-times"></i>
+							</a>
+						</div>
+					</div>
+					<div class="ibox-content">
+						<div class="table-responsive">
+							<table class="table table-striped">
+								<thead>
+									<tr>
+										<th>序号</th>
+										<th>菜单名称</th>
+										<th>地址</th>
+										<th>排序</th>
+										<th>层级</th>
+										<th>说明</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr th:each="menu,menustate:${list}">
+										<td th:text="${menustate.count}"></td>
+										<td th:text="${menu.menuName}"></td>
+										<td th:text="${menu.menuUrl}"></td>
+										<td th:text="${menu.menuIndex}"></td>
+										<td th:text="${menu.mark}"></td>
+										<td th:text="${menu.menuDesc}"></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script th:inline="javascript">  
+/*<![CDATA[*/  
+	
+/*]]>*/  
+</script> 

@@ -102,7 +102,7 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByExample" parameterType="cn.com.niub.domain.MenuExample" resultMap="BaseResultMap">
+  <select id="selectByExamplePage" parameterType="cn.com.niub.domain.MenuExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
@@ -115,6 +115,12 @@
     <if test="orderByClause != null">
       order by ${orderByClause}
     </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_menu
+    where id = #{id,jdbcType=VARCHAR}
   </select>
   <delete id="deleteByExample" parameterType="cn.com.niub.domain.MenuExample">
     delete from tbl_menu
@@ -135,6 +141,18 @@
       #{mark,jdbcType=VARCHAR}, #{menuDesc,jdbcType=VARCHAR}, #{menuIndex,jdbcType=INTEGER}, 
       #{remark,jdbcType=VARCHAR}, #{parentId,jdbcType=VARCHAR}, #{iconPath,jdbcType=LONGVARBINARY}, 
       #{smallIconPath,jdbcType=LONGVARBINARY})
+  </insert>
+  <insert id="insertMenu" parameterType="cn.com.niub.domain.Menu">
+    insert into tbl_menu (ID, MENU_NAME, MENU_URL, 
+      CREATED_BY, CREATED_time, DEL_FLAG, 
+      FLAG, update_BY, update_DATE, 
+      MARK, MENU_DESC, MENU_INDEX, 
+      REMARK, PARENT_ID)
+    values (#{id,jdbcType=VARCHAR}, #{menuName,jdbcType=VARCHAR}, #{menuUrl,jdbcType=VARCHAR}, 
+      #{createdBy,jdbcType=VARCHAR}, #{createdTime,jdbcType=TIMESTAMP}, #{delFlag,jdbcType=INTEGER}, 
+      #{flag,jdbcType=INTEGER}, #{updateBy,jdbcType=VARCHAR}, #{updateDate,jdbcType=TIMESTAMP}, 
+      #{mark,jdbcType=VARCHAR}, #{menuDesc,jdbcType=VARCHAR}, #{menuIndex,jdbcType=INTEGER}, 
+      #{remark,jdbcType=VARCHAR}, #{parentId,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="cn.com.niub.domain.MenuWithBLOBs">
     insert into tbl_menu
