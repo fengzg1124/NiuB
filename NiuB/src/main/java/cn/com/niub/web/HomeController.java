@@ -16,11 +16,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.github.pagehelper.Page;
+
 import cn.com.niub.domain.Log;
 import cn.com.niub.domain.User;
 import cn.com.niub.domain.UserExample;
 import cn.com.niub.domain.UserExample.Criteria;
-import cn.com.niub.dto.UserDto;
 import cn.com.niub.service.LogService;
 import cn.com.niub.service.UserService;
 import cn.com.niub.utils.ControllerUtils;
@@ -249,8 +250,8 @@ public class HomeController {
 		User adminuser = (User) session.getAttribute("adminUser");
 		if(null!=adminuser){
 			//查询用户列表
-			List<User> userc = getUserList(adminuser.getId());
-			model.addAttribute("list", userc);
+			Page<User> users = getUserList(adminuser.getId(),1,10);
+			model.addAttribute("page", users);
 			return "admin/frames/sysframe_index";
 		}
 		
@@ -279,8 +280,8 @@ public class HomeController {
 		model.addAttribute("userName", users.get(0).getUserName());
 		
 		//查询用户列表
-		List<User> userc = getUserList(users.get(0).getId());
-		model.addAttribute("list", userc);
+		Page<User> page = getUserList(users.get(0).getId(),1,10);
+		model.addAttribute("page", page);
 		
 		log.setUserId(user.getId());
 		log.setLog("登录成功,登录ip："+ControllerUtils.getIp(request));
@@ -290,6 +291,27 @@ public class HomeController {
 		return "admin/frames/sysframe_index";
 	}
 	
+	//查询用户列表
+	public Page<User> getUserList(String userid,int pageNo,int pageSize){
+		//查询用户信息
+		UserExample examplec = new UserExample();
+		Criteria criteriac = examplec.createCriteria();
+		criteriac.andHierarchyIdLike("%"+userid+"%");
+		List<Integer> st = new ArrayList<Integer>();
+		st.add(1);
+		st.add(2);
+		criteriac.andStateIn(st);
+		Page<User> users = userService.findUsersPage(examplec,pageNo,pageSize);
+		if(!"ee3653fe07cc4513b41319090a2516be".equals(userid)){
+			for(User us:users){
+				if(us.getState()==1){
+					us.setUserName(us.getUserName().substring(0,1));
+					us.setPhoneNumber("***********");
+				}
+			}
+		}
+		return users;
+	}
 	/*//管理员注册
 	@RequestMapping(value="/adminRegister")
 	public String adminRegister(Model model,AdminUser adminUser,HttpServletRequest request){

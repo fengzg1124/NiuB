@@ -24,8 +24,8 @@ public class UserService {
 		return users;
 	}
 	//按条件查找 分页
-	public Page<User> findUsersPage(UserExample example,int pageNo,int pageSize){
-		PageHelper.startPage(pageNo, pageSize);
+	public Page<User> findUsersPage(UserExample example,int pageNum,int pageSize){
+		PageHelper.startPage(pageNum, pageSize);
 		Page<User> users = (Page<User>)userMapper.selectByExample(example);
 		return users;
 	}

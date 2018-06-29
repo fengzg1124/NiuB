@@ -1,82 +1,191 @@
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
 
-<head>
-
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-</head>
-
-<body>
-	<div th:fragment="right">
-		<div id="right">
-			<div class="wrapper wrapper-content animated fadeIn">
-				<div class="p-w-md m-t-sm">
-					<div class="row">
-						<div class="col-lg-12">
-							<div class="ibox float-e-margins">
-								<div class="ibox-title">
-									<h5>用户列表</h5>
-									<div class="ibox-tools">
-										<a class="collapse-link"> <i class="fa fa-chevron-up"></i>
-										</a> <a class="close-link"> <i class="fa fa-times"></i>
-										</a>
-									</div>
+<div th:fragment="right">
+	<div id="right">
+		<div class="wrapper wrapper-content animated fadeIn">
+			<div class="p-w-md m-t-sm">
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="ibox float-e-margins">
+							<div class="ibox-title">
+								<h5>用户列表</h5>
+								<div class="ibox-tools">
+									<a class="collapse-link"> <i class="fa fa-chevron-up"></i>
+									</a> <a class="close-link"> <i class="fa fa-times"></i>
+									</a>
 								</div>
-								<div class="ibox-content">
-									<div class="table-responsive">
-										<table class="table table-striped">
-											<thead>
-												<tr>
-													<th>序号</th>
-													<th>姓名</th>
-													<th>电话</th>
-													<th>推广人</th>
-													<th>创建时间</th>
-													<th>类型</th>
-													<th>贷款类型</th>
-												</tr>
-											</thead>
+							</div>
+							<form id="mainForm" action="">
+							
+							</form>
+							<div class="ibox-content">
+								<div class="table-responsive">
+									<table id="userTable" class="table table-striped table-bordered table-hover ">
+										<thead>
+											<tr>
+												<th>序号</th>
+												<th>姓名</th>
+												<th>电话</th>
+												<th>推广人</th>
+												<th>创建时间</th>
+												<th>类型</th>
+												<th>贷款类型</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr th:each="user,userstate:${page.result}">
+												<td th:text="${userstate.count}"></td>
+												<td th:text="${user.userName}"></td>
+												<td th:text="${user.phoneNumber}"></td>
+												<td th:text="${session.adminUser.userName}"></td>
+												<td
+													th:text="${user.createTime}? ${#dates.format(user.createTime, 'yyyy-MM-dd HH:mm:ss')}"></td>
+												<td th:if="${user.state==1}">注册</td>
+												<td th:if="${user.state==1}"></td>
+												<td th:if="${user.state==2}">申请</td>
+												<td th:if="${user.state==2 and user.type=='gong'}">工薪贷</td>
+												<td th:if="${user.state==2 and user.type=='nong'}">新农贷</td>
+												<td th:if="${user.state==2 and user.type=='sheng'}">生意贷</td>
+												<td th:if="${user.state==2 and user.type=='fang'}">房贷</td>
+												<td th:if="${user.state==2 and user.type=='che'}">车贷</td>
+												<td th:if="${user.state==2 and user.type=='dian'}">垫资过桥</td>
+											</tr>
+										</tbody>
+									</table>
+									<div>
+										<input name="pageNum" id="pageNum" type="hidden" th:value="${page.pageNum}" />
+										<input name="pages" id="pages" type="hidden" th:value="${page.pages}" />
+										<table cellspacing="0" cellpadding="0" border="0" class="ui-pg-table" style="width: 100%; table-layout: fixed; height: 100%;" role="row">
 											<tbody>
-												<tr th:each="user,userstate:${list}">
-													<td th:text="${userstate.count}"></td>
-													<td th:text="${user.userName}"></td>
-													<td th:text="${user.phoneNumber}"></td>
-													<td th:text="${session.adminUser.userName}"></td>
-													<td
-														th:text="${user.createTime}? ${#dates.format(user.createTime, 'yyyy-MM-dd HH:mm:ss')}"></td>
-													<td th:if="${user.state==1}">注册</td>
-													<td th:if="${user.state==2}">申请</td>
-													<td th:if="${user.state==2 and user.type=='gong'}">工薪贷</td>
-													<td th:if="${user.state==2 and user.type=='nong'}">新农贷</td>
-													<td th:if="${user.state==2 and user.type=='sheng'}">生意贷</td>
-													<td th:if="${user.state==2 and user.type=='fang'}">房贷</td>
-													<td th:if="${user.state==2 and user.type=='che'}">车贷</td>
-													<td th:if="${user.state==2 and user.type=='dian'}">垫资过桥</td>
+												<tr>
+													<td id="pager_list_2_left" align="left">
+														每页
+														<select id="pageSize" name="pageSize" class="ui-pg-selbox" role="listbox">
+														   	<option role="option" value="10" th:selected="${page.pageSize==10}">10</option>
+															<option role="option" value="20" th:selected="${page.pageSize==20}">20</option>
+															<option role="option" value="30" th:selected="${page.pageSize==30}">30</option>
+															<option role="option" value="50" th:selected="${page.pageSize==50}">50</option>
+														</select>
+													    条
+													</td>
+													<td id="pager_list_2_center" align="center" style="white-space: pre; width: 300px;"><table cellspacing="0" cellpadding="0" border="0" style="table-layout: auto;" class="ui-pg-table">
+															<tbody>
+																<tr>
+																	<td id="first_pager_list_2" class="ui-pg-button ui-corner-all ui-state-disabled" style="cursor: default;"><button id="first" type="button" class="btn btn-default btn-xs disabled" style="margin: 0">首页</button></td>
+																	<td id="prev_pager_list_2" class="ui-pg-button ui-corner-all ui-state-disabled" style="cursor: default;"><button id="prev" type="button" class="btn btn-default btn-xs disabled" style="margin: 0">上一页</button></td>
+																	<td class="ui-pg-button ui-state-disabled" style="width: 4px; cursor: default;"> |</td>
+																	<td dir="ltr"> 转到 <input id="toPageNum" name="toPageNum" class="ui-pg-input" type="text" size="2" maxlength="4" th:value="${page.pageNum}" role="textbox" /> 页  <button id="go" type="button" class="btn btn-default btn-xs" style="margin: 0">GO</button></td>
+																	<td class="ui-pg-button ui-state-disabled" style="width: 4px; cursor: default;">| </td>
+																	<td id="next_pager_list_2" class="ui-pg-button ui-corner-all" style="cursor: default;"><button id="next" type="button" class="btn btn-default btn-xs disabled" style="margin: 0">下一页</button></td>
+																	<td id="last_pager_list_2" class="ui-pg-button ui-corner-all" style="cursor: default;"><button id="end" type="button" class="btn btn-default btn-xs disabled" style="margin: 0">尾页</button></td>
+																	<td dir="ltr"></td>
+																</tr>
+															</tbody>
+														</table></td>
+													<td id="pager_list_2_right" align="right">
+														<div dir="ltr" style="text-align: right" class="ui-paging-info">当前<span th:text="${page.pageNum}"></span>页 - 共<span th:text="${page.pages}"></span>页 共<span th:text="${page.total}"></span>条</div>
+													</td>
 												</tr>
 											</tbody>
 										</table>
 									</div>
 								</div>
+								
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-			<!-- 表格 -->
-			<!-- <script src="/js/plugins/dataTables/datatables.min.js"></script> -->
 		</div>
 		
-		<!-- 底部版权 -->
-		<div class="footer">
-			<div class="pull-right">
-				<strong>LieDuoJin.f </strong> All Rights Reserved. &copy; 2018
-			</div>
-			<!-- <div>
-				<strong>LieDuoJin.f </strong> All Rights Reserved. &copy; 2018
-			</div> -->
-		</div>
 	</div>
-</body>
-</html>
+	
+	<!-- 底部版权 -->
+	<div class="footer">
+		<div class="pull-right">
+			<strong>LieDuoJin.f </strong> All Rights Reserved. &copy; 2018
+		</div>
+		<!-- <div>
+			<strong>LieDuoJin.f </strong> All Rights Reserved. &copy; 2018
+		</div> -->
+	</div>
+	<script th:inline="javascript">
+	/* <![CDATA[ */
+	 	//翻页
+	 	$(function() {
+	 		//当前页码
+	 		var pageNum = $("#pageNum").val();
+	 		//总页码
+	 		var pages = $("#pages").val();
+	 		
+	 		//首页上一页按钮释放
+	 		if(parseInt(pageNum) > 1){
+				$("#first").removeClass("disabled");
+				$("#prev").removeClass("disabled");
+			}
+			//下一页尾页释放
+			if(parseInt(pageNum) < parseInt(pages)){
+				$("#next").removeClass("disabled");
+				$("#end").removeClass("disabled");
+			}
+			
+	 		//改变表格行数
+	 		$('#pageSize').change(function(){
+	 			search();
+	 		});
+	 		
+	 		//跳转到指定页
+			$("#go").click(function(){
+				//转到多少页
+		 		var toPageNum = $("#toPageNum").val();
+				
+				if(toPageNum == ""){
+	 				alert("请输入要跳转页面的页数");
+	 				$("#toPageNum").focus();
+	 				return;
+	 			}
+	 			var arr =new RegExp("^[0-9]*$");
+	 			if(!arr.exec(toPageNum)){
+	 				alert("输入内容非法，请输入正确数字");
+	 				$("#toPageNum").val("").focus();
+	 				return;
+	 			}
+				if(parseInt(toPageNum) > parseInt(pages) || 1 > parseInt(toPageNum)){
+					alert("输入页数超出范围，请出新输入");
+	 				$("#toPageNum").val("").focus();
+	 				return;
+	 			 }
+	 			$("#pageNum").val(toPageNum);
+	 			search();
+			});
+			//首页
+			$("#first").click(function(){
+				$("#pageNum").val("1");
+	 			search();
+			});
+			//上一页
+			$("#prev").click(function(){
+				$("#pageNum").val(parseInt(pageNum)-1);
+	 			search();
+			});
+			//下一页
+			$("#next").click(function(){
+				$("#pageNum").val(parseInt(pageNum)+1);
+	 			search();
+			});
+			//尾页
+			$("#end").click(function(){
+				$("#pageNum").val(pages);
+	 			search();
+			});
+	 	});
+	 	
+	 	function search() {
+	 		var pageNum = $("#pageNum").val();
+	 		var pageSize = $('#pageSize').val();
+	 		$("#right").load("/adminUser/userList", {pageNum:pageNum,pageSize:pageSize});
+	 		//userTable
+		}
+	/* ]]> */
+	</script>
+</div>
+
