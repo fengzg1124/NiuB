@@ -139,18 +139,19 @@
 		 		var toPageNum = $("#toPageNum").val();
 				
 				if(toPageNum == ""){
-	 				alert("请输入要跳转页面的页数");
+					toastr.warning("请输入要跳转页面的页数！");
 	 				$("#toPageNum").focus();
 	 				return;
 	 			}
 	 			var arr =new RegExp("^[0-9]*$");
 	 			if(!arr.exec(toPageNum)){
-	 				alert("输入内容非法，请输入正确数字");
+	 				toastr.warning("输入内容非法，请输入正确数字！");
 	 				$("#toPageNum").val("").focus();
 	 				return;
 	 			}
 				if(parseInt(toPageNum) > parseInt(pages) || 1 > parseInt(toPageNum)){
-					alert("输入页数超出范围，请出新输入");
+					//alert("输入页数超出范围，请出新输入");
+					toastr.warning('跳转失败','输入页数超出范围，请重新输入！');
 	 				$("#toPageNum").val("").focus();
 	 				return;
 	 			 }
