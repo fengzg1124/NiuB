@@ -31,6 +31,8 @@ public class AdminUserController {
 		
 		HttpSession session = request.getSession();
 		User adminuser = (User) session.getAttribute("adminUser");
+		String formData = request.getParameter("formData");
+		System.out.println(formData);
 		//分页页码
 		int pageNum = Integer.valueOf(StringUtils.isBlank(request.getParameter("pageNum"))?"1":request.getParameter("pageNum"));
 		//列表行数

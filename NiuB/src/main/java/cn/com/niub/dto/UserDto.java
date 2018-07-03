@@ -34,6 +34,8 @@ public class UserDto {
     private Date updateTime;
 
     private String parentId;
+    
+    private String parentName;
 
     private String hierarchyId;
 
@@ -216,7 +218,15 @@ public class UserDto {
         this.type = type == null ? null : type.trim();
     }
 
-    @Override
+    public String getParentName() {
+		return parentName;
+	}
+
+	public void setParentName(String parentName) {
+		this.parentName = parentName;
+	}
+
+	@Override
     public boolean equals(Object that) {
         if (this == that) {
             return true;
@@ -242,6 +252,7 @@ public class UserDto {
             && (this.getUpdator() == null ? other.getUpdator() == null : this.getUpdator().equals(other.getUpdator()))
             && (this.getUpdateTime() == null ? other.getUpdateTime() == null : this.getUpdateTime().equals(other.getUpdateTime()))
             && (this.getParentId() == null ? other.getParentId() == null : this.getParentId().equals(other.getParentId()))
+            && (this.getParentName() == null ? other.getParentName() == null : this.getParentName().equals(other.getParentName()))
             && (this.getHierarchyId() == null ? other.getHierarchyId() == null : this.getHierarchyId().equals(other.getHierarchyId()))
             && (this.getIp() == null ? other.getIp() == null : this.getIp().equals(other.getIp()))
             && (this.getAdd1() == null ? other.getAdd1() == null : this.getAdd1().equals(other.getAdd1()))
@@ -268,6 +279,7 @@ public class UserDto {
         result = prime * result + ((getUpdator() == null) ? 0 : getUpdator().hashCode());
         result = prime * result + ((getUpdateTime() == null) ? 0 : getUpdateTime().hashCode());
         result = prime * result + ((getParentId() == null) ? 0 : getParentId().hashCode());
+        result = prime * result + ((getParentName() == null) ? 0 : getParentName().hashCode());
         result = prime * result + ((getHierarchyId() == null) ? 0 : getHierarchyId().hashCode());
         result = prime * result + ((getIp() == null) ? 0 : getIp().hashCode());
         result = prime * result + ((getAdd1() == null) ? 0 : getAdd1().hashCode());
