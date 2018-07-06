@@ -1,0 +1,127 @@
+
+
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>菜单增加</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a href="/adminLogin">首页</a>
+            </li>
+            <li>
+                <a>系统管理</a>
+            </li>
+            <li class="active">
+                <strong>菜单增加</strong>
+            </li>
+        </ol>
+    </div>
+    <div class="col-lg-2">
+    </div>
+</div>
+<div class="wrapper wrapper-content animated fadeIn">
+	<div class="p-w-md m-t-sm">
+		<div class="row">
+			<div class="col-lg-12">
+				<div class="ibox float-e-margins">
+					<div class="ibox-title">
+						<h5>菜单增加</h5>
+						<div class="ibox-tools">
+							<a class="collapse-link"> <i class="fa fa-chevron-up"></i>
+							</a> <a class="close-link"> <i class="fa fa-times"></i>
+							</a>
+						</div>
+					</div>
+					<div class="ibox-content">
+						<form id="mainForm" action=""  class="form-horizontal">
+							<div class="form-group">
+								<label class="col-sm-2 control-label">名称</label>
+	                            <div class="col-sm-2">
+	                            	<input type="text" id="menuName" name="menuName" th:value="${dto.menuName}" class="form-control" />
+	                            </div>
+	                        
+	                        	<label class="col-sm-1 control-label">地址</label>
+	                            <div class="col-sm-2">
+	                            	<input type="text" id="menuUrl" name="menuUrl" th:value="${dto.menuUrl}" class="form-control" />
+	                            </div>
+	                            
+	                            <label class="col-sm-1 control-label">层级</label>
+                                <div class="col-sm-2">
+	                            	<input type="text" id="mark" name="mark" th:value="${dto.mark}" class="form-control" />
+	                            </div>
+	                        </div>
+	                        <div class="form-group">
+								<label class="col-sm-2 control-label">说明</label>
+	                            <div class="col-sm-2">
+	                            	<input type="text" id="menuDesc" name="menuDesc" th:value="${dto.menuDesc}" class="form-control" />
+	                            </div>
+	                        
+	                        	<label class="col-sm-1 control-label">排序</label>
+	                            <div class="col-sm-2">
+	                            	<input type="text" id="menuIndex" name="menuIndex" th:value="${dto.menuIndex}" class="form-control" />
+	                            </div>
+	                            
+	                            <label class="col-sm-1 control-label">上级</label>
+                                <div class="col-sm-2">
+	                            	<input type="text" id="parentId" name="parentId" th:value="${dto.parentId}" class="form-control" />
+	                            </div>
+	                        </div>
+	                        
+	                        <div class="form-group">
+                                <div class="col-sm-4 col-sm-offset-5">
+                                    <button class="btn btn-primary" type="button" onclick="save()">保存</button>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;
+                                    <button class="btn btn-white" type="button" onclick="cancel()">取消</button>
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+						</form>
+						
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script th:inline="javascript">  
+/*<![CDATA[*/  
+	
+ 	//增加
+ 	function save() {
+	
+ 		var formData = arrayToJson($('#mainForm').serializeArray())
+ 		$.ajax({
+		    url: '/menu/menuSave',
+		    data: formData,
+		    type: 'post',
+		    success: function(data) { 
+		    	if("1"==data){
+	 				toastr.success("保存成功！");
+	 				$("#right").load("/menu/menuList");
+	 			}else if("-1"==data){
+	 				toastr.warning("保存失败,提交内容为空！");
+	 			}
+		     },
+		     error: function() {	
+		    	 toastr.warning("保存失败！");
+		     }
+		 }); 
+	
+	
+ 		/* $("#right").load("/menu/menuSave",
+ 			function (message) {
+	 			if("1"==message){
+	 				toastr.success("保存成功！");
+	 				$("#right").load("/menu/menuList");
+	 			}else if("-1"==message){
+	 				toastr.warning("保存失败,提交内容为空！");
+	 			}
+			}
+ 		); */
+	}
+ 	//取消
+ 	function cancel() {
+ 		$("#right").load("/menu/menuList");
+	}
+/*]]>*/  
+</script> 

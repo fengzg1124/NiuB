@@ -48,6 +48,10 @@ public class UserDto {
     private String add3;
 
     private String type;
+    
+    private Date startTime;
+    
+    private Date endTime;
 
     public UserDto() {
 	}
@@ -226,6 +230,22 @@ public class UserDto {
 		this.parentName = parentName;
 	}
 
+	public Date getStartTime() {
+		return startTime;
+	}
+
+	public void setStartTime(Date startTime) {
+		this.startTime = startTime;
+	}
+
+	public Date getEndTime() {
+		return endTime;
+	}
+
+	public void setEndTime(Date endTime) {
+		this.endTime = endTime;
+	}
+
 	@Override
     public boolean equals(Object that) {
         if (this == that) {
@@ -258,7 +278,9 @@ public class UserDto {
             && (this.getAdd1() == null ? other.getAdd1() == null : this.getAdd1().equals(other.getAdd1()))
             && (this.getAdd2() == null ? other.getAdd2() == null : this.getAdd2().equals(other.getAdd2()))
             && (this.getAdd3() == null ? other.getAdd3() == null : this.getAdd3().equals(other.getAdd3()))
-            && (this.getType() == null ? other.getType() == null : this.getType().equals(other.getType()));
+            && (this.getType() == null ? other.getType() == null : this.getType().equals(other.getType()))
+            && (this.getStartTime() == null ? other.getStartTime() == null : this.getStartTime().equals(other.getStartTime()))
+            && (this.getEndTime() == null ? other.getEndTime() == null : this.getEndTime().equals(other.getEndTime()));
     }
 
     @Override
@@ -286,6 +308,8 @@ public class UserDto {
         result = prime * result + ((getAdd2() == null) ? 0 : getAdd2().hashCode());
         result = prime * result + ((getAdd3() == null) ? 0 : getAdd3().hashCode());
         result = prime * result + ((getType() == null) ? 0 : getType().hashCode());
+        result = prime * result + ((getStartTime() == null) ? 0 : getStartTime().hashCode());
+        result = prime * result + ((getEndTime() == null) ? 0 : getEndTime().hashCode());
         return result;
     }
 }

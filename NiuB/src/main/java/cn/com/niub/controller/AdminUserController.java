@@ -12,11 +12,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.alibaba.fastjson.JSON;
 import com.github.pagehelper.Page;
 
 import cn.com.niub.domain.User;
 import cn.com.niub.domain.UserExample;
 import cn.com.niub.domain.UserExample.Criteria;
+import cn.com.niub.dto.UserDto;
 import cn.com.niub.service.UserService;
 
 @Controller
@@ -27,33 +29,80 @@ public class AdminUserController {
 	UserService userService;
 	
 	@RequestMapping(value="/userList")
-	public String getUserList(Model model,HttpServletRequest request) {
+	public String getUserList(Model model,HttpServletRequest request,String formData,
+			String pageNum,String pageSize) {
+		
 		
 		HttpSession session = request.getSession();
 		User adminuser = (User) session.getAttribute("adminUser");
-		String formData = request.getParameter("formData");
-		System.out.println(formData);
+		//String formData = request.getParameter("formData");
+		
+		UserDto dto = new UserDto();
+		
+		if(StringUtils.isNotBlank(formData)){
+			dto = JSON.parseObject(formData,UserDto.class);
+		}
+		
 		//分页页码
-		int pageNum = Integer.valueOf(StringUtils.isBlank(request.getParameter("pageNum"))?"1":request.getParameter("pageNum"));
+		pageNum = StringUtils.isBlank(pageNum)?"1":pageNum;
 		//列表行数
-		int pageSize= Integer.valueOf(StringUtils.isBlank(request.getParameter("pageSize"))?"10":request.getParameter("pageSize"));
+		pageSize = StringUtils.isBlank(pageSize)?"10":pageSize;
+		
 		//查询用户列表
-		Page<User> users = getUserList(adminuser.getId(),pageNum,pageSize);
+		Page<User> users = getUserList(adminuser.getId(),dto,Integer.valueOf(pageNum),Integer.valueOf(pageSize));
+		model.addAttribute("dto", dto);
 		model.addAttribute("page", users);
 		return "admin/system/user/userList";
 	}
 	
 	
 	//查询用户列表
-	public Page<User> getUserList(String userid,int pageNum,int pageSize){
+	public Page<User> getUserList(String userid,UserDto dto,int pageNum,int pageSize){
 		//查询用户信息
 		UserExample examplec = new UserExample();
 		Criteria criteriac = examplec.createCriteria();
 		criteriac.andHierarchyIdLike("%"+userid+"%");
-		List<Integer> st = new ArrayList<Integer>();
-		st.add(1);
-		st.add(2);
-		criteriac.andStateIn(st);
+		
+		if(dto!=null){
+			if(StringUtils.isNotBlank(dto.getUserName())){
+				criteriac.andUserNameLike("%"+dto.getUserName()+"%");
+			}
+			if(StringUtils.isNotBlank(dto.getPhoneNumber())){
+				criteriac.andPhoneNumberEqualTo(dto.getPhoneNumber());
+			}
+			if(null!=dto.getStartTime()){
+				criteriac.andCreateTimeGreaterThanOrEqualTo(dto.getStartTime());
+			}
+			if(null!=dto.getEndTime()){
+				criteriac.andCreateTimeLessThanOrEqualTo(dto.getEndTime());
+			}
+			if(null!=dto.getState()){
+				criteriac.andStateEqualTo(dto.getState());
+			}else{
+				List<Integer> st = new ArrayList<Integer>();
+				st.add(1);
+				st.add(2);
+				criteriac.andStateIn(st);
+			}
+			if(StringUtils.isNotBlank(dto.getType())){
+				criteriac.andTypeEqualTo(dto.getType());
+			}
+			if(StringUtils.isNotBlank(dto.getParentName())){
+				UserExample exam = new UserExample();
+				Criteria crit = exam.createCriteria();
+				crit.andUserNameLike("%"+dto.getParentName()+"%");
+				List<User> pUser = userService.findUsers(exam);
+				List<String> pId = new ArrayList<>();
+				for(User pu:pUser){
+					pId.add(pu.getId());
+				}
+				if(pId.size()>0){
+					criteriac.andParentIdIn(pId);
+				}
+			}
+		}
+		
+		
 		Page<User> users = userService.findUsersPage(examplec,pageNum,pageSize);
 		if(!"ee3653fe07cc4513b41319090a2516be".equals(userid)){
 			for(User us:users){
@@ -62,6 +111,9 @@ public class AdminUserController {
 					us.setPhoneNumber("***********");
 				}
 			}
+		}
+		for(User us:users){
+			us.setParentId(userService.findUserById(us.getParentId()).getUserName());
 		}
 		return users;
 	}
