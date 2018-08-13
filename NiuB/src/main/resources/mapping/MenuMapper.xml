@@ -116,6 +116,19 @@
       order by ${orderByClause}
     </if>
   </select>
+    <select id="selectByMenu" parameterType="cn.com.niub.domain.MenuExample" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from tbl_menu
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_menu
+  </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
@@ -313,6 +326,56 @@
       </if>
       <if test="record.smallIconPath != null">
         SMALL_ICON_PATH = #{record.smallIconPath,jdbcType=LONGVARBINARY},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+    <update id="updateByMenuSelective" parameterType="map">
+    update tbl_menu
+    <set>
+      <if test="record.id != null">
+        ID = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.menuName != null">
+        MENU_NAME = #{record.menuName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.menuUrl != null">
+        MENU_URL = #{record.menuUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createdBy != null">
+        CREATED_BY = #{record.createdBy,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createdTime != null">
+        CREATED_time = #{record.createdTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.delFlag != null">
+        DEL_FLAG = #{record.delFlag,jdbcType=INTEGER},
+      </if>
+      <if test="record.flag != null">
+        FLAG = #{record.flag,jdbcType=INTEGER},
+      </if>
+      <if test="record.updateBy != null">
+        update_BY = #{record.updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updateDate != null">
+        update_DATE = #{record.updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.mark != null">
+        MARK = #{record.mark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.menuDesc != null">
+        MENU_DESC = #{record.menuDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.menuIndex != null">
+        MENU_INDEX = #{record.menuIndex,jdbcType=INTEGER},
+      </if>
+      <if test="record.remark != null">
+        REMARK = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.parentId != null">
+        PARENT_ID = #{record.parentId,jdbcType=VARCHAR},
       </if>
     </set>
     <if test="_parameter != null">

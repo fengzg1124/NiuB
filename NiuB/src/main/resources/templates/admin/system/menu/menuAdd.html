@@ -33,6 +33,7 @@
 					</div>
 					<div class="ibox-content">
 						<form id="mainForm" action=""  class="form-horizontal">
+							<input type="hidden" name="id" id="id" th:value="${dto.id}" />
 							<div class="form-group">
 								<label class="col-sm-2 control-label">名称</label>
 	                            <div class="col-sm-2">
@@ -62,7 +63,27 @@
 	                            
 	                            <label class="col-sm-1 control-label">上级</label>
                                 <div class="col-sm-2">
-	                            	<input type="text" id="parentId" name="parentId" th:value="${dto.parentId}" class="form-control" />
+	                            	<input type="text" id="parentName" name="parentName" th:value="${dto.parentName}" data-toggle="modal" data-target="#myModal4" class="form-control" />
+	                            	<input type="hidden" id="parentId" name="parentId" th:value="${dto.parentId}"/>
+	                            	<div class="modal inmodal" id="myModal4" tabindex="-1" role="dialog"  aria-hidden="true">
+		                                <div class="modal-dialog">
+		                                    <div class="modal-content animated fadeIn">
+		                                        <div id="jstree1">
+							                        <ul>
+							                            <li class="jstree-open" id="11111111111111111111111111111111">菜单列表
+							                                <ul th:each="menu,menuState:${menus}">
+							                                    <li th:if="${menu.mark=='1'}" th:id="${menu.id}" th:text="${menu.menuName}"></li>
+							                                </ul>
+							                            </li>
+							                        </ul>
+							                    </div>
+		                                        <div class="modal-footer">
+		                                            <button type="button" class="btn btn-white" data-dismiss="modal">取消</button>
+		                                            <button type="button" class="btn btn-primary" onclick="saveParentName()" data-dismiss="modal">确定</button>
+		                                        </div>
+		                                    </div>
+		                                </div>
+		                            </div>
 	                            </div>
 	                        </div>
 	                        
@@ -75,7 +96,7 @@
                             </div>
                             <div class="hr-line-dashed"></div>
 						</form>
-						
+						<div id="using_json"></div>
 					</div>
 				</div>
 			</div>
@@ -86,14 +107,69 @@
 <script th:inline="javascript">  
 /*<![CDATA[*/  
 	
+	var validator;
+ 	
+ 	var parentName='';
+ 	var parentId='';
+ 	
+ 	$(document).ready(function(){
+ 		
+		$('#jstree1').jstree({
+			'core' : {
+				'check_callback' : true
+			}
+		});
+		
+		$('#jstree1').on("changed.jstree", function(e, data) {
+			parentName=data.instance.get_selected(true)[0].text;
+			parentId=data.selected;
+		});
+
+		validator = $("#mainForm").validate({
+			rules : {
+				menuName : {
+					required : true,
+					maxlength : 10
+				},
+				menuUrl : {
+					required : true,
+					maxlength : 50
+				},
+				mark : {
+					required : true,
+					maxlength : 1
+				},
+				menuDesc : {
+					required : true,
+					maxlength : 50
+				},
+				menuIndex : {
+					required : true,
+					maxlength : 3
+				}
+			}
+			
+		});
+	});
+ 	
+ 	//菜单赋值
+ 	function saveParentName() {
+ 		$("#parentName").val(parentName);
+ 		$("#parentId").val(parentId);
+	}
  	//增加
  	function save() {
-	
- 		var formData = arrayToJson($('#mainForm').serializeArray())
+ 		
+ 		if(!validator.form()){
+ 			return false;
+ 		}
+		
+ 		var formData = arrayToJson($('#mainForm').serializeArray());
  		$.ajax({
 		    url: '/menu/menuSave',
-		    data: formData,
+		    data: {"formData":formData},
 		    type: 'post',
+		    dataType: "text",
 		    success: function(data) { 
 		    	if("1"==data){
 	 				toastr.success("保存成功！");
@@ -105,23 +181,13 @@
 		     error: function() {	
 		    	 toastr.warning("保存失败！");
 		     }
-		 }); 
+		}); 
 	
-	
- 		/* $("#right").load("/menu/menuSave",
- 			function (message) {
-	 			if("1"==message){
-	 				toastr.success("保存成功！");
-	 				$("#right").load("/menu/menuList");
-	 			}else if("-1"==message){
-	 				toastr.warning("保存失败,提交内容为空！");
-	 			}
-			}
- 		); */
+		
 	}
  	//取消
  	function cancel() {
  		$("#right").load("/menu/menuList");
 	}
-/*]]>*/  
+	/*]]>*/
 </script> 
