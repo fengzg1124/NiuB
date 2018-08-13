@@ -22,12 +22,18 @@ public interface MenuMapper {
     int insertSelective(MenuWithBLOBs record);
 
     List<MenuWithBLOBs> selectByExampleWithBLOBs(MenuExample example);
+    
+    List<Menu> selectAll();
 
     Page<Menu> selectByExamplePage(MenuExample example);
+    
+    List<Menu> selectByMenu(MenuExample example);
     
     Menu selectByPrimaryKey(String id);
 
     int updateByExampleSelective(@Param("record") MenuWithBLOBs record, @Param("example") MenuExample example);
+    
+    int updateByMenuSelective(@Param("record") Menu record, @Param("example") MenuExample example);
 
     int updateByExampleWithBLOBs(@Param("record") MenuWithBLOBs record, @Param("example") MenuExample example);
 

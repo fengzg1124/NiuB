@@ -34,6 +34,8 @@ public class MenuDto {
     private String remark;
 
     private String parentId;
+    
+    private String parentName;
 
     public MenuDto(){
     }
@@ -156,7 +158,15 @@ public class MenuDto {
         this.parentId = parentId == null ? null : parentId.trim();
     }
 
-    @Override
+    public String getParentName() {
+		return parentName;
+	}
+
+	public void setParentName(String parentName) {
+		this.parentName = parentName;
+	}
+
+	@Override
     public boolean equals(Object that) {
         if (this == that) {
             return true;
@@ -181,7 +191,8 @@ public class MenuDto {
             && (this.getMenuDesc() == null ? other.getMenuDesc() == null : this.getMenuDesc().equals(other.getMenuDesc()))
             && (this.getMenuIndex() == null ? other.getMenuIndex() == null : this.getMenuIndex().equals(other.getMenuIndex()))
             && (this.getRemark() == null ? other.getRemark() == null : this.getRemark().equals(other.getRemark()))
-            && (this.getParentId() == null ? other.getParentId() == null : this.getParentId().equals(other.getParentId()));
+            && (this.getParentId() == null ? other.getParentId() == null : this.getParentId().equals(other.getParentId()))
+            && (this.getParentName() == null ? other.getParentName() == null : this.getParentName().equals(other.getParentName()));
     }
 
     @Override
@@ -202,6 +213,7 @@ public class MenuDto {
         result = prime * result + ((getMenuIndex() == null) ? 0 : getMenuIndex().hashCode());
         result = prime * result + ((getRemark() == null) ? 0 : getRemark().hashCode());
         result = prime * result + ((getParentId() == null) ? 0 : getParentId().hashCode());
+        result = prime * result + ((getParentName() == null) ? 0 : getParentName().hashCode());
         return result;
     }
 }
