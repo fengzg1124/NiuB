@@ -4,6 +4,7 @@
   <resultMap id="BaseResultMap" type="cn.com.niub.domain.RoleMenu">
     <result column="role_Id" jdbcType="VARCHAR" property="roleId" />
     <result column="menu_Id" jdbcType="VARCHAR" property="menuId" />
+    <result column="id" jdbcType="VARCHAR" property="id" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -64,7 +65,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    role_Id, menu_Id
+    role_Id, menu_Id, id
   </sql>
   <select id="selectByExample" parameterType="cn.com.niub.domain.RoleMenuExample" resultMap="BaseResultMap">
     select
@@ -87,8 +88,8 @@
     </if>
   </delete>
   <insert id="insert" parameterType="cn.com.niub.domain.RoleMenu">
-    insert into tbl_role_menu (role_Id, menu_Id)
-    values (#{roleId,jdbcType=VARCHAR}, #{menuId,jdbcType=VARCHAR})
+    insert into tbl_role_menu (role_Id, menu_Id, id)
+    values (#{roleId,jdbcType=VARCHAR}, #{menuId,jdbcType=VARCHAR}, #{id,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="cn.com.niub.domain.RoleMenu">
     insert into tbl_role_menu
@@ -99,6 +100,9 @@
       <if test="menuId != null">
         menu_Id,
       </if>
+      <if test="id != null">
+        id,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="roleId != null">
@@ -106,6 +110,9 @@
       </if>
       <if test="menuId != null">
         #{menuId,jdbcType=VARCHAR},
+      </if>
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -123,6 +130,9 @@
       </if>
       <if test="record.menuId != null">
         menu_Id = #{record.menuId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=VARCHAR},
       </if>
     </set>
     <if test="_parameter != null">

@@ -17,6 +17,23 @@
     <result column="REMARK" jdbcType="VARCHAR" property="remark" />
     <result column="PARENT_ID" jdbcType="VARCHAR" property="parentId" />
   </resultMap>
+  <resultMap id="DtoBaseResultMap" type="cn.com.niub.dto.MenuDto">
+    <result column="ID" jdbcType="VARCHAR" property="id" />
+    <result column="MENU_NAME" jdbcType="VARCHAR" property="menuName" />
+    <result column="MENU_URL" jdbcType="VARCHAR" property="menuUrl" />
+    <result column="CREATED_BY" jdbcType="VARCHAR" property="createdBy" />
+    <result column="CREATED_time" jdbcType="TIMESTAMP" property="createdTime" />
+    <result column="DEL_FLAG" jdbcType="INTEGER" property="delFlag" />
+    <result column="FLAG" jdbcType="INTEGER" property="flag" />
+    <result column="update_BY" jdbcType="VARCHAR" property="updateBy" />
+    <result column="update_DATE" jdbcType="TIMESTAMP" property="updateDate" />
+    <result column="MARK" jdbcType="VARCHAR" property="mark" />
+    <result column="MENU_DESC" jdbcType="VARCHAR" property="menuDesc" />
+    <result column="MENU_INDEX" jdbcType="INTEGER" property="menuIndex" />
+    <result column="REMARK" jdbcType="VARCHAR" property="remark" />
+    <result column="PARENT_ID" jdbcType="VARCHAR" property="parentId" />
+    <result column="ROLEFLAG" jdbcType="VARCHAR" property="roleFlag" />
+  </resultMap>
   <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="cn.com.niub.domain.MenuWithBLOBs">
     <result column="ICON_PATH" jdbcType="LONGVARBINARY" property="iconPath" />
     <result column="SMALL_ICON_PATH" jdbcType="LONGVARBINARY" property="smallIconPath" />
@@ -82,6 +99,10 @@
   <sql id="Base_Column_List">
     ID, MENU_NAME, MENU_URL, CREATED_BY, CREATED_time, DEL_FLAG, FLAG, update_BY, update_DATE, 
     MARK, MENU_DESC, MENU_INDEX, REMARK, PARENT_ID
+  </sql>
+  <sql id="DtoBase_Column_List">
+    M.ID, M.MENU_NAME, M.MENU_URL, M.CREATED_BY, M.CREATED_time, M.DEL_FLAG, M.FLAG, M.update_BY, M.update_DATE, 
+    M.MARK, M.MENU_DESC, M.MENU_INDEX, M.REMARK, M.PARENT_ID
   </sql>
   <sql id="Blob_Column_List">
     ICON_PATH, SMALL_ICON_PATH
@@ -275,6 +296,24 @@
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
+  </select>
+  <select id="selectMenuAndRoleFlag" resultMap="DtoBaseResultMap">
+  	SELECT 
+  	<include refid="DtoBase_Column_List" /> , 
+  	1 ROLEFLAG
+	FROM TBL_ROLE D, TBL_ROLE_MENU A, TBL_MENU M
+	WHERE D.ID = A.ROLE_ID
+	AND M.ID = A.MENU_ID
+	AND M.DEL_FLAG = '1'
+    AND M.FLAG = '1'
+	UNION
+	SELECT 
+	<include refid="DtoBase_Column_List" /> , 
+	2 ROLEFLAG
+	FROM TBL_MENU M
+	WHERE M.DEL_FLAG = '1'
+    AND M.FLAG = '1'
+    AND M.ID NOT IN (SELECT A.menu_Id FROM TBL_ROLE_MENU A)
   </select>
   <update id="updateByExampleSelective" parameterType="map">
     update tbl_menu

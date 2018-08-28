@@ -12,7 +12,49 @@
     <result column="add1" jdbcType="VARCHAR" property="add1" />
     <result column="add2" jdbcType="VARCHAR" property="add2" />
     <result column="add3" jdbcType="VARCHAR" property="add3" />
+    <result column="del_flag" jdbcType="INTEGER" property="delFlag" />
   </resultMap>
+  
+  <sql id="Where_Clause">
+    <where>
+      <trim prefixOverrides="AND" > 
+	      <if test="id != null">
+	        AND ID = #{id}
+	      </if>
+	      <if test="roleName != null and roleName != ''">
+	        AND ROLE_NAME LIKE = '%#{roleName}%'
+	      </if>
+	      <if test="roleCode != null and roleCode != ''">
+	        AND ROLE_CODE = #{roleCode}
+	      </if>
+	      <if test="creator != null">
+	        AND CREATOR = #{creator}
+	      </if>
+	      <if test="createTime != null">
+	        AND DATE_FORMAT(CREATE_TIME,'%Y-%m-%d %H:%i:%s') = #{createTime}
+	      </if>
+	      <if test="updator != null">
+	        AND UPDATOR = #{updator}
+	      </if>
+	      <if test="updateTime != null">
+	        AND DATE_FORMAT(UPDATE_TIME,'%Y-%m-%d %H:%i:%s') = #{updateTime}
+	      </if>
+	      <if test="add1 != null">
+	        AND ADD1 = #{add1}
+	      </if>
+	      <if test="add2 != null">
+	        AND ADD2 = #{add2}
+	      </if>
+	      <if test="add3 != null">
+	        AND ADD3 = #{add3}
+	  	  </if>
+	  	  <if test="delFlag != null">
+	        AND del_flag = #{delFlag}
+	  	  </if>
+	   </trim>
+    </where>
+  </sql>
+  
   <sql id="Example_Where_Clause">
     <where>
       <foreach collection="oredCriteria" item="criteria" separator="or">
@@ -73,7 +115,7 @@
   </sql>
   <sql id="Base_Column_List">
     id, role_name, role_code, creator, create_time, updator, update_time, add1, add2, 
-    add3
+    add3, del_flag
   </sql>
   <select id="selectByExample" parameterType="cn.com.niub.domain.RoleExample" resultMap="BaseResultMap">
     select
@@ -89,6 +131,14 @@
       order by ${orderByClause}
     </if>
   </select>
+  
+  <select id="selectByRolePage" parameterType="cn.com.niub.domain.Role" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from tbl_role
+    <include refid="Where_Clause" />
+  </select>
+  
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
@@ -109,11 +159,11 @@
     insert into tbl_role (id, role_name, role_code, 
       creator, create_time, updator, 
       update_time, add1, add2, 
-      add3)
+      add3, del_flag)
     values (#{id,jdbcType=VARCHAR}, #{roleName,jdbcType=VARCHAR}, #{roleCode,jdbcType=VARCHAR}, 
       #{creator,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updator,jdbcType=VARCHAR}, 
       #{updateTime,jdbcType=TIMESTAMP}, #{add1,jdbcType=VARCHAR}, #{add2,jdbcType=VARCHAR}, 
-      #{add3,jdbcType=VARCHAR})
+      #{add3,jdbcType=VARCHAR}, #{delFlag,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="cn.com.niub.domain.Role">
     insert into tbl_role
@@ -148,6 +198,9 @@
       <if test="add3 != null">
         add3,
       </if>
+      <if test="delFlag != null">
+        del_flag,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -179,6 +232,9 @@
       </if>
       <if test="add3 != null">
         #{add3,jdbcType=VARCHAR},
+      </if>
+      <if test="delFlag != null">
+        #{del_flag,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -221,6 +277,9 @@
       <if test="record.add3 != null">
         add3 = #{record.add3,jdbcType=VARCHAR},
       </if>
+      <if test="record.delFlag != null">
+        del_flag = #{record.delFlag,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -237,7 +296,8 @@
       update_time = #{record.updateTime,jdbcType=TIMESTAMP},
       add1 = #{record.add1,jdbcType=VARCHAR},
       add2 = #{record.add2,jdbcType=VARCHAR},
-      add3 = #{record.add3,jdbcType=VARCHAR}
+      add3 = #{record.add3,jdbcType=VARCHAR},
+      del_flag = #{record.delFlag,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -272,6 +332,9 @@
       <if test="add3 != null">
         add3 = #{add3,jdbcType=VARCHAR},
       </if>
+      <if test="delFlag != null">
+        del_flag = #{delFlag,jdbcType=VARCHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=VARCHAR}
   </update>
@@ -285,7 +348,8 @@
       update_time = #{updateTime,jdbcType=TIMESTAMP},
       add1 = #{add1,jdbcType=VARCHAR},
       add2 = #{add2,jdbcType=VARCHAR},
-      add3 = #{add3,jdbcType=VARCHAR}
+      add3 = #{add3,jdbcType=VARCHAR},
+      del_flag = #{delFlag,jdbcType=VARCHAR}
     where id = #{id,jdbcType=VARCHAR}
   </update>
 </mapper>

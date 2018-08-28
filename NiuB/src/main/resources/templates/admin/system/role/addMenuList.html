@@ -1,0 +1,130 @@
+
+
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>增加菜单权限</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a href="/adminLogin">首页</a>
+            </li>
+            <li>
+                <a>系统管理</a>
+            </li>
+            <li class="active">
+                <strong>增加菜单权限</strong>
+            </li>
+        </ol>
+    </div>
+    <div class="col-lg-2">
+    </div>
+</div>
+<div class="wrapper wrapper-content animated fadeIn">
+	<div class="p-w-md m-t-sm">
+		<div class="row">
+			<div class="col-lg-12">
+				<div class="ibox float-e-margins">
+					<div class="ibox-content">
+						<form id="mainForm" action=""  class="form-horizontal">
+							<input type="hidden" name="id" id="id" th:value="${id}" />
+	                        <div class="zTreeDemoBackground" id="using_json">
+								<ul id="tree" class="ztree"></ul>
+							</div>
+	                        <div class="form-group">
+                                <div class="col-sm-4 col-sm-offset-5">
+                                    <button class="btn btn-primary" type="button" onclick="save()">保存</button>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;
+                                    <button class="btn btn-white" type="button" onclick="cancel()">取消</button>
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed" ></div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script th:inline="javascript">  
+/*<![CDATA[*/  
+	
+ 	$(document).ready(function(){
+		
+ 		var setting = {
+			check: {
+				enable: true,
+				chkboxType: { "Y": "ps", "N": "ps" },
+			},
+			async: {
+				enable: true,   //设置启用异步加载
+				type: "get",   //异步加载类型:post和get
+				url: "/role/roleMenuList",  //定义数据请求路径
+			},
+			data: {
+				simpleData: {
+					enable: true
+				}
+			},
+			callback: {
+				onCheck: zTreeOnCheck
+			}
+		};
+			
+		$(document).ready(function(){
+			$.fn.zTree.init($("#tree"), setting, null);
+		});
+		
+	});
+	
+ 	var ids="";
+ 	function zTreeOnCheck(event, treeId, treeNode) {
+ 		var treeObj=$.fn.zTree.getZTreeObj("tree");
+        nodes=treeObj.getCheckedNodes(true);
+ 		
+        ids=""
+        
+        for(var i=0;i<nodes.length;i++){
+        	//v+=nodes[i].name + ",";
+        	//if("11111111111111111111111111111111"!=nodes[i].id){
+        		ids+=nodes[i].id + ",";
+        	//}
+        }
+        ids = ids.substring(0,ids.length-1);
+        alert(ids);
+ 	}
+ 	
+ 	
+ 	//增加
+ 	function save() {
+ 		
+ 		var id = $("#id").val();
+ 		if(parseInt(ids.length)<=0){
+ 			toastr.warning("保存失败,提交内容为空！");
+ 			return false;
+ 		}
+		
+ 		$.ajax({
+		    url: '/role/saveRoleMenu',
+		    data: {"id":id,"ids":ids},
+		    type: 'post',
+		    dataType: "text",
+		    success: function(data) { 
+		    	if("1"==data){
+	 				toastr.success("保存成功！");
+	 				$("#right").load("/role/roleList");
+	 			}else if("-1"==data){
+	 				toastr.warning("保存失败！");
+	 			}
+		     },
+		     error: function() {	
+		    	 toastr.warning("保存失败！");
+		     }
+		});
+		
+	}
+ 	//取消
+ 	function cancel() {
+ 		$("#right").load("/role/roleList");
+	}
+	/*]]>*/
+</script> 
