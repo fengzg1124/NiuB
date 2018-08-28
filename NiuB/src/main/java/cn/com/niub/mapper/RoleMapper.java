@@ -5,6 +5,8 @@ import cn.com.niub.domain.RoleExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
+import com.github.pagehelper.Page;
+
 public interface RoleMapper {
     long countByExample(RoleExample example);
 
@@ -17,6 +19,8 @@ public interface RoleMapper {
     int insertSelective(Role record);
 
     List<Role> selectByExample(RoleExample example);
+    
+    Page<Role> selectByRolePage(Role role);
 
     Role selectByPrimaryKey(String id);
 

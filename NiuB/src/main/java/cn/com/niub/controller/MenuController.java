@@ -25,6 +25,7 @@ import cn.com.niub.domain.MenuExample.Criteria;
 import cn.com.niub.domain.User;
 import cn.com.niub.dto.MenuDto;
 import cn.com.niub.service.MenuService;
+import cn.com.niub.utils.AbleStatus;
 import cn.com.niub.utils.ControllerUtils;
 
 @Controller
@@ -58,7 +59,7 @@ public class MenuController {
 	
 	@RequestMapping(value="/toMenuAdd")
 	private String toMenuAdd(Model model) {
-		
+		//查询菜单树
 		List<Menu> menus = new ArrayList<>();
 		menus = menuService.findAll();
 		
@@ -84,8 +85,8 @@ public class MenuController {
 				menu.setId(ControllerUtils.getUUID());
 				menu.setCreatedBy(adminuser.getId());
 				menu.setCreatedTime(new Date());
-				menu.setDelFlag(1);
-				menu.setFlag(1);
+				menu.setDelFlag(AbleStatus.usable_1.getCode());
+				menu.setFlag(AbleStatus.usable_1.getCode());
 				menuService.saveMenu(menu);
 			}else{
 				menu.setUpdateBy(adminuser.getId());
@@ -102,8 +103,10 @@ public class MenuController {
 	@RequestMapping(value="/toMenuEdit")
 	private String toMenuEdit(Model model,HttpServletRequest request,String menuIds) {
 		
+		//查询菜单树
 		List<Menu> menus = new ArrayList<>();
 		menus = menuService.findAll();
+		
 		Menu menu = new Menu();
 		
 		if(StringUtils.isNotBlank(menuIds)){
@@ -131,7 +134,25 @@ public class MenuController {
 		
 		List<String> ids = Arrays.asList(menuIds.split(","));  
 		Menu menu = new Menu();
-		menu.setDelFlag(0);
+		menu.setDelFlag(AbleStatus.disabled_0.getCode());
+		
+		menuService.updateMenus(menu,ids);
+		
+		return "redirect:/menu/menuList";
+	}
+	
+	//设置菜单可用不可用
+	@RequestMapping(value="/toMenuAble")
+	private String toMenuAble(Model model,HttpServletRequest request,String menuIds,String able) {
+		
+		List<String> ids = Arrays.asList(menuIds.split(","));  
+		Menu menu = new Menu();
+		if("0".equals(able)){
+			menu.setFlag(AbleStatus.disabled_0.getCode());
+		}
+		if("1".equals(able)){
+			menu.setFlag(AbleStatus.usable_1.getCode());
+		}
 		
 		menuService.updateMenus(menu,ids);
 		

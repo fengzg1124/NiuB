@@ -2,11 +2,17 @@ package cn.com.niub.domain;
 
 import java.util.Date;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
 import org.springframework.beans.BeanUtils;
 
 import cn.com.niub.dto.RoleDto;
 
+@Entity
 public class Role {
+	
+	@Id
     private String id;
 
     private String roleName;
@@ -27,6 +33,8 @@ public class Role {
 
     private String add3;
 
+    private Integer delFlag;
+    
     public Role(){
     }
     
@@ -115,8 +123,17 @@ public class Role {
     public void setAdd3(String add3) {
         this.add3 = add3 == null ? null : add3.trim();
     }
+    
 
-    @Override
+	public Integer getDelFlag() {
+		return delFlag;
+	}
+
+	public void setDelFlag(Integer delFlag) {
+		this.delFlag = delFlag;
+	}
+
+	@Override
     public boolean equals(Object that) {
         if (this == that) {
             return true;
@@ -127,7 +144,7 @@ public class Role {
         if (getClass() != that.getClass()) {
             return false;
         }
-        Role other = (Role) that;
+        RoleDto other = (RoleDto) that;
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
             && (this.getRoleName() == null ? other.getRoleName() == null : this.getRoleName().equals(other.getRoleName()))
             && (this.getRoleCode() == null ? other.getRoleCode() == null : this.getRoleCode().equals(other.getRoleCode()))
@@ -137,7 +154,8 @@ public class Role {
             && (this.getUpdateTime() == null ? other.getUpdateTime() == null : this.getUpdateTime().equals(other.getUpdateTime()))
             && (this.getAdd1() == null ? other.getAdd1() == null : this.getAdd1().equals(other.getAdd1()))
             && (this.getAdd2() == null ? other.getAdd2() == null : this.getAdd2().equals(other.getAdd2()))
-            && (this.getAdd3() == null ? other.getAdd3() == null : this.getAdd3().equals(other.getAdd3()));
+            && (this.getAdd3() == null ? other.getAdd3() == null : this.getAdd3().equals(other.getAdd3()))
+            && (this.getDelFlag() == null ? other.getDelFlag() == null : this.getDelFlag().equals(other.getDelFlag()));
     }
 
     @Override
@@ -154,6 +172,7 @@ public class Role {
         result = prime * result + ((getAdd1() == null) ? 0 : getAdd1().hashCode());
         result = prime * result + ((getAdd2() == null) ? 0 : getAdd2().hashCode());
         result = prime * result + ((getAdd3() == null) ? 0 : getAdd3().hashCode());
+        result = prime * result + ((getDelFlag() == null) ? 0 : getDelFlag().hashCode());
         return result;
     }
 }

@@ -37,6 +37,8 @@ public class MenuDto {
     
     private String parentName;
 
+    private String roleFlag;
+    
     public MenuDto(){
     }
     
@@ -166,6 +168,14 @@ public class MenuDto {
 		this.parentName = parentName;
 	}
 
+	public String getRoleFlag() {
+		return roleFlag;
+	}
+
+	public void setRoleFlag(String roleFlag) {
+		this.roleFlag = roleFlag;
+	}
+
 	@Override
     public boolean equals(Object that) {
         if (this == that) {
@@ -192,7 +202,8 @@ public class MenuDto {
             && (this.getMenuIndex() == null ? other.getMenuIndex() == null : this.getMenuIndex().equals(other.getMenuIndex()))
             && (this.getRemark() == null ? other.getRemark() == null : this.getRemark().equals(other.getRemark()))
             && (this.getParentId() == null ? other.getParentId() == null : this.getParentId().equals(other.getParentId()))
-            && (this.getParentName() == null ? other.getParentName() == null : this.getParentName().equals(other.getParentName()));
+            && (this.getParentName() == null ? other.getParentName() == null : this.getParentName().equals(other.getParentName()))
+            && (this.getRoleFlag() == null ? other.getRoleFlag() == null : this.getRoleFlag().equals(other.getRoleFlag()));
     }
 
     @Override
@@ -214,6 +225,7 @@ public class MenuDto {
         result = prime * result + ((getRemark() == null) ? 0 : getRemark().hashCode());
         result = prime * result + ((getParentId() == null) ? 0 : getParentId().hashCode());
         result = prime * result + ((getParentName() == null) ? 0 : getParentName().hashCode());
+        result = prime * result + ((getRoleFlag() == null) ? 0 : getRoleFlag().hashCode());
         return result;
     }
 }

@@ -5,6 +5,9 @@ import org.springframework.beans.BeanUtils;
 import cn.com.niub.domain.RoleMenu;
 
 public class RoleMenuDto {
+	
+	private String id;
+	
     private String roleId;
 
     private String menuId;
@@ -34,7 +37,15 @@ public class RoleMenuDto {
         this.menuId = menuId == null ? null : menuId.trim();
     }
 
-    @Override
+    public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	@Override
     public boolean equals(Object that) {
         if (this == that) {
             return true;
@@ -45,9 +56,10 @@ public class RoleMenuDto {
         if (getClass() != that.getClass()) {
             return false;
         }
-        RoleMenuDto other = (RoleMenuDto) that;
+        RoleMenu other = (RoleMenu) that;
         return (this.getRoleId() == null ? other.getRoleId() == null : this.getRoleId().equals(other.getRoleId()))
-            && (this.getMenuId() == null ? other.getMenuId() == null : this.getMenuId().equals(other.getMenuId()));
+            && (this.getMenuId() == null ? other.getMenuId() == null : this.getMenuId().equals(other.getMenuId()))
+            && (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()));
     }
 
     @Override
@@ -56,6 +68,7 @@ public class RoleMenuDto {
         int result = 1;
         result = prime * result + ((getRoleId() == null) ? 0 : getRoleId().hashCode());
         result = prime * result + ((getMenuId() == null) ? 0 : getMenuId().hashCode());
+        result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
         return result;
     }
 }

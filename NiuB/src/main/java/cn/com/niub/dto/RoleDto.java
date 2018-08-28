@@ -26,7 +26,9 @@ public class RoleDto {
     private String add2;
 
     private String add3;
-
+    
+    private Integer delFlag;
+    
     public RoleDto(){
     }
     
@@ -116,7 +118,15 @@ public class RoleDto {
         this.add3 = add3 == null ? null : add3.trim();
     }
 
-    @Override
+	public Integer getDelFlag() {
+		return delFlag;
+	}
+
+	public void setDelFlag(Integer delFlag) {
+		this.delFlag = delFlag;
+	}
+
+	@Override
     public boolean equals(Object that) {
         if (this == that) {
             return true;
@@ -137,7 +147,8 @@ public class RoleDto {
             && (this.getUpdateTime() == null ? other.getUpdateTime() == null : this.getUpdateTime().equals(other.getUpdateTime()))
             && (this.getAdd1() == null ? other.getAdd1() == null : this.getAdd1().equals(other.getAdd1()))
             && (this.getAdd2() == null ? other.getAdd2() == null : this.getAdd2().equals(other.getAdd2()))
-            && (this.getAdd3() == null ? other.getAdd3() == null : this.getAdd3().equals(other.getAdd3()));
+            && (this.getAdd3() == null ? other.getAdd3() == null : this.getAdd3().equals(other.getAdd3()))
+            && (this.getDelFlag() == null ? other.getDelFlag() == null : this.getDelFlag().equals(other.getDelFlag()));
     }
 
     @Override
@@ -154,6 +165,7 @@ public class RoleDto {
         result = prime * result + ((getAdd1() == null) ? 0 : getAdd1().hashCode());
         result = prime * result + ((getAdd2() == null) ? 0 : getAdd2().hashCode());
         result = prime * result + ((getAdd3() == null) ? 0 : getAdd3().hashCode());
+        result = prime * result + ((getDelFlag() == null) ? 0 : getDelFlag().hashCode());
         return result;
     }
 }

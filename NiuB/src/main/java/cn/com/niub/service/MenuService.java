@@ -14,6 +14,7 @@ import cn.com.niub.domain.MenuExample;
 import cn.com.niub.domain.MenuExample.Criteria;
 import cn.com.niub.dto.MenuDto;
 import cn.com.niub.mapper.MenuMapper;
+import cn.com.niub.utils.AbleStatus;
 
 @Service
 public class MenuService {
@@ -35,8 +36,7 @@ public class MenuService {
 		if(StringUtils.isNotBlank(dto.getMark())){
 			criteria.andMarkEqualTo(dto.getMark());
 		}
-		criteria.andDelFlagEqualTo(1);
-		
+		criteria.andDelFlagEqualTo(AbleStatus.usable_1.getCode());
 		return menuMapper.selectByExamplePage(example);
 	}
 	//按主键id查找
@@ -48,7 +48,9 @@ public class MenuService {
 	public List<Menu> findAll(){
 		MenuExample example = new MenuExample();
 		Criteria criteria = example.createCriteria();
-		criteria.andDelFlagEqualTo(1);
+		//未删除
+		criteria.andDelFlagEqualTo(AbleStatus.usable_1.getCode());
+		criteria.andFlagEqualTo(AbleStatus.usable_1.getCode());
 		return menuMapper.selectByMenu(example);
 	}
 	
@@ -84,5 +86,10 @@ public class MenuService {
 		Criteria criteria = example.createCriteria();
 		criteria.andIdIn(ids);
 		menuMapper.deleteByExample(example);
+	}
+	
+	//查询全部
+	public List<MenuDto> findRoleMenu(){
+		return menuMapper.selectMenuAndRoleFlag();
 	}
 }

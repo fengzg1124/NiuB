@@ -9,6 +9,7 @@ import com.github.pagehelper.Page;
 import cn.com.niub.domain.Menu;
 import cn.com.niub.domain.MenuExample;
 import cn.com.niub.domain.MenuWithBLOBs;
+import cn.com.niub.dto.MenuDto;
 
 public interface MenuMapper {
     long countByExample(MenuExample example);
@@ -28,6 +29,8 @@ public interface MenuMapper {
     Page<Menu> selectByExamplePage(MenuExample example);
     
     List<Menu> selectByMenu(MenuExample example);
+    
+    List<MenuDto> selectMenuAndRoleFlag();
     
     Menu selectByPrimaryKey(String id);
 

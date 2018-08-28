@@ -49,19 +49,62 @@ public class AdminUserController {
 		pageSize = StringUtils.isBlank(pageSize)?"10":pageSize;
 		
 		//查询用户列表
-		Page<User> users = getUserList(adminuser.getId(),dto,Integer.valueOf(pageNum),Integer.valueOf(pageSize));
+		Page<User> users = getUserList(adminuser.getId(),dto,true,Integer.valueOf(pageNum),Integer.valueOf(pageSize));
+		
+		if(!"ee3653fe07cc4513b41319090a2516be".equals(adminuser.getId())){
+			for(User us:users){
+				if(us.getState()==1){
+					us.setUserName(us.getUserName().substring(0,1));
+					us.setPhoneNumber("***********");
+				}
+			}
+		}
+		
+		
+		model.addAttribute("dto", dto);
+		model.addAttribute("page", users);
+		return "admin/user/userList";
+	}
+	
+	
+	@RequestMapping(value="/toUserManage")
+	public String toUserManage(Model model,HttpServletRequest request,String formData,
+			String pageNum,String pageSize) {
+		
+		
+		HttpSession session = request.getSession();
+		User adminuser = (User) session.getAttribute("adminUser");
+		//String formData = request.getParameter("formData");
+		
+		UserDto dto = new UserDto();
+		
+		if(StringUtils.isNotBlank(formData)){
+			dto = JSON.parseObject(formData,UserDto.class);
+		}
+		
+		//分页页码
+		pageNum = StringUtils.isBlank(pageNum)?"1":pageNum;
+		//列表行数
+		pageSize = StringUtils.isBlank(pageSize)?"10":pageSize;
+		
+		//查询用户列表
+		Page<User> users = getUserList(adminuser.getId(),dto,false,Integer.valueOf(pageNum),Integer.valueOf(pageSize));
 		model.addAttribute("dto", dto);
 		model.addAttribute("page", users);
 		return "admin/system/user/userList";
 	}
 	
 	
+	
 	//查询用户列表
-	public Page<User> getUserList(String userid,UserDto dto,int pageNum,int pageSize){
+	public Page<User> getUserList(String userid,UserDto dto,Boolean hierarchyFlag,int pageNum,int pageSize){
 		//查询用户信息
 		UserExample examplec = new UserExample();
 		Criteria criteriac = examplec.createCriteria();
-		criteriac.andHierarchyIdLike("%"+userid+"%");
+		
+		if(hierarchyFlag){
+			criteriac.andHierarchyIdLike("%"+userid+"%");
+		}
 		
 		if(dto!=null){
 			if(StringUtils.isNotBlank(dto.getUserName())){
@@ -104,16 +147,11 @@ public class AdminUserController {
 		
 		
 		Page<User> users = userService.findUsersPage(examplec,pageNum,pageSize);
-		if(!"ee3653fe07cc4513b41319090a2516be".equals(userid)){
-			for(User us:users){
-				if(us.getState()==1){
-					us.setUserName(us.getUserName().substring(0,1));
-					us.setPhoneNumber("***********");
-				}
-			}
-		}
+		
 		for(User us:users){
-			us.setParentId(userService.findUserById(us.getParentId()).getUserName());
+			if(StringUtils.isNotBlank(us.getParentId())){
+				us.setParentId(userService.findUserById(us.getParentId()).getUserName());
+			}
 		}
 		return users;
 	}
