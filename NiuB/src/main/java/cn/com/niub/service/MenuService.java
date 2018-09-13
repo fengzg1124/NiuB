@@ -64,7 +64,7 @@ public class MenuService {
 		MenuExample example = new MenuExample();
 		Criteria criteria = example.createCriteria();
 		criteria.andIdEqualTo(id);
-		menuMapper.updateByExample(menu,example);
+		menuMapper.updateByMenuSelective(menu,example);
 	}
 	//根据id修改菜单(批量)
 	public void updateMenus(Menu menu,List<String> ids){
@@ -91,5 +91,9 @@ public class MenuService {
 	//查询全部
 	public List<MenuDto> findRoleMenu(){
 		return menuMapper.selectMenuAndRoleFlag();
+	}
+	//查询用户关联的菜单
+	public List<MenuDto> findByUserId(String userId){
+		return menuMapper.selectByUserId(userId);
 	}
 }

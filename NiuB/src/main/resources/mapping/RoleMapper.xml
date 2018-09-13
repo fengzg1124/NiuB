@@ -15,6 +15,21 @@
     <result column="del_flag" jdbcType="INTEGER" property="delFlag" />
   </resultMap>
   
+  <resultMap id="DtoBaseResultMap" type="cn.com.niub.dto.RoleDto">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="role_name" jdbcType="VARCHAR" property="roleName" />
+    <result column="role_code" jdbcType="VARCHAR" property="roleCode" />
+    <result column="creator" jdbcType="VARCHAR" property="creator" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="updator" jdbcType="VARCHAR" property="updator" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="add1" jdbcType="VARCHAR" property="add1" />
+    <result column="add2" jdbcType="VARCHAR" property="add2" />
+    <result column="add3" jdbcType="VARCHAR" property="add3" />
+    <result column="del_flag" jdbcType="INTEGER" property="delFlag" />
+    <result column="userflag" jdbcType="INTEGER" property="userflag" />
+  </resultMap>
+  
   <sql id="Where_Clause">
     <where>
       <trim prefixOverrides="AND" > 
@@ -117,6 +132,12 @@
     id, role_name, role_code, creator, create_time, updator, update_time, add1, add2, 
     add3, del_flag
   </sql>
+  
+  <sql id="DtoBase_Column_List">
+    r.id, r.role_name, r.role_code, r.creator, r.create_time, r.updator, r.update_time, r.add1, r.add2, 
+    r.add3, r.del_flag
+  </sql>
+  
   <select id="selectByExample" parameterType="cn.com.niub.domain.RoleExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
@@ -244,6 +265,23 @@
       <include refid="Example_Where_Clause" />
     </if>
   </select>
+  
+  <select id="selectRoleAndUserFlag"  parameterType="java.lang.String" resultMap="DtoBaseResultMap">
+	select 
+	<include refid="DtoBase_Column_List" /> , 
+		1 userflag
+	  from tbl_role r, tbl_role_user a
+	 where r.id = a.roleid
+	   and a.userid in (${userId})
+	union
+	select 
+	<include refid="DtoBase_Column_List" /> , 
+		2 userflag
+	  from tbl_role r
+	 where r.del_flag = '1'
+	   and r.id not in (select a.roleid from tbl_role_user a where a.userid in (${userId}))
+  </select>
+  
   <update id="updateByExampleSelective" parameterType="map">
     update tbl_role
     <set>

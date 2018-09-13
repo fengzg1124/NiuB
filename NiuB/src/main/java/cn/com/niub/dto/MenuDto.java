@@ -39,6 +39,8 @@ public class MenuDto {
 
     private String roleFlag;
     
+    private String subset;
+    
     public MenuDto(){
     }
     
@@ -176,6 +178,14 @@ public class MenuDto {
 		this.roleFlag = roleFlag;
 	}
 
+	public String getSubset() {
+		return subset;
+	}
+
+	public void setSubset(String subset) {
+		this.subset = subset;
+	}
+
 	@Override
     public boolean equals(Object that) {
         if (this == that) {
@@ -203,7 +213,8 @@ public class MenuDto {
             && (this.getRemark() == null ? other.getRemark() == null : this.getRemark().equals(other.getRemark()))
             && (this.getParentId() == null ? other.getParentId() == null : this.getParentId().equals(other.getParentId()))
             && (this.getParentName() == null ? other.getParentName() == null : this.getParentName().equals(other.getParentName()))
-            && (this.getRoleFlag() == null ? other.getRoleFlag() == null : this.getRoleFlag().equals(other.getRoleFlag()));
+            && (this.getRoleFlag() == null ? other.getRoleFlag() == null : this.getRoleFlag().equals(other.getRoleFlag()))
+            && (this.getSubset() == null ? other.getSubset() == null : this.getSubset().equals(other.getSubset()));
     }
 
     @Override
@@ -226,6 +237,7 @@ public class MenuDto {
         result = prime * result + ((getParentId() == null) ? 0 : getParentId().hashCode());
         result = prime * result + ((getParentName() == null) ? 0 : getParentName().hashCode());
         result = prime * result + ((getRoleFlag() == null) ? 0 : getRoleFlag().hashCode());
+        result = prime * result + ((getSubset() == null) ? 0 : getSubset().hashCode());
         return result;
     }
 }

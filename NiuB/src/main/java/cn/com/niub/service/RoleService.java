@@ -1,5 +1,7 @@
 package cn.com.niub.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,6 +30,13 @@ public class RoleService {
 		role.setDelFlag(AbleStatus.usable_1.getCode());
 		return roleMapper.selectByRolePage(role);
 	}
+	
+	//根据用户id查询权限列表
+	public Page<RoleDto> findRoleAndUserFlag(String userId,int pageNo,int pageSize){
+		PageHelper.startPage(pageNo, pageSize);
+		return roleMapper.selectRoleAndUserFlag(userId);
+	}
+	
 	//按主键id查找
 	public Role findRoleById(String id){
 		Role role = roleMapper.selectByPrimaryKey(id);

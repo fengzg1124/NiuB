@@ -33,6 +33,7 @@
     <result column="REMARK" jdbcType="VARCHAR" property="remark" />
     <result column="PARENT_ID" jdbcType="VARCHAR" property="parentId" />
     <result column="ROLEFLAG" jdbcType="VARCHAR" property="roleFlag" />
+    <result column="subset" jdbcType="VARCHAR" property="subset" />
   </resultMap>
   <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="cn.com.niub.domain.MenuWithBLOBs">
     <result column="ICON_PATH" jdbcType="LONGVARBINARY" property="iconPath" />
@@ -156,6 +157,23 @@
     from tbl_menu
     where id = #{id,jdbcType=VARCHAR}
   </select>
+  
+  <select id="selectByUserId" parameterType="java.lang.String" resultMap="DtoBaseResultMap">
+    select 
+    distinct
+    <include refid="DtoBase_Column_List" />,
+    (select count(1) from tbl_menu a where a.parent_id = m.id ) subset
+    from
+		tbl_role_user d,
+		tbl_role_menu q,
+		tbl_menu m
+	where
+		d.roleId = q.role_Id
+	and m.ID = q.menu_Id
+	and d.userId = #{id,jdbcType=VARCHAR}
+	order by M.MENU_INDEX
+  </select>
+  
   <delete id="deleteByExample" parameterType="cn.com.niub.domain.MenuExample">
     delete from tbl_menu
     <if test="_parameter != null">

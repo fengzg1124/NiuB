@@ -71,18 +71,18 @@
 									<tr>
 										<th width="60px"><input id="btnCheckAll" type="checkbox" value=""/>全选</th>
 										<th>序号</th>
+										<th>菜单授权</th>
 										<th>角色名称</th>
 										<th>角色编码</th>
-										<th>权限</th>
 									</tr>
 								</thead>
 								<tbody>
 									<tr th:each="role,rolestate:${page.result}">
 										<td><input name="roleId" type="checkbox" th:value="${role.id}"/></td>
 										<td th:text="${rolestate.count}"></td>
+										<td><button type="button" id="disabled" th:attr="onclick='javascript:toAddMenuList(\''+${role.id}+'\');'" class="btn btn-primary btn-xs">菜单授权</button></td>
 										<td th:text="${role.roleName}"></td>
 										<td th:text="${role.roleCode}"></td>
-										<td><button type="button" id="disabled" th:attr="onclick='javascript:toAddMenuList(\''+${role.id}+'\');'" class="btn btn-primary btn-xs">菜单授权</button></td>
 									</tr>
 								</tbody>
 							</table>
@@ -280,13 +280,15 @@
 	//删除
 	function toRoleDelete() {
 		//获取选中的复选框
-		var roleIds;
+		var roleIds='';
 		$("[name = roleId]:checkbox").each(function () {
 			if ($(this).is(":checked")) {
-				if(''==roleIds){
-					roleIds=($(this).attr("value"));
-				}else{
-					roleIds=roleIds+","+($(this).attr("value"));
+				if('undefined' != $(this).attr("value")){
+					if(''==roleIds){
+						roleIds=($(this).attr("value"));
+					}else{
+						roleIds=roleIds+","+($(this).attr("value"));
+					}
 				}
 			};
 		});

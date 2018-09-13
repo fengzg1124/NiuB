@@ -33,6 +33,8 @@ public interface MenuMapper {
     List<MenuDto> selectMenuAndRoleFlag();
     
     Menu selectByPrimaryKey(String id);
+    
+    List<MenuDto> selectByUserId(String userId);
 
     int updateByExampleSelective(@Param("record") MenuWithBLOBs record, @Param("example") MenuExample example);
     

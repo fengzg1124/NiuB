@@ -27,4 +27,8 @@ public class RoleMenuService {
 	public void deleteByRoleId(String roleId){
 		roleMenuRepository.deleteByRoleId(roleId);
 	}
+	
+	public List<RoleMenu> findRoleMenuByRoleId(String roleId){
+		return roleMenuRepository.findRoleMenuByRoleId(roleId);
+	}
 }

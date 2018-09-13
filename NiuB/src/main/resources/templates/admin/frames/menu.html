@@ -25,59 +25,22 @@
 					</div>
 					<div class="logo-element">猎多金</div>
 				</li>
-				<li class="active">
-					<a href="">
+				
+				<li th:each="menu: ${menus}" th:if="${menu.mark=='1' and menu.menuIndex != '1'}">
+					<a th:if="${menu.subset == '0'}" th:attr="onclick='load(\''+${menu.menuUrl}+'\');'">
 						<i class="fa fa-th-large"></i> 
-						<span class="nav-label">概况</span>
+						<span class="nav-label" th:text="${menu.menuName}"></span>
+					</a>
+					
+					<a th:if="${menu.subset != '0'}" href="">
+						<i class="fa fa-th-large"></i> 
+						<span class="nav-label" th:text="${menu.menuName}"></span>
 						<span class="fa arrow"></span>
 					</a>
 					<ul class="nav nav-second-level">
-						<!-- <li class="active"><a href="index.html">Dashboard v.1</a></li>
-						<li><a href="dashboard_2.html">Dashboard v.2</a></li>
-						<li><a href="dashboard_3.html">Dashboard v.3</a></li>
-						<li><a href="dashboard_4_1.html">Dashboard v.4</a></li> -->
-						<li>
-							<a href="javascript:void(0);" class="active" onclick="load('/adminUser/userList')">用户列表
-								<span class="label label-primary pull-right">新</span>
-							</a>
-						</li>
-					</ul>
-				</li>
-				<li>
-					<a href="">
-						<i class="fa fa-th-large"></i> 
-						<span class="nav-label">系统管理</span>
-						<span class="fa arrow"></span>
-					</a>
-					<ul class="nav nav-second-level">
-						<!-- <li class="active"><a href="index.html">Dashboard v.1</a></li>
-						<li><a href="dashboard_2.html">Dashboard v.2</a></li>
-						<li><a href="dashboard_3.html">Dashboard v.3</a></li>
-						<li><a href="dashboard_4_1.html">Dashboard v.4</a></li> -->
-						<li>
-							<a href="javascript:void(0);" class="active" onclick="load('/menu/menuList')">菜单管理
-								<span class="label label-primary pull-right">新</span>
-							</a>
-						</li>
-						<li>
-							<a href="javascript:void(0);" class="active" onclick="load('/role/roleList')">权限管理
-								<span class="label label-primary pull-right">新</span>
-							</a>
-						</li>
-						<li>
-							<a href="javascript:void(0);" class="active" onclick="load('/adminUser/toUserManage')">用户管理
-								<span class="label label-primary pull-right">新</span>
-							</a>
-						</li>
-					</ul>
-				</li>
-				<li th:each="menu: ${rootMenus}" class="lihove"><a href="#"><i
-						class="fa fa-th-list"></i></a>
-					<ul class="sidebar_closexl">
-						<li th:if="${menuChildren.parent.id==menu.id}" class="bornone"
-							th:each="menuChildren:${dtolist}"><a
-							href="javascript:void(0);" th:text="${menuChildren.menuName}"
-							th:attr="onclick='load(\''+${menuChildren.menuUrl}+'\');breadcrumb(\''+${menu.menuName}+'\',\''+${menuChildren.menuName}+'\',\''+${menuChildren.menuUrl}+'\')'"></a>
+						<li th:if="${menuer.parentId==menu.id}" th:each="menuer:${menus}">
+							<a href="javascript:void(0);" class="active"  th:text="${menuer.menuName}"
+							th:attr="onclick='load(\''+${menuer.menuUrl}+'\');'"></a>
 						</li>
 					</ul>
 				</li>

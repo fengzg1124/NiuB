@@ -1,6 +1,7 @@
 package cn.com.niub.controller;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -11,15 +12,24 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSON;
 import com.github.pagehelper.Page;
 
+import cn.com.niub.domain.RoleMenu;
+import cn.com.niub.domain.RoleUser;
 import cn.com.niub.domain.User;
 import cn.com.niub.domain.UserExample;
 import cn.com.niub.domain.UserExample.Criteria;
+import cn.com.niub.dto.MenuDto;
+import cn.com.niub.dto.RoleDto;
 import cn.com.niub.dto.UserDto;
+import cn.com.niub.service.RoleMenuService;
+import cn.com.niub.service.RoleService;
+import cn.com.niub.service.RoleUserService;
 import cn.com.niub.service.UserService;
+import cn.com.niub.utils.ControllerUtils;
 
 @Controller
 @RequestMapping(value="/adminUser")
@@ -27,6 +37,10 @@ public class AdminUserController {
 
 	@Autowired
 	UserService userService;
+	@Autowired
+	RoleService roleService;
+	@Autowired
+	RoleUserService roleUserService;
 	
 	@RequestMapping(value="/userList")
 	public String getUserList(Model model,HttpServletRequest request,String formData,
@@ -89,12 +103,55 @@ public class AdminUserController {
 		
 		//查询用户列表
 		Page<User> users = getUserList(adminuser.getId(),dto,false,Integer.valueOf(pageNum),Integer.valueOf(pageSize));
+		
 		model.addAttribute("dto", dto);
 		model.addAttribute("page", users);
 		return "admin/system/user/userList";
 	}
 	
+	@RequestMapping(value="/toAddRoleList")
+	private String toAddRoleList(Model model,String id,String pageNum,String pageSize) {
+		
+		//分页页码
+		pageNum = StringUtils.isBlank(pageNum)?"1":pageNum;
+		//列表行数
+		pageSize = StringUtils.isBlank(pageSize)?"10":pageSize;
+		String ids = "'"+id.replace(",", "','")+"'";
+		//查询权限列表
+		Page<RoleDto> roles =  roleService.findRoleAndUserFlag(ids,Integer.valueOf(pageNum),Integer.valueOf(pageSize));
+		//List<RoleDto> roles =  roleService.findRoleAndUserFlag(id,Integer.valueOf(pageNum),Integer.valueOf(pageSize));
+		
+		model.addAttribute("userId", id);
+		model.addAttribute("page", roles);
+		return "admin/system/user/addRoleList";
+	}
 	
+	@RequestMapping(value="/saveUserRole")
+	@ResponseBody
+	private String saveUserRole(HttpServletRequest request,String userIds,String roleIds) {
+		
+		String message="1";
+		
+		List<String> userIdList = Arrays.asList(userIds.split(","));  
+		
+		for(String userId:userIdList){
+			
+			roleUserService.deleteRoleUserByUserId(userId);
+			
+			List<String> roleIdList = Arrays.asList(roleIds.split(","));  
+			for(String roleId:roleIdList){
+				if(StringUtils.isNotBlank(roleId)){
+					RoleUser ru = new RoleUser();
+					ru.setRoleid(roleId);
+					ru.setUserid(userId);
+					ru.setId(ControllerUtils.getUUID());
+					roleUserService.saveRoleUser(ru);
+				}
+			}
+		}
+		
+		return message;
+	}
 	
 	//查询用户列表
 	public Page<User> getUserList(String userid,UserDto dto,Boolean hierarchyFlag,int pageNum,int pageSize){

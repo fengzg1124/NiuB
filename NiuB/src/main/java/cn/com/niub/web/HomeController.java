@@ -16,15 +16,16 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.alibaba.fastjson.JSON;
 import com.github.pagehelper.Page;
 
 import cn.com.niub.domain.Log;
 import cn.com.niub.domain.User;
 import cn.com.niub.domain.UserExample;
 import cn.com.niub.domain.UserExample.Criteria;
+import cn.com.niub.dto.MenuDto;
 import cn.com.niub.dto.UserDto;
 import cn.com.niub.service.LogService;
+import cn.com.niub.service.MenuService;
 import cn.com.niub.service.UserService;
 import cn.com.niub.utils.ControllerUtils;
 
@@ -41,6 +42,8 @@ public class HomeController {
 	
 	@Autowired
 	LogService logService;
+	@Autowired
+	MenuService menuService;
 	
 	//首页
 	@RequestMapping(value="/")
@@ -254,8 +257,12 @@ public class HomeController {
 			//查询用户列表
 			Page<User> users = getUserList(adminuser.getId(),1,10);
 			model.addAttribute("page", users);
+			
+			List<MenuDto> menus= menuService.findByUserId(adminuser.getId());
+			
 			UserDto dto = new UserDto();
 			model.addAttribute("dto", dto);
+			model.addAttribute("menus", menus);
 			return "admin/frames/sysframe_index";
 		}
 		
@@ -287,8 +294,11 @@ public class HomeController {
 		Page<User> page = getUserList(users.get(0).getId(),1,10);
 		model.addAttribute("page", page);
 		
+		List<MenuDto> menus= menuService.findByUserId(users.get(0).getId());
+		
 		UserDto dto = new UserDto();
 		model.addAttribute("dto", dto);
+		model.addAttribute("menus", menus);
 		
 		log.setUserId(user.getId());
 		log.setLog("登录成功,登录ip："+ControllerUtils.getIp(request));
