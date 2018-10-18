@@ -4,12 +4,14 @@ import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 import org.springframework.beans.BeanUtils;
 
 import cn.com.niub.dto.RoleDto;
 
 @Entity
+@Table(name="TBL_ROLE")
 public class Role {
 	
 	@Id

@@ -35,18 +35,18 @@
 							<!-- 数据缓存区 开始 -->
 							<!-- 数据缓存区 结束 -->
 							<div class="form-group">
-								<label class="col-sm-2 control-label">角色名称</label>
+								<label class="col-sm-2 control-label">贷款人姓名</label>
 	                            <div class="col-sm-2">
-	                            	<input type="text" id="roleName" name="roleName" th:value="${dto.roleName}" class="form-control"/>
+	                            	<input type="text" id="name" name="name" th:value="${dto.name}" class="form-control"/>
 	                            </div>
 	                        
 	                        	<label class="col-sm-1 control-label"></label>
 	                            <div class="col-sm-2">
 	                            </div>
 	                        	
-	                        	<label class="col-sm-1 control-label">角色编码</label>
+	                        	<label class="col-sm-1 control-label">贷款类型</label>
 	                            <div class="col-sm-2">
-	                            	<input type="text" id="roleCode" name="roleCode" th:value="${dto.roleCode}" class="form-control"/>
+	                            	<input type="text" id="daikuanType" name="daikuanType" th:value="${dto.daikuanType}" class="form-control"/>
 	                            </div>
 	                            
 	                        </div>
@@ -61,26 +61,27 @@
                             <div class="hr-line-dashed"></div>
 						
 						<div class="table-responsive">
-							<button type="button" id="addR" onclick="toRoleAdd()" class="btn btn-primary btn-sm">新增</button>
-							<button type="button" id="editR" onclick="toRoleEdit()" class="btn btn-primary btn-sm">修改</button>
-							<button type="button" id="deleteR" onclick="toRoleDelete()" class="btn btn-danger btn-sm">删除</button>
+							<button type="button" id="addR" onclick="toOrderAdd()" class="btn btn-primary btn-sm">新增</button>
+							<button type="button" id="editR" onclick="toOrderEdit()" class="btn btn-primary btn-sm">修改</button>
+							<button type="button" id="deleteR" onclick="toOrderDelete()" class="btn btn-danger btn-sm">删除</button>
 							<table class="table table-striped table-bordered table-hover ">
 								<thead>
 									<tr>
 										<th width="60px"><input id="btnCheckAll" type="checkbox" value=""/>全选</th>
 										<th>序号</th>
-										<th>菜单授权</th>
-										<th>角色名称</th>
-										<th>角色编码</th>
+										<th>贷款人姓名</th>
+										<th>贷款金额</th>
+										<th>贷款类型</th>
+										<th>贷款时间</th>
 									</tr>
 								</thead>
 								<tbody>
-									<tr th:each="role,rolestate:${page.result}">
-										<td><input name="roleId" type="checkbox" th:value="${role.id}"/></td>
-										<td th:text="${rolestate.count}"></td>
-										<td><button type="button" id="disabled" th:attr="onclick='javascript:toAddMenuList(\''+${role.id}+'\');'" class="btn btn-primary btn-xs">菜单授权</button></td>
-										<td th:text="${role.roleName}"></td>
-										<td th:text="${role.roleCode}"></td>
+									<tr th:each="order,orderstate:${page.result}">
+										<td><input name="orderId" type="checkbox" th:value="${order.id}"/></td>
+										<td th:text="${orderstate.count}"></td>
+										<td th:text="${order.jieKuanSum}"></td>
+										<td th:text="${order.daikuanType}"></td>
+										<td th:text="${order.createTime}"></td>
 									</tr>
 								</tbody>
 							</table>
@@ -201,7 +202,6 @@
  			search();
 		});
 		/****************************翻页结束*****************************/
-		//新增菜单结果提示
 		
 		//初始禁用修改删除按钮
 		$("#editR").attr("disabled",true);
@@ -209,34 +209,34 @@
 		//全选 点击全选
 		$("#btnCheckAll").bind("click", function() {
 			if ($("#btnCheckAll").is(":checked") == true) {
-				$("[name = roleId]:checkbox").prop("checked", "checked");
+				$("[name = orderId]:checkbox").prop("checked", "checked");
 				$("#editR").attr("disabled",true);
 				$("#addR").attr("disabled",true);
 				$("#deleteR").removeAttr("disabled");
 			} else {
-				$("[name = roleId]:checkbox").prop("checked", "");
+				$("[name = orderId]:checkbox").prop("checked", "");
 				$("#editR").attr("disabled",true);
 				$("#addR").removeAttr("disabled");
 				$("#deleteR").attr("disabled",true);
 			}
 		});
 		//点击单个复选框
-		$("[name = roleId]:checkbox").bind("click", function() {
+		$("[name = orderId]:checkbox").bind("click", function() {
 			//获取选中的复选框
-			var roleIds = new Array();
-			$("[name = roleId]:checkbox").each(function () {
+			var orderIds = new Array();
+			$("[name = orderId]:checkbox").each(function () {
 				if ($(this).is(":checked")) {
-					roleIds.push($(this).attr("value"));
+					orderIds.push($(this).attr("value"));
 				};
 			});
 			//选中大于1个禁用修改按钮
-			if (roleIds.length==1) {
+			if (orderIds.length==1) {
 				$("#editR").removeAttr("disabled");
 			}else{
 				$("#editR").attr("disabled",true);
 			}
 			//选中复选框按钮禁用新增按钮启用删除按钮，else启用新增禁用删除
-			if (roleIds.length>0) {
+			if (orderIds.length>0) {
 				$("#addR").attr("disabled",true);
 				$("#deleteR").removeAttr("disabled");
 			}else{
@@ -251,7 +251,7 @@
 		var pageNum = $("#pageNum").val();
 		var pageSize = $('#pageSize').val();
 		var formData = arrayToJson($('#mainForm').serializeArray());
-		$("#right").load("/role/roleList", {
+		$("#right").load("/order/orderList", {
 			pageNum : pageNum,
 			pageSize : pageSize,
 			formData : formData
@@ -260,41 +260,41 @@
 		$("#right").load("/role/roleList", formData); */
 	}
 	//增加
-	function toRoleAdd() {
-		$("#right").load("/role/toRoleAdd");
+	function toOrderAdd() {
+		$("#right").load("/order/toOrderAdd");
 	}
 	//修改
-	function toRoleEdit() {
+	function toOrderEdit() {
 		//获取选中的复选框
-		var roleIds;
-		$("[name = roleId]:checkbox").each(function () {
+		var orderIds;
+		$("[name = orderId]:checkbox").each(function () {
 			if ($(this).is(":checked")) {
-				roleIds=($(this).attr("value"));
+				orderIds=($(this).attr("value"));
 			};
 		});
-		$("#right").load("/role/toRoleEdit", {roleIds:roleIds});
+		$("#right").load("/order/toOrderAdd", {orderIds:orderIds});
 	}
 	
 	//删除
-	function toRoleDelete() {
+	function toOrderDelete() {
 		//获取选中的复选框
-		var roleIds='';
-		$("[name = roleId]:checkbox").each(function () {
+		var orderIds='';
+		$("[name = orderId]:checkbox").each(function () {
 			if ($(this).is(":checked")) {
 				if('undefined' != $(this).attr("value")){
-					if(''==roleIds){
-						roleIds=($(this).attr("value"));
+					if(''==orderIds){
+						orderIds=($(this).attr("value"));
 					}else{
-						roleIds=roleIds+","+($(this).attr("value"));
+						orderIds=orderIds+","+($(this).attr("value"));
 					}
 				}
 			};
 		});
-		$("#right").load("/role/toRoleDelete", {roleIds:roleIds});
+		$("#right").load("/order/toOrderDelete", {orderIds:orderIds});
 	}
 	
-	function toAddMenuList(id){
+	/* function toAddMenuList(id){
 		$("#right").load("/role/toAddMenuList", {id:id});
-	}
+	} */
 	/*]]>*/
 </script> 
