@@ -252,14 +252,14 @@
 	function search() {
 		var pageNum = $("#pageNum").val();
 		var pageSize = $('#pageSize').val();
-		var formData = arrayToJson($('#mainForm').serializeArray());
+		 var formData = arrayToJson($('#mainForm').serializeArray());
 		$("#right").load("/role/roleList", {
 			pageNum : pageNum,
 			pageSize : pageSize,
 			formData : formData
-		}); 
-		/* var formData = $('#mainForm').serializeArray();
-		$("#right").load("/role/roleList", formData); */
+		});  
+		/*  var formData = $('#mainForm').serializeArray();
+		$("#right").load("/role/roleList", formData);  */
 	}
 	//增加
 	function toRoleAdd() {

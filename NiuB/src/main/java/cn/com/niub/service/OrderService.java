@@ -50,35 +50,36 @@ public class OrderService {
 	}
 	
 	public void saveOrder(OrderDto dto){
-		orderRepository.saveAndFlush(new Order(dto));
+		Order order = new Order(dto);
+		order = orderRepository.saveAndFlush(order);
 		
 		RoomDto rd = dto.getRoom();
-		rd.setOrderId(dto.getId());
+		rd.setOrderId(order.getId());
 		rd.setId(ControllerUtils.getUUID());
 		roomService.saveRoom(rd);
 		
 		CarDto cd = dto.getCar();
-		cd.setOrderId(dto.getId());
+		cd.setOrderId(order.getId());
 		cd.setId(ControllerUtils.getUUID());
 		carService.saveCar(cd);
 		
 		JobDto jd = dto.getJob();
-		jd.setOrderId(dto.getId());
+		jd.setOrderId(order.getId());
 		jd.setId(ControllerUtils.getUUID());
 		jobService.saveJob(jd);
 		
 		SpouseDto sd = dto.getSpouse();
-		sd.setOrderId(dto.getId());
+		sd.setOrderId(order.getId());
 		sd.setId(ControllerUtils.getUUID());
 		spouseService.saveSpouse(sd);
 		
 		SupplementaryDto sud = dto.getSupplementary();
-		sud.setOrderId(dto.getId());
+		sud.setOrderId(order.getId());
 		sud.setId(ControllerUtils.getUUID());
 		supplementaryService.saveSupplementary(sud);
 		
 		ContactsDto cod = dto.getContacts();
-		cod.setOrderId(dto.getId());
+		cod.setOrderId(order.getId());
 		cod.setId(ControllerUtils.getUUID());
 		contactsService.saveContacts(cod);
 		
@@ -133,7 +134,7 @@ public class OrderService {
         for(Order wafUser:wafUsers){
         	wafUserDtos.add(new OrderDto(wafUser));
         }
-		pag=(Pagination) wafUserDtos;
+		pag.setResult(wafUserDtos);
 	    pag.setTotal(page.getTotalPages());
 	    pag.setPages((int)page.getTotalElements());
 	    

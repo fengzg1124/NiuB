@@ -2,6 +2,12 @@
 #  port: 8081
 
 spring:
+  jpa:
+      #打印sql
+      show-sql: true
+      #启动时更新表
+      hibernate:
+        ddl-auto: update
   thymeleaf:
     enabled: true
     cache: false

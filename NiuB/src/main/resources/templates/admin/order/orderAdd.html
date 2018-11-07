@@ -35,6 +35,11 @@
 					</div>
 					<div class="ibox-content">
 						<div class="form-group">
+							<label class="col-sm-2 control-label">贷款类型</label>
+                            <div class="col-sm-2">
+                            	<input type="text" id="daikuanType" name="daikuanType" th:value="${dto.daikuanType}" class="form-control" />
+                            </div>
+                            
 							<label class="col-sm-2 control-label">贷款用途</label>
                             <div class="col-sm-2">
                             	<input type="text" id="daiKuanYongTu" name="daiKuanYongTu" th:value="${dto.daiKuanYongTu}" class="form-control" />
@@ -45,13 +50,14 @@
                                	<input type="text" id="qiXian" name="qiXian" th:value="${dto.qiXian}" class="form-control" />
                             </div>
                             
-                            <label class="col-sm-2 control-label">申请额度</label>
-                            <div class="col-sm-2">
-                            	<input type="text" id="jieKuanSum" name="jieKuanSum" th:value="${dto.jieKuanSum}" class="form-control" />
-                            </div>
                         </div>
                         <div class="hr-line-dashed"></div>
                         <div class="form-group">
+                        	<label class="col-sm-2 control-label">申请额度</label>
+                            <div class="col-sm-2">
+                            	<input type="text" id="jieKuanSum" name="jieKuanSum" th:value="${dto.jieKuanSum}" class="form-control" />
+                            </div>
+                            
 							<label class="col-sm-2 control-label">担保方式</label>
                             <div class="col-sm-2">
                             	<input type="text" id="danBaoType" name="danBaoType" th:value="${dto.danBaoType}" class="form-control" />
@@ -60,10 +66,6 @@
                             <label class="col-sm-2 control-label">还款方式</label>
                             <div class="col-sm-2">
                                	<input type="text" id="huanKuanType" name="huanKuanType" th:value="${dto.huanKuanType}" class="form-control" />
-                            </div>
-                            
-                            <label class="col-sm-2 control-label"></label>
-                            <div class="col-sm-2">
                             </div>
                         </div>
 					</div>
@@ -209,7 +211,7 @@
                         <div class="form-group">
                             <label class="col-sm-2 control-label">建筑年份</label>
                             <div class="col-sm-2">
-                               	<input type="text" id="fjianZhuNianFen" name="fjianZhuNianFen" th:value="${dto.fjianZhuNianFen}" class="form-control" />
+                               	<input type="text" id="fjianZhuNianFen" name="fjianZhuNianFen" th:value="${dto.room.fjianZhuNianFen}" class="form-control" />
                             </div>
                             <label class="col-sm-2 control-label">建筑面积（平方米）</label>
                             <div class="col-sm-2">
@@ -610,7 +612,7 @@
  		var formData = arrayToJson($('#mainForm').serializeArray());
  		$.ajax({
 		    url: '/order/orderSave',
-		    data: {"formData":formData},
+		    data: formData,
 		    type: 'post',
 		    dataType: "text",
 		    success: function(data) { 
@@ -624,7 +626,10 @@
 		     error: function() {	
 		    	 toastr.warning("保存失败！");
 		     }
-		}); 
+		});  
+ 		
+ 		/* var formData = $('#mainForm').serializeArray();
+		$("#right").load("/order/orderSave", formData); */
 		
 	}
  	//取消

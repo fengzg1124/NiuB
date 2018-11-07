@@ -3,10 +3,16 @@ package cn.com.niub.domain;
 import java.util.Date;
 
 import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import org.springframework.beans.BeanUtils;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import cn.com.niub.dto.SpouseDto;
 import lombok.Data;
@@ -15,6 +21,7 @@ import lombok.Data;
 @Entity
 @Data
 @Table(name="TBL_SPOUSE")
+@EntityListeners(AuditingEntityListener.class)
 public class Spouse {
 
 	@Id
@@ -34,8 +41,12 @@ public class Spouse {
 	private String pdwPhone;
 	
 	private String creater;
+	@CreatedDate
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date createTime;
 	private String updater;
+	@LastModifiedDate
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date updateTime;
 	
 	public Spouse(){}

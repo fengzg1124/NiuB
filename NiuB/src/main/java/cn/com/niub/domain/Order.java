@@ -3,10 +3,18 @@ package cn.com.niub.domain;
 import java.util.Date;
 
 import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
+import org.hibernate.annotations.GenericGenerator;
 import org.springframework.beans.BeanUtils;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import cn.com.niub.dto.OrderDto;
 import lombok.Data;
@@ -14,9 +22,12 @@ import lombok.Data;
 @Entity
 @Data
 @Table(name="TBL_ORDER")
+@EntityListeners(AuditingEntityListener.class)
 public class Order {
 
 	@Id
+	@GeneratedValue(generator="uuid")
+    @GenericGenerator(name="uuid",strategy="uuid.hex")
 	private String id;
 	private String daiKuanYongTu;
 	private String daikuanType;
@@ -38,10 +49,14 @@ public class Order {
 	private String zuoJi;
 	
 	private String creater;
+	@CreatedDate
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date createTime;
 	private String updater;
+	@LastModifiedDate
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date updateTime;
-	private String delFlag;
+	private Integer delFlag;
 	private String status;
 	
 	//房

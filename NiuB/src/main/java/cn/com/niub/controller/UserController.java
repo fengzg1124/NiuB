@@ -120,7 +120,7 @@ public class UserController {
 		
 		user.setIp(ip);
 		userService.saveUser(user);
-		model.addAttribute("mes", "提交成功，感谢您相信猎多金，财富经理将尽快联系您！");
+		model.addAttribute("mes", "提交成功，感谢您的信任，财富经理将尽快联系您！");
 		
 		log.setLog("贷款用户信息提交成功，用户名："+user.getUserName()+",手机号："+user.getPhoneNumber()+",申请类型："+type+",头信息"+request.getHeader("User-Agent")+",ip:"+ip+";"+request.getHeader("X-Forwarded-For"));
 		log.setEndTime(new Date());

@@ -79,6 +79,7 @@
 									<tr th:each="order,orderstate:${page.result}">
 										<td><input name="orderId" type="checkbox" th:value="${order.id}"/></td>
 										<td th:text="${orderstate.count}"></td>
+										<td th:text="${order.name}"></td>
 										<td th:text="${order.jieKuanSum}"></td>
 										<td th:text="${order.daikuanType}"></td>
 										<td th:text="${order.createTime}"></td>
