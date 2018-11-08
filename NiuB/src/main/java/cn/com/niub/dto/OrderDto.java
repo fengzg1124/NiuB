@@ -25,7 +25,7 @@ public class OrderDto {
 	//基本信息
 	private String name;
 	private String sex;
-	private Date chuShengRiQi;
+	private String chuShengRiQi;
 	private String age;
 	private String icard;
 	private String jiGuan;
@@ -63,4 +63,22 @@ public class OrderDto {
 		//BeanUtils是org.apache.commons.beanutils.BeanUtils，后给前
 		BeanUtils.copyProperties(order, this);
 	}
+	public OrderDto(RoomDto room,CarDto car,JobDto job,SupplementaryDto supplementary,SpouseDto spouse,ContactsDto contacts){
+		this.room = room;
+		this.car = car;
+		this.job = job;
+		this.supplementary = supplementary;
+		this.spouse = spouse;
+		this.contacts = contacts;
+	}
+	
+	public void setDto(RoomDto room,CarDto car,JobDto job,SupplementaryDto supplementary,SpouseDto spouse,ContactsDto contacts){
+		this.room = room;
+		this.car = car;
+		this.job = job;
+		this.supplementary = supplementary;
+		this.spouse = spouse;
+		this.contacts = contacts;
+	}
+	
 }

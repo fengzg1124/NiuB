@@ -37,7 +37,7 @@ public class Order {
 	//基本信息
 	private String name;
 	private String sex;
-	private Date chuShengRiQi;
+	private String chuShengRiQi;
 	private String age;
 	private String icard;
 	private String jiGuan;

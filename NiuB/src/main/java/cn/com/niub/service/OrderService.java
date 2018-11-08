@@ -54,34 +54,47 @@ public class OrderService {
 		order = orderRepository.saveAndFlush(order);
 		
 		RoomDto rd = dto.getRoom();
-		rd.setOrderId(order.getId());
-		rd.setId(ControllerUtils.getUUID());
-		roomService.saveRoom(rd);
+		if(null != rd){
+			rd.setOrderId(order.getId());
+			rd.setId(order.getId());
+			roomService.saveRoom(rd);
+		}
+		
 		
 		CarDto cd = dto.getCar();
-		cd.setOrderId(order.getId());
-		cd.setId(ControllerUtils.getUUID());
-		carService.saveCar(cd);
+		if(null != cd){
+			cd.setOrderId(order.getId());
+			cd.setId(order.getId());
+			carService.saveCar(cd);
+		}
 		
 		JobDto jd = dto.getJob();
-		jd.setOrderId(order.getId());
-		jd.setId(ControllerUtils.getUUID());
-		jobService.saveJob(jd);
+		if(null != jd){
+			jd.setOrderId(order.getId());
+			jd.setId(order.getId());
+			jobService.saveJob(jd);
+		}
 		
 		SpouseDto sd = dto.getSpouse();
-		sd.setOrderId(order.getId());
-		sd.setId(ControllerUtils.getUUID());
-		spouseService.saveSpouse(sd);
+		if(null != sd){
+			sd.setOrderId(order.getId());
+			sd.setId(order.getId());
+			spouseService.saveSpouse(sd);
+		}
 		
 		SupplementaryDto sud = dto.getSupplementary();
-		sud.setOrderId(order.getId());
-		sud.setId(ControllerUtils.getUUID());
-		supplementaryService.saveSupplementary(sud);
+		if(null != sud){
+			sud.setOrderId(order.getId());
+			sud.setId(order.getId());
+			supplementaryService.saveSupplementary(sud);
+		}
 		
 		ContactsDto cod = dto.getContacts();
-		cod.setOrderId(order.getId());
-		cod.setId(ControllerUtils.getUUID());
-		contactsService.saveContacts(cod);
+		if(null != cod){
+			cod.setOrderId(order.getId());
+			cod.setId(order.getId());
+			contactsService.saveContacts(cod);
+		}
 		
 	}
 	

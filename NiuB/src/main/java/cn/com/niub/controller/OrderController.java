@@ -8,6 +8,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -77,13 +78,14 @@ public class OrderController {
 	}
 	
 	@RequestMapping(value="/orderSave")
-	//@ResponseBody
-	private String orderSave(HttpServletRequest request,HttpServletResponse response, OrderDto dtoo, String formData) {
+	@ResponseBody
+	private String orderSave(Model model,HttpServletRequest request, OrderDto dto, RoomDto room, CarDto car,
+			JobDto job, SupplementaryDto supplementary, SpouseDto spouse, ContactsDto contacts, String formData) {
 		
 		HttpSession session = request.getSession();
 		User adminuser = (User) session.getAttribute("adminUser");
 		
-		OrderDto dto = new OrderDto();
+		/*OrderDto dto = new OrderDto();
 		if(StringUtils.isNotBlank(formData)){
 			dto = JSON.parseObject(formData,OrderDto.class);
 		}else{
@@ -119,14 +121,9 @@ public class OrderController {
 		ContactsDto contactsd = new ContactsDto();
 		if(StringUtils.isNotBlank(formData)){
 			contactsd = JSON.parseObject(formData,ContactsDto.class);
-		}
+		}*/
 		
-		dto.setRoom(roomd);
-		dto.setCar(card);
-		dto.setJob(jobd);
-		dto.setSupplementary(supplementaryd);
-		dto.setSpouse(spoused);
-		dto.setContacts(contactsd);
+		dto.setDto(room, car, job, supplementary, spouse, contacts);
 		
 		String message=null;
 		if(null != dto){
@@ -140,8 +137,6 @@ public class OrderController {
 				orderService.saveOrder(dto);
 			}
 			message = "1";
-		}else{
-			message = "-1";
 		}
 		return message;
 		//return "redirect:/order/orderList";
