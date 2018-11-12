@@ -5,6 +5,7 @@ import java.util.Date;
 import javax.persistence.Id;
 
 import org.springframework.beans.BeanUtils;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import cn.com.niub.domain.Order;
 import lombok.Data;
@@ -25,7 +26,8 @@ public class OrderDto {
 	//基本信息
 	private String name;
 	private String sex;
-	private String chuShengRiQi;
+	@DateTimeFormat(pattern = "yyyy-MM-dd") 
+	private Date chuShengRiQi;
 	private String age;
 	private String icard;
 	private String jiGuan;
@@ -37,8 +39,10 @@ public class OrderDto {
 	private String zuoJi;
 	
 	private String creater;
+	@DateTimeFormat(pattern = "yyyy-MM-dd") 
 	private Date createTime;
 	private String updater;
+	@DateTimeFormat(pattern = "yyyy-MM-dd") 
 	private Date updateTime;
 	private Integer delFlag;
 	private String status;
@@ -56,7 +60,14 @@ public class OrderDto {
 	//联系人
 	ContactsDto contacts;
 	
-	public OrderDto(){}
+	public OrderDto(){
+		this.room = new RoomDto();
+		this.car = new CarDto();
+		this.job = new JobDto();
+		this.supplementary = new SupplementaryDto();
+		this.spouse = new SpouseDto();
+		this.contacts = new ContactsDto();
+	}
 	
 	public OrderDto(Order order){
 		//BeanUtils是org.springframework.beans.BeanUtils，前给后

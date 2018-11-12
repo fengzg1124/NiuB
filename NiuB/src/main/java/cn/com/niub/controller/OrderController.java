@@ -53,28 +53,35 @@ public class OrderController {
 	@RequestMapping(value="/toOrderAdd")
 	private String toRoleAdd(Model model) {
 		OrderDto dto = new OrderDto();
-		//房
-		RoomDto room = new RoomDto();
-		//车
-		CarDto car = new CarDto();
-		//职业
-		JobDto job = new JobDto();
-		//补充材料
-		SupplementaryDto supplementary = new SupplementaryDto();
-		//配偶信息
-		SpouseDto spouse = new SpouseDto();
-		//联系人
-		ContactsDto contacts = new ContactsDto();
-		
-		dto.setRoom(room);
-		dto.setCar(car);
-		dto.setJob(job);
-		dto.setSupplementary(supplementary);
-		dto.setSpouse(spouse);
-		dto.setContacts(contacts);
 		
 		model.addAttribute("dto", dto);
 		return "admin/order/orderAdd";
+	}
+	
+	@RequestMapping(value="/toOrderUpdate")
+	private String toOrderUpdate(Model model, String id) {
+		
+		OrderDto dto = new OrderDto();
+		
+		if(StringUtils.isNotBlank(id)){
+			dto = orderService.findOrderAllById(id);
+		}
+		
+		model.addAttribute("dto", dto);
+		return "admin/order/orderAdd";
+	}
+	
+	@RequestMapping(value="/toOrderView")
+	private String toOrderView(Model model, String id) {
+		
+		OrderDto dto = new OrderDto();
+		
+		if(StringUtils.isNotBlank(id)){
+			dto = orderService.findOrderAllById(id);
+		}
+		
+		model.addAttribute("dto", dto);
+		return "admin/order/orderView";
 	}
 	
 	@RequestMapping(value="/orderSave")
@@ -84,44 +91,6 @@ public class OrderController {
 		
 		HttpSession session = request.getSession();
 		User adminuser = (User) session.getAttribute("adminUser");
-		
-		/*OrderDto dto = new OrderDto();
-		if(StringUtils.isNotBlank(formData)){
-			dto = JSON.parseObject(formData,OrderDto.class);
-		}else{
-			return "-1";
-		}
-		
-		//房
-		RoomDto roomd = new RoomDto();
-		if(StringUtils.isNotBlank(formData)){
-			roomd = JSON.parseObject(formData,RoomDto.class);
-		}
-		//车
-		CarDto card = new CarDto();
-		if(StringUtils.isNotBlank(formData)){
-			card = JSON.parseObject(formData,CarDto.class);
-		}
-		//职业
-		JobDto jobd = new JobDto();
-		if(StringUtils.isNotBlank(formData)){
-			jobd = JSON.parseObject(formData,JobDto.class);
-		}
-		//补充材料
-		SupplementaryDto supplementaryd = new SupplementaryDto();
-		if(StringUtils.isNotBlank(formData)){
-			supplementaryd = JSON.parseObject(formData,SupplementaryDto.class);
-		}
-		//配偶信息
-		SpouseDto spoused = new SpouseDto();
-		if(StringUtils.isNotBlank(formData)){
-			spoused = JSON.parseObject(formData,SpouseDto.class);
-		}
-		//联系人
-		ContactsDto contactsd = new ContactsDto();
-		if(StringUtils.isNotBlank(formData)){
-			contactsd = JSON.parseObject(formData,ContactsDto.class);
-		}*/
 		
 		dto.setDto(room, car, job, supplementary, spouse, contacts);
 		
@@ -133,12 +102,36 @@ public class OrderController {
 				dto.setDelFlag(AbleStatus.usable_1.getCode());
 				orderService.saveOrder(dto);
 			}else{
+				OrderDto od = orderService.findOrderById(dto.getId());
+				dto.setCreater(od.getCreater());
+				dto.setCreateTime(od.getCreateTime());
 				dto.setUpdater(adminuser.getId());
+				dto.setDelFlag(AbleStatus.usable_1.getCode());
 				orderService.saveOrder(dto);
 			}
 			message = "1";
 		}
 		return message;
-		//return "redirect:/order/orderList";
 	}
+	
+	@RequestMapping(value="/orderDelete")
+	private String orderDelete(Model model,HttpServletRequest request, String orderIds) {
+		
+		HttpSession session = request.getSession();
+		User adminuser = (User) session.getAttribute("adminUser");
+		
+		String[] ids = orderIds.split(",");
+		
+		for(String i:ids){
+			if(StringUtils.isNotBlank(i)){
+				OrderDto od = orderService.findOrderById(i);
+				od.setUpdater(adminuser.getId());
+				od.setDelFlag(AbleStatus.disabled_0.getCode());
+				orderService.saveOrder(od);
+			}
+		}
+		
+		return "redirect:/order/orderList";
+	}
+	
 }

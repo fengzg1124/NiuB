@@ -2,7 +2,7 @@
 
 <div class="row wrapper border-bottom white-bg page-heading">
     <div class="col-lg-10">
-        <h2>订单增加</h2>
+        <h2>订单查看</h2>
         <ol class="breadcrumb">
             <li>
                 <a href="/adminLogin">首页</a>
@@ -11,7 +11,7 @@
                 <a>订单管理</a>
             </li>
             <li class="active">
-                <strong>订单增加</strong>
+                <strong>订单查看</strong>
             </li>
         </ol>
     </div>
@@ -21,10 +21,9 @@
 <div class="wrapper wrapper-content animated fadeIn">
 	<div class="p-w-md m-t-sm">
 		<div class="row">
-			<form id="mainForm" action=""  class="form-horizontal" method="post">
+			<form id="mainForm" action=""  class="form-horizontal">
 			<!-- 数据存储区 -->
 			<input type="hidden" name="id" id="id" th:value="${dto.id}" />
-			<input type="hidden" name="status" id="status" th:value="${dto.status}" />
 			
 			<div class="col-lg-12">
 				<div class="ibox float-e-margins">
@@ -89,11 +88,7 @@
                             
                             <label class="col-sm-2 control-label">性别</label>
                             <div class="col-sm-2">
-                               	<select id="sex" name="sex" class="form-control m-b">
-                               		<option value="" >请选择</option>
-	                                <option value="男" th:selected="${dto.sex=='男'}">男</option>
-	                                <option value="女" th:selected="${dto.sex=='女'}">女</option>
-	                            </select>
+                            	<input type="text" id="sex" name="sex" th:value="${dto.sex}" class="form-control" />
                             </div>
                             
                             <label class="col-sm-2 control-label">年龄</label>
@@ -115,11 +110,7 @@
                             </div>
                             <label class="col-sm-2 control-label">婚姻</label>
                            	<div class="col-sm-2">
-                               	<select id="hunYin" name="hunYin" class="form-control m-b">
-                               		<option value="" >请选择</option>
-	                                <option value="未婚" th:selected="${dto.hunYin=='未婚'}">未婚</option>
-	                                <option value="已婚" th:selected="${dto.hunYin=='已婚'}">已婚</option>
-	                            </select>
+                           		<input type="text" id="hunYin" name="hunYin" th:value="${dto.hunYin}" class="form-control" />
                             </div>
                             
                         </div>
@@ -149,14 +140,7 @@
                         <div class="form-group">
                             <label class="col-sm-2 control-label">学历</label>
                             <div class="col-sm-2">
-                               	<select id="xueLi" name="xueLi" class="form-control m-b">
-                               		<option value="" >请选择</option>
-	                                <option value="硕士及以上" th:selected="${dto.xueLi=='硕士及以上'}">硕士及以上</option>
-	                                <option value="本科" th:selected="${dto.xueLi=='本科'}">本科</option>
-	                                <option value="大专" th:selected="${dto.xueLi=='大专'}">大专</option>
-	                                <option value="高中或中专" th:selected="${dto.xueLi=='高中或中专'}">高中或中专</option>
-	                                <option value="初中及以下" th:selected="${dto.xueLi=='初中及以下'}">初中及以下</option>
-	                            </select>
+                            	<input type="text" id="xueLi" name="xueLi" th:value="${dto.xueLi}" class="form-control" />
                             </div>
                             
                             <label class="col-sm-2 control-label">社保卡号</label>
@@ -193,14 +177,7 @@
 						<div class="form-group">
 							<label class="col-sm-2 control-label">房产类别</label>
                             <div class="col-sm-2">
-                            	<select id="ffangChanType" name="ffangChanType" class="form-control m-b">
-                            		<option value="" >请选择</option>
-                            		<option value="按揭" th:selected="${dto.room.ffangChanType=='按揭'}">按揭</option>
-	                                <option value="一次性购买" th:selected="${dto.room.ffangChanType=='一次性购买'}">一次性购买</option>
-	                                <option value="家族拥有" th:selected="${dto.room.ffangChanType=='家族拥有'}">家族拥有</option>
-	                                <option value="自建" th:selected="${dto.room.ffangChanType=='自建'}">自建</option>
-	                                <option value="租用" th:selected="${dto.room.ffangChanType=='租用'}">租用</option>
-	                            </select>
+                            	<input type="text" id="ffangChanType" name="ffangChanType" th:value="${dto.room.ffangChanType}" class="form-control" />
                             </div>
                         </div>
                         <div class="hr-line-dashed"></div>
@@ -288,12 +265,7 @@
                             
                             <label class="col-sm-2 control-label">购买方式</label>
                             <div class="col-sm-2">
-                               	<select id="cgouRuFangShi" name="cgouRuFangShi" class="form-control m-b">
-                               		<option value="" >请选择</option>
-                            		<option value="一手" th:selected="${dto.car.cgouRuFangShi=='一手'}">一手</option>
-	                                <option value="二手" th:selected="${dto.car.cgouRuFangShi=='二手'}">二手</option>
-	                                <option value="其他" th:selected="${dto.car.cgouRuFangShi=='其他'}">其他</option>
-	                            </select>
+                            	<input type="text" id="cgouRuFangShi" name="cgouRuFangShi" th:value="${dto.car.cgouRuFangShi}" class="form-control" />
                             </div>
                             <label class="col-sm-2 control-label"></label>
                             <div class="col-sm-2">
@@ -326,16 +298,7 @@
                         <div class="form-group">
 							<label class="col-sm-2 control-label">单位性质</label>
                            	<div class="col-sm-2">
-                               	<select id="zdanWeiType" name="zdanWeiType" class="form-control m-b">
-                               		<option value="" >请选择</option>
-                            		<option value="政府机构" th:selected="${dto.job.zdanWeiType=='政府机构'}">政府机构</option>
-	                                <option value="民营" th:selected="${dto.job.zdanWeiType=='民营'}">民营</option>
-	                                <option value="私营" th:selected="${dto.job.zdanWeiType=='私营'}">私营</option>
-	                                <option value="合资企业" th:selected="${dto.job.zdanWeiType=='合资企业'}">合资企业</option>
-	                                <option value="国有企业" th:selected="${dto.job.zdanWeiType=='国有企业'}">国有企业</option>
-	                                <option value="个体" th:selected="${dto.job.zdanWeiType=='个体'}">个体</option>
-	                                <option value="其他" th:selected="${dto.job.zdanWeiType=='其他'}">其他</option>
-	                            </select>
+                           		<input type="text" id="zdanWeiType" name="zdanWeiType" th:value="${dto.job.zdanWeiType}" class="form-control" />
                             </div>
                             <label class="col-sm-2 control-label">单位电话</label>
                             <div class="col-sm-2">
@@ -408,12 +371,7 @@
                         <div class="form-group">
                         	<label class="col-sm-2 control-label">经营场所</label>
                             <div class="col-sm-2">
-                            	<select id="bchangSuo" name="bchangSuo" class="form-control m-b">
-	                                <option value="" >请选择</option>
-	                                <option value="自有" th:selected="${dto.supplementary.bchangSuo=='自有'}">自有</option>
-	                                <option value="租用" th:selected="${dto.supplementary.bchangSuo=='租用'}">租用</option>
-	                                <option value="按揭" th:selected="${dto.supplementary.bchangSuo=='按揭'}">按揭</option>
-	                            </select>
+                            	<input type="text" id="bchangSuo" name="bchangSuo" th:value="${dto.supplementary.bchangSuo}" class="form-control" />
                             </div>
 							<label class="col-sm-2 control-label">成立日期</label>
                            	<div class=" date col-sm-2" style="display: table;">
@@ -560,21 +518,21 @@
 				</div>
 			</div>
 			
-			<div class="col-lg-12">
+			<!-- <div class="col-lg-12">
 				<div class="ibox float-e-margins">
 					<div class="ibox-content">
                         <div class="form-group">
                         	<div class="col-sm-4 col-sm-offset-5">
                                 <button class="btn btn-primary" type="button" onclick="save()">保存</button>
                                 &nbsp;&nbsp;&nbsp;&nbsp;
-                                <button class="btn btn-primary" type="button" onclick="tijiao()">提交</button>
+                                <button class="btn btn-primary" type="button" onclick="submit()">提交</button>
                                 &nbsp;&nbsp;&nbsp;&nbsp;
                             	<button class="btn btn-white" type="button" onclick="cancel()">取消</button>
                         	</div>
                     	</div>
 					</div>
 				</div>
-			</div>
+			</div> -->
 			</form>
 		</div>
 	</div>
@@ -586,6 +544,8 @@
 	var validator;
  	
  	$(document).ready(function(){
+ 		
+ 		$('input:text').attr("readonly","readonly");
  		
 		validator = $("#mainForm").validate({
 			/* rules : {
@@ -601,16 +561,6 @@
 			
 		});
 		
-		//时间控件
-		$('.date').datepicker({
-            todayBtn: "linked",
-            keyboardNavigation: false,
-            forceParse: false,
-            calendarWeeks: true,
-            autoclose: true,
-            language: "zh",
-            format: "yyyy-mm-dd"
-        });
 	});
  	
  	//保存
@@ -644,7 +594,7 @@
 		
 	}
  	
-	function tijiao() {
+	function submit() {
  		
  		if(!validator.form()){
  			return false;
@@ -658,10 +608,10 @@
 		    dataType: "text",
 		    success: function(data) { 
 		    	if("1"==data){
-	 				toastr.success("提交成功！");
+	 				toastr.success("保存成功！");
 	 				$("#right").load("/order/orderList");
 	 			}else if("-1"==data){
-	 				toastr.warning("提交失败,提交内容为空！");
+	 				toastr.warning("保存失败,提交内容为空！");
 	 			}
 		     },
 		     error: function() {	

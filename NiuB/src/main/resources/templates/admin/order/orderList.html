@@ -31,7 +31,7 @@
 						</div>
 					</div>
 					<div class="ibox-content">
-						<form id="mainForm" action=""  class="form-horizontal">
+						<form id="mainForm" action=""  class="form-horizontal" >
 							<!-- 数据缓存区 开始 -->
 							<!-- 数据缓存区 结束 -->
 							<div class="form-group">
@@ -62,13 +62,14 @@
 						
 						<div class="table-responsive">
 							<button type="button" id="addR" onclick="toOrderAdd()" class="btn btn-primary btn-sm">新增</button>
-							<button type="button" id="editR" onclick="toOrderEdit()" class="btn btn-primary btn-sm">修改</button>
+							<!-- <button type="button" id="editR" onclick="toOrderEdit()" class="btn btn-primary btn-sm">修改</button> -->
 							<button type="button" id="deleteR" onclick="toOrderDelete()" class="btn btn-danger btn-sm">删除</button>
 							<table class="table table-striped table-bordered table-hover ">
 								<thead>
 									<tr>
 										<th width="60px"><input id="btnCheckAll" type="checkbox" value=""/>全选</th>
 										<th>序号</th>
+										<th>操作</th>
 										<th>贷款人姓名</th>
 										<th>贷款金额</th>
 										<th>贷款类型</th>
@@ -79,6 +80,10 @@
 									<tr th:each="order,orderstate:${page.result}">
 										<td><input name="orderId" type="checkbox" th:value="${order.id}"/></td>
 										<td th:text="${orderstate.count}"></td>
+										<td>
+											<button th:if="${order.status=='0'}" type="button" id="disabled" th:attr="onclick='javascript:toOrderEdit(\''+${order.id}+'\');'" class="btn btn-primary btn-xs">修改</button>
+											<button type="button" id="disabled" th:attr="onclick='javascript:toOrderView(\''+${order.id}+'\');'" class="btn btn-primary btn-xs">查看</button>
+										</td>
 										<td th:text="${order.name}"></td>
 										<td th:text="${order.jieKuanSum}"></td>
 										<td th:text="${order.daikuanType}"></td>
@@ -265,15 +270,12 @@
 		$("#right").load("/order/toOrderAdd");
 	}
 	//修改
-	function toOrderEdit() {
-		//获取选中的复选框
-		var orderIds;
-		$("[name = orderId]:checkbox").each(function () {
-			if ($(this).is(":checked")) {
-				orderIds=($(this).attr("value"));
-			};
-		});
-		$("#right").load("/order/toOrderAdd", {orderIds:orderIds});
+	function toOrderEdit(id) {
+		$("#right").load("/order/toOrderUpdate", {id:id});
+	}
+	//查看
+	function toOrderView(id) {
+		$("#right").load("/order/toOrderView", {id:id});
 	}
 	
 	//删除
@@ -291,7 +293,7 @@
 				}
 			};
 		});
-		$("#right").load("/order/toOrderDelete", {orderIds:orderIds});
+		$("#right").load("/order/orderDelete", {orderIds:orderIds});
 	}
 	
 	/* function toAddMenuList(id){

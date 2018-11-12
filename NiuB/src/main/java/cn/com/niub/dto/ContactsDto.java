@@ -36,6 +36,8 @@ public class ContactsDto {
 	public ContactsDto(Contacts contacts){
 		//BeanUtils是org.springframework.beans.BeanUtils，前给后
 		//BeanUtils是org.apache.commons.beanutils.BeanUtils，后给前
-		BeanUtils.copyProperties(contacts, this);
+		if(null != contacts){
+			BeanUtils.copyProperties(contacts, this);
+		}
 	}
 }

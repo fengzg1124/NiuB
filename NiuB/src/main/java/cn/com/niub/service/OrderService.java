@@ -8,12 +8,14 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
+import org.thymeleaf.standard.StandardMessageResolutionUtils;
 
 import cn.com.niub.domain.Order;
 import cn.com.niub.dto.CarDto;
@@ -24,6 +26,7 @@ import cn.com.niub.dto.RoomDto;
 import cn.com.niub.dto.SpouseDto;
 import cn.com.niub.dto.SupplementaryDto;
 import cn.com.niub.jpa.OrderRepository;
+import cn.com.niub.utils.AbleStatus;
 import cn.com.niub.utils.ControllerUtils;
 import cn.com.niub.utils.Pagination;
 
@@ -45,8 +48,28 @@ public class OrderService {
 	@Autowired
 	ContactsService contactsService;
 	
-	public Order findOrderById(String id){
-		return orderRepository.findOne(id);
+	public OrderDto findOrderById(String id){
+		return new OrderDto(orderRepository.findOne(id));
+	}
+	
+	public OrderDto findOrderAllById(String id){
+		OrderDto dto = new OrderDto(orderRepository.findOne(id));
+		//房
+		RoomDto room = roomService.findRoomById(id);
+		//车
+		CarDto car = carService.findCarById(id);
+		//职业
+		JobDto job = jobService.findJobById(id);
+		//补充材料
+		SupplementaryDto supplementary = supplementaryService.findSupplementaryById(id);
+		//配偶信息
+		SpouseDto spouse = spouseService.findSpouseById(id);
+		//联系人
+		ContactsDto contacts = contactsService.findContactsById(id);
+
+		dto.setDto(room, car, job, supplementary, spouse, contacts);
+		
+		return dto;
 	}
 	
 	public void saveOrder(OrderDto dto){
@@ -102,7 +125,7 @@ public class OrderService {
 		
 		//排序
 		List<Sort.Order> orders = new ArrayList<Sort.Order>();
-        Sort.Order order = new Sort.Order(Sort.Direction.DESC, "createTime");
+        Sort.Order order = new Sort.Order(Sort.Direction.DESC, "updateTime");
         orders.add(order);
         Sort sort = new Sort(orders);
         
@@ -138,6 +161,7 @@ public class OrderService {
 				if(StringUtils.isNotBlank(wafUserDto.getInfo2())){
 					pl.add(cb.equal(root.<String>get("info2"), wafUserDto.getInfo2()));
 				}*/
+				pl.add(cb.equal(root.<String>get("delFlag"), AbleStatus.usable_1.getCode()));
 				return cb.and(pl.toArray(new Predicate[0]));
 			}
 		},request);

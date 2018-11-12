@@ -13,8 +13,8 @@ public class SupplementaryService {
 	@Autowired
 	SupplementaryRepository supplementaryRepository;
 	
-	public Supplementary findSupplementaryById(String id){
-		return supplementaryRepository.findOne(id);
+	public SupplementaryDto findSupplementaryById(String id){
+		return new SupplementaryDto(supplementaryRepository.findOne(id));
 	}
 	
 	public void saveSupplementary(SupplementaryDto dto){

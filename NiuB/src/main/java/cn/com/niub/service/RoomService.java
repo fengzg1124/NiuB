@@ -13,8 +13,8 @@ public class RoomService {
 	@Autowired
 	RoomRepository roomRepository;
 	
-	public Room findRoomById(String id){
-		return roomRepository.findOne(id);
+	public RoomDto findRoomById(String id){
+		return new RoomDto(roomRepository.findOne(id));
 	}
 	
 	public void saveRoom(RoomDto dto){

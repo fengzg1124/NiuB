@@ -32,12 +32,15 @@ public class Order {
 	private String daiKuanYongTu;
 	private String daikuanType;
 	private String jieKuanSum;
+	private String qiXian;
+	private String danBaoType;
+	private String huanKuanType;
 	//private String detailId;
 	
 	//基本信息
 	private String name;
 	private String sex;
-	private String chuShengRiQi;
+	private Date chuShengRiQi;
 	private String age;
 	private String icard;
 	private String jiGuan;

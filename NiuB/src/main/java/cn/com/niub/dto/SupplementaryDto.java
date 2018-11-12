@@ -3,6 +3,7 @@ package cn.com.niub.dto;
 import java.util.Date;
 
 import org.springframework.beans.BeanUtils;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import cn.com.niub.domain.Supplementary;
 import lombok.Data;
@@ -18,7 +19,8 @@ public class SupplementaryDto {
 	private String bgongShangHao;
 	private String bchangSuo;
 	private String byueZu;
-	private String bchengLiDate;
+	@DateTimeFormat(pattern = "yyyy-MM-dd") 
+	private Date bchengLiDate;
 	private String bshuiZhengNumber;
 	private String brenShu;
 	private String bnianYingLi;
@@ -33,6 +35,9 @@ public class SupplementaryDto {
 	public SupplementaryDto(Supplementary supplementary){
 		//BeanUtils是org.springframework.beans.BeanUtils，前给后
 		//BeanUtils是org.apache.commons.beanutils.BeanUtils，后给前
-		BeanUtils.copyProperties(supplementary, this);
+		
+		if(null != supplementary){
+			BeanUtils.copyProperties(supplementary, this);
+		}
 	}
 }

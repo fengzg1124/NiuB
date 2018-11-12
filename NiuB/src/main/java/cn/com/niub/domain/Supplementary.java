@@ -32,7 +32,7 @@ public class Supplementary {
 	private String bgongShangHao;
 	private String bchangSuo;
 	private String byueZu;
-	private String bchengLiDate;
+	private Date bchengLiDate;
 	private String bshuiZhengNumber;
 	private String brenShu;
 	private String bnianYingLi;

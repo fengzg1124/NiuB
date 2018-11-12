@@ -37,6 +37,8 @@ public class SpouseDto {
 	public SpouseDto(Spouse spouse){
 		//BeanUtils是org.springframework.beans.BeanUtils，前给后
 		//BeanUtils是org.apache.commons.beanutils.BeanUtils，后给前
-		BeanUtils.copyProperties(spouse, this);
+		if(null != spouse){
+			BeanUtils.copyProperties(spouse, this);
+		}
 	}
 }

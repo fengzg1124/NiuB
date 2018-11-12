@@ -30,6 +30,8 @@ public class CarDto {
 	public CarDto(Car car){
 		//BeanUtils是org.springframework.beans.BeanUtils，前给后
 		//BeanUtils是org.apache.commons.beanutils.BeanUtils，后给前
-		BeanUtils.copyProperties(car, this);
+		if(null != car){
+			BeanUtils.copyProperties(car, this);
+		}
 	}
 }

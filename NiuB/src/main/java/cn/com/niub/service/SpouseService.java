@@ -13,8 +13,8 @@ public class SpouseService {
 	@Autowired
 	SpouseRepository spouseRepository;
 	
-	public Spouse findSpouseById(String id){
-		return spouseRepository.findOne(id);
+	public SpouseDto findSpouseById(String id){
+		return new SpouseDto(spouseRepository.findOne(id));
 	}
 	
 	public void saveSpouse(SpouseDto dto){

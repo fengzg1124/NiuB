@@ -13,8 +13,8 @@ public class CarService {
 	@Autowired
 	CarRepository carRepository;
 	
-	public Car findCarById(String id){
-		return carRepository.findOne(id);
+	public CarDto findCarById(String id){
+		return new CarDto(carRepository.findOne(id));
 	}
 
 	public void saveCar(CarDto dto){

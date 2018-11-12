@@ -123,11 +123,16 @@ public class RoleController {
 	@RequestMapping(value="/toRoleDelete")
 	private String toRoleDelete(Model model,HttpServletRequest request,String roleIds) {
 		
+		HttpSession session = request.getSession();
+		User adminuser = (User) session.getAttribute("adminUser");
+		
 		List<String> ids = Arrays.asList(roleIds.split(","));  
 		Role role = new Role();
 		role.setDelFlag(AbleStatus.disabled_0.getCode());
 		for(String id:ids){
 			role.setId(id);
+			role.setUpdator(adminuser.getId());
+			role.setUpdateTime(new Date());
 			roleService.updateRoleById(role);
 		}
 		

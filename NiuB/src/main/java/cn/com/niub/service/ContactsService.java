@@ -13,8 +13,8 @@ public class ContactsService {
 	@Autowired
 	ContactsRepository contactsRepository;
 	
-	public Contacts findContactsById(String id){
-		return contactsRepository.findOne(id);
+	public ContactsDto findContactsById(String id){
+		return new ContactsDto(contactsRepository.findOne(id));
 	}
 
 	public void saveContacts(ContactsDto dto){

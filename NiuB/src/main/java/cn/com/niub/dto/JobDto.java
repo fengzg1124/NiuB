@@ -40,6 +40,8 @@ public class JobDto {
 	public JobDto(Job job){
 		//BeanUtils是org.springframework.beans.BeanUtils，前给后
 		//BeanUtils是org.apache.commons.beanutils.BeanUtils，后给前
-		BeanUtils.copyProperties(job, this);
+		if(null != job){
+			BeanUtils.copyProperties(job, this);
+		}
 	}
 }

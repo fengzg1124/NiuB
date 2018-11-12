@@ -35,6 +35,8 @@ public class RoomDto {
 	public RoomDto(Room room){
 		//BeanUtils是org.springframework.beans.BeanUtils，前给后
 		//BeanUtils是org.apache.commons.beanutils.BeanUtils，后给前
-		BeanUtils.copyProperties(room, this);
+		if(null != room){
+			BeanUtils.copyProperties(room, this);
+		}
 	}
 }

@@ -132,9 +132,14 @@ public class MenuController {
 	@RequestMapping(value="/toMenuDelete")
 	private String toMenuDelete(Model model,HttpServletRequest request,String menuIds) {
 		
+		HttpSession session = request.getSession();
+		User adminuser = (User) session.getAttribute("adminUser");
+		
 		List<String> ids = Arrays.asList(menuIds.split(","));  
 		Menu menu = new Menu();
 		menu.setDelFlag(AbleStatus.disabled_0.getCode());
+		menu.setUpdateBy(adminuser.getId());
+		menu.setUpdateDate(new Date());
 		
 		menuService.updateMenus(menu,ids);
 		
@@ -145,6 +150,9 @@ public class MenuController {
 	@RequestMapping(value="/toMenuAble")
 	private String toMenuAble(Model model,HttpServletRequest request,String menuIds,String able) {
 		
+		HttpSession session = request.getSession();
+		User adminuser = (User) session.getAttribute("adminUser");
+		
 		List<String> ids = Arrays.asList(menuIds.split(","));  
 		Menu menu = new Menu();
 		if("0".equals(able)){
@@ -153,6 +161,9 @@ public class MenuController {
 		if("1".equals(able)){
 			menu.setFlag(AbleStatus.usable_1.getCode());
 		}
+		
+		menu.setUpdateBy(adminuser.getId());
+		menu.setUpdateDate(new Date());
 		
 		menuService.updateMenus(menu,ids);
 		

@@ -13,8 +13,8 @@ public class JobService {
 	@Autowired
 	JobRepository jobRepository;
 	
-	public Job findJobById(String id){
-		return jobRepository.findOne(id);
+	public JobDto findJobById(String id){
+		return new JobDto(jobRepository.findOne(id));
 	}
 
 	public void saveJob(JobDto dto){
