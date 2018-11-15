@@ -1,18 +1,14 @@
 package cn.com.niub.controller;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-
-import com.alibaba.fastjson.JSON;
 
 import cn.com.niub.domain.User;
 import cn.com.niub.dto.CarDto;
@@ -36,12 +32,17 @@ public class OrderController {
 	OrderService orderService;
 	
 	@RequestMapping(value="/orderList")
-	public String roleList(Model model,HttpServletRequest request,OrderDto dto,
+	public String orderList(Model model,HttpServletRequest request,OrderDto dto,
 			String pageNum,String pageSize){
+		
+		HttpSession session = request.getSession();
+		User adminuser = (User) session.getAttribute("adminUser");
 		
 		if(null == dto){
 			dto = new OrderDto();
 		}
+		//查询当前人创建的订单
+		dto.setCreater(adminuser.getId());
 		
 		Pagination<OrderDto> page = PageUtils.newPagination(pageNum, pageSize);
 		page = orderService.findOrder(dto,page);

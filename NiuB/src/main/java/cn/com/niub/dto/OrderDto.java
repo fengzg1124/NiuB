@@ -38,6 +38,10 @@ public class OrderDto {
 	private String phone;
 	private String zuoJi;
 	
+	//审核意见
+	private String auditResults;
+	private String auditOpinion;
+	
 	private String creater;
 	@DateTimeFormat(pattern = "yyyy-MM-dd") 
 	private Date createTime;

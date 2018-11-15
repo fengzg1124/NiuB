@@ -137,30 +137,14 @@ public class OrderService {
 			public Predicate toPredicate(Root<Order> root, CriteriaQuery<?> cq, CriteriaBuilder cb) {
 				List<Predicate> pl = new ArrayList<Predicate>();
 				
-				//用户名
-				/*if(StringUtils.isNotBlank(wafUserDto.getUserName())){
+				/*//用户名
+				if(StringUtils.isNotBlank(wafUserDto.getUserName())){
 					pl.add(cb.like(root.<String>get("userName"), "%"+wafUserDto.getUserName()+"%"));
-				}
-				//机构部门
-				if(StringUtils.isNotBlank(wafUserDto.getDeptId())){
-					pl.add(cb.equal(root.<String>get("deptId"), wafUserDto.getDeptId()));
-				}
-				//电话
-				if(StringUtils.isNotBlank(wafUserDto.getPhone())){
-					pl.add(cb.like(root.<String>get("phone"), "%"+wafUserDto.getPhone()+"%"));
-				}
-				//移动电话
-				if(StringUtils.isNotBlank(wafUserDto.getMobile())){
-					pl.add(cb.like(root.<String>get("mobile"), "%"+wafUserDto.getMobile()+"%"));
-				}
-				//邮件
-				if(StringUtils.isNotBlank(wafUserDto.getMail())){
-					pl.add(cb.like(root.<String>get("mail"), "%"+wafUserDto.getMail()+"%"));
-				}
-				//房间号
-				if(StringUtils.isNotBlank(wafUserDto.getInfo2())){
-					pl.add(cb.equal(root.<String>get("info2"), wafUserDto.getInfo2()));
 				}*/
+				
+				if(StringUtils.isNotBlank(dto.getCreater())){
+					pl.add(cb.equal(root.<String>get("creater"), dto.getCreater()));
+				}
 				pl.add(cb.equal(root.<String>get("delFlag"), AbleStatus.usable_1.getCode()));
 				return cb.and(pl.toArray(new Predicate[0]));
 			}
