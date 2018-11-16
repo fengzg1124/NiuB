@@ -1,5 +1,6 @@
 package cn.com.niub.dto;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Id;
@@ -11,7 +12,12 @@ import cn.com.niub.domain.Order;
 import lombok.Data;
 
 @Data
-public class OrderDto {
+public class OrderDto implements Serializable {
+
+	/**
+	 *
+	 */
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	private String id;

@@ -106,8 +106,8 @@ public class OrderController {
 				OrderDto od = orderService.findOrderById(dto.getId());
 				dto.setCreater(od.getCreater());
 				dto.setCreateTime(od.getCreateTime());
+				dto.setStatus(od.getStatus());
 				dto.setUpdater(adminuser.getId());
-				dto.setDelFlag(AbleStatus.usable_1.getCode());
 				orderService.saveOrder(dto);
 			}
 			message = "1";

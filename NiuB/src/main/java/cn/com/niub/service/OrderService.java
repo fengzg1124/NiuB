@@ -1,6 +1,8 @@
 package cn.com.niub.service;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.persistence.criteria.CriteriaBuilder;
@@ -15,7 +17,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
-import org.thymeleaf.standard.StandardMessageResolutionUtils;
 
 import cn.com.niub.domain.Order;
 import cn.com.niub.dto.CarDto;
@@ -27,7 +28,6 @@ import cn.com.niub.dto.SpouseDto;
 import cn.com.niub.dto.SupplementaryDto;
 import cn.com.niub.jpa.OrderRepository;
 import cn.com.niub.utils.AbleStatus;
-import cn.com.niub.utils.ControllerUtils;
 import cn.com.niub.utils.Pagination;
 
 @Service
@@ -121,7 +121,7 @@ public class OrderService {
 		
 	}
 	
-	public Pagination<OrderDto> findOrder(OrderDto dto,Pagination<OrderDto> pag){
+	public Pagination<OrderDto> findOrder(final OrderDto dto, Pagination<OrderDto> pag){
 		
 		//排序
 		List<Sort.Order> orders = new ArrayList<Sort.Order>();
@@ -145,6 +145,10 @@ public class OrderService {
 				if(StringUtils.isNotBlank(dto.getCreater())){
 					pl.add(cb.equal(root.<String>get("creater"), dto.getCreater()));
 				}
+                if(StringUtils.isNotBlank(dto.getStatus())){
+                    List<String> st = Arrays.asList(dto.getStatus().split(","));
+                    pl.add(root.<String>get("status").in(st));
+                }
 				pl.add(cb.equal(root.<String>get("delFlag"), AbleStatus.usable_1.getCode()));
 				return cb.and(pl.toArray(new Predicate[0]));
 			}
@@ -161,4 +165,5 @@ public class OrderService {
 	    
 	    return pag;
 	}
+
 }

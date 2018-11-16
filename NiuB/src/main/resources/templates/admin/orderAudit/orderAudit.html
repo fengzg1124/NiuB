@@ -527,10 +527,10 @@
 						<div class="form-group">
 							<label class="col-sm-2 control-label">审核结果</label>
                             <div class="col-sm-10">
-                            	<select id="auditResults" name="auditResults" class="form-control m-b">
+                            	<select id="status" name="status" class="form-control m-b">
                                		<option value="" >请选择</option>
-                            		<option value="通过" th:selected="${dto.auditResults=='通过'}">通过</option>
-	                                <option value="不通过" th:selected="${dto.auditResults=='不通过'}">不通过</option>
+                            		<option value="2" >通过</option>
+	                                <option value="3" >不通过</option>
 	                            </select>
                             </div>
                         </div>
@@ -541,19 +541,14 @@
                                	<textarea id="auditOpinion" name="auditOpinion" th:text="${dto.auditOpinion}" class="form-control" ></textarea>
                             </div>
                         </div>
-					</div>
-				</div>
-			</div>
-			<div class="col-lg-12">
-				<div class="ibox float-e-margins">
-					<div class="ibox-content">
+                        <div class="hr-line-dashed"></div>
                         <div class="form-group">
-                        	<div class="col-sm-4 col-sm-offset-5">
-                                <button class="btn btn-primary" type="button" onclick="submit()">提交</button>
+                            <div class="col-sm-4 col-sm-offset-5">
+                                <button class="btn btn-primary" type="button" onclick="tijiao()">提交</button>
                                 &nbsp;&nbsp;&nbsp;&nbsp;
-                            	<button class="btn btn-white" type="button" onclick="cancel()">取消</button>
-                        	</div>
-                    	</div>
+                                <button class="btn btn-white" type="button" onclick="cancel()">取消</button>
+                            </div>
+                        </div>
 					</div>
 				</div>
 			</div>
@@ -587,22 +582,21 @@
 		
 	});
  	
-	function submit() {
- 		
+	function tijiao() {
+ 		alert(1111111111);
  		if(!validator.form()){
  			return false;
  		}
- 		$("#status").val("2");
  		var formData = $('#mainForm').serializeArray();
  		$.ajax({
-		    url: '/order/orderAuditSave',
+		    url: '/orderAudit/orderAuditSave',
 		    data: formData,
 		    type: 'post',
 		    dataType: "text",
 		    success: function(data) { 
 		    	if("1"==data){
 	 				toastr.success("保存成功！");
-	 				$("#right").load("/order/orderList");
+	 				$("#right").load("/orderAudit/orderAuditList");
 	 			}else if("-1"==data){
 	 				toastr.warning("保存失败,提交内容为空！");
 	 			}
@@ -618,7 +612,7 @@
 	}
  	//取消
  	function cancel() {
- 		$("#right").load("/order/orderList");
+ 		$("#right").load("/orderAudit/orderAuditList");
 	}
 	/*]]>*/
 </script> 

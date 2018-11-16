@@ -31,12 +31,13 @@ public class OrderAuditController {
 		if(null == dto){
 			dto = new OrderDto();
 		}
-		
+		//1、提交，2、审核通过，3、审核不通过
+        dto.setStatus("'1','2','3'");
 		Pagination<OrderDto> page = PageUtils.newPagination(pageNum, pageSize);
 		page = orderService.findOrder(dto,page);
 		model.addAttribute("page", page);
 		model.addAttribute("dto", dto);
-		return "admin/orderAudit/orderList";
+		return "admin/orderAudit/orderAuditList";
 	}
 	
 	//跳转到审核页面
