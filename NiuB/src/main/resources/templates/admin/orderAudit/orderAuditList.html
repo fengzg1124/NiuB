@@ -82,13 +82,17 @@
 										<td><input name="orderId" type="checkbox" th:value="${order.id}"/></td>
 										<td th:text="${orderstate.count}"></td>
 										<td>
-											<button th:if="${order.status=='1'}" type="button" id="disabled" th:attr="onclick='javascript:toOrderAudit(\''+${order.id}+'\');'" class="btn btn-primary btn-xs">审核</button>
-											<button type="button" id="disabled" th:attr="onclick='javascript:toOrderView(\''+${order.id}+'\');'" class="btn btn-primary btn-xs">查看</button>
+											<button th:if="${order.status=='1' or order.status=='2' or order.status=='4'}" type="button" id="disabled" th:attr="onclick='javascript:toOrderAudit(\''+${order.id}+'\');'" class="btn btn-primary btn-xs">审核</button>
+											<button type="button" th:attr="onclick='javascript:toOrderView(\''+${order.id}+'\');'" class="btn btn-primary btn-xs">查看</button>
 										</td>
 										<td>
 											<span th:if="${order.status=='1'}" >待审核</span>
-											<span th:if="${order.status=='2'}" >通过</span>
-											<span th:if="${order.status=='3'}" >不通过</span>
+											<span th:if="${order.status=='2'}" >征信审核通过</span>
+											<span th:if="${order.status=='3'}" >征信审核不通过</span>
+											<span th:if="${order.status=='4'}">材料审核通过</span>
+											<span th:if="${order.status=='5'}">材料审核不通过</span>
+											<span th:if="${order.status=='6'}">银行审核通过</span>
+											<span th:if="${order.status=='7'}">银行审核不通过</span>
 										</td>
 										<td th:text="${order.name}"></td>
 										<td th:text="${order.jieKuanSum}"></td>

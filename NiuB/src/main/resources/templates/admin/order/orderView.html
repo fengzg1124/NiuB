@@ -517,6 +517,30 @@
 					</div>
 				</div>
 			</div>
+            <!--审核意见-->
+            <div th:if="${dto.status!='0' and dto.status!='1'}" class="col-lg-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>审核意见</h5>
+                    </div>
+                    <div class="ibox-content" th:each="acd,acdstar:${auditContentDtos}">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">
+                                <span th:if="${acd.status=='2'}">征信审核通过</span>
+                                <span th:if="${acd.status=='3'}">征信审核不通过</span>
+                                <span th:if="${acd.status=='4'}">材料审核通过</span>
+                                <span th:if="${acd.status=='5'}">材料审核不通过</span>
+                                <span th:if="${acd.status=='6'}">银行审核通过</span>
+                                <span th:if="${acd.status=='7'}">银行审核不通过</span>
+                            </label>
+                            <div class="col-sm-10">
+                                <textarea th:text="${acd.content}" style="resize:none" class="form-control"></textarea>
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                    </div>
+                </div>
+            </div>
 			</form>
 		</div>
 	</div>
@@ -530,7 +554,7 @@
  	$(document).ready(function(){
  		
  		$('input:text').attr("readonly","readonly");
- 		
+        $('textarea').attr("readonly","readonly");
 		validator = $("#mainForm").validate({
 			/* rules : {
 				roleName : {

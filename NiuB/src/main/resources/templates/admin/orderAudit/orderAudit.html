@@ -24,6 +24,7 @@
 			<form id="mainForm" action=""  class="form-horizontal">
 			<!-- 数据存储区 -->
 			<input type="hidden" name="id" id="id" th:value="${dto.id}" />
+            <input type="hidden" id="status" th:value="${dto.status}" />
 			
 			<div class="col-lg-12">
 				<div class="ibox float-e-margins">
@@ -527,11 +528,21 @@
 						<div class="form-group">
 							<label class="col-sm-2 control-label">审核结果</label>
                             <div class="col-sm-10">
-                            	<select id="status" name="status" class="form-control m-b">
+                            	<select th:if="${dto.status=='1'}" name="status" class="form-control m-b">
                                		<option value="" >请选择</option>
                             		<option value="2" >通过</option>
 	                                <option value="3" >不通过</option>
 	                            </select>
+                                <select th:if="${dto.status=='2'}" name="status" class="form-control m-b">
+                                    <option value="" >请选择</option>
+                                    <option value="4" >通过</option>
+                                    <option value="5" >不通过</option>
+                                </select>
+                                <select th:if="${dto.status=='4'}" name="status" class="form-control m-b">
+                                    <option value="" >请选择</option>
+                                    <option value="6" >通过</option>
+                                    <option value="7" >不通过</option>
+                                </select>
                             </div>
                         </div>
                         <div class="hr-line-dashed"></div>
@@ -583,10 +594,10 @@
 	});
  	
 	function tijiao() {
- 		alert(1111111111);
  		if(!validator.form()){
  			return false;
  		}
+        var status = $("#status").val();
  		var formData = $('#mainForm').serializeArray();
  		$.ajax({
 		    url: '/orderAudit/orderAuditSave',
@@ -595,14 +606,14 @@
 		    dataType: "text",
 		    success: function(data) { 
 		    	if("1"==data){
-	 				toastr.success("保存成功！");
-	 				$("#right").load("/orderAudit/orderAuditList");
+	 				toastr.success("审核成功！");
+	 				$("#right").load("/orderAudit/orderAuditList"+status);
 	 			}else if("-1"==data){
-	 				toastr.warning("保存失败,提交内容为空！");
+	 				toastr.warning("审核失败,提交内容为空！");
 	 			}
 		     },
 		     error: function() {	
-		    	 toastr.warning("保存失败！");
+		    	 toastr.warning("审核失败！");
 		     }
 		});
  		

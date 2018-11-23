@@ -3,6 +3,8 @@ package cn.com.niub.controller;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import cn.com.niub.dto.*;
+import cn.com.niub.service.AuditContentService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,18 +13,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import cn.com.niub.domain.User;
-import cn.com.niub.dto.CarDto;
-import cn.com.niub.dto.ContactsDto;
-import cn.com.niub.dto.JobDto;
-import cn.com.niub.dto.OrderDto;
-import cn.com.niub.dto.RoomDto;
-import cn.com.niub.dto.SpouseDto;
-import cn.com.niub.dto.SupplementaryDto;
 import cn.com.niub.service.OrderService;
 import cn.com.niub.utils.AbleStatus;
 import cn.com.niub.utils.ControllerUtils;
 import cn.com.niub.utils.PageUtils;
 import cn.com.niub.utils.Pagination;
+
+import java.util.List;
 
 @Controller
 @RequestMapping(value="/order")
@@ -30,6 +27,9 @@ public class OrderController {
 
 	@Autowired
 	OrderService orderService;
+
+	@Autowired
+	AuditContentService auditContentService;
 	
 	@RequestMapping(value="/orderList")
 	public String orderList(Model model,HttpServletRequest request,OrderDto dto,
@@ -79,6 +79,10 @@ public class OrderController {
 		
 		if(StringUtils.isNotBlank(id)){
 			dto = orderService.findOrderAllById(id);
+			if (Integer.valueOf(dto.getStatus()) >1){
+				List<AuditContentDto> auditContentDtos = auditContentService.findByOrderId(dto.getId());
+				model.addAttribute("auditContentDtos", auditContentDtos);
+			}
 		}
 		
 		model.addAttribute("dto", dto);

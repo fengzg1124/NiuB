@@ -45,7 +45,6 @@ public class OrderDto implements Serializable {
 	private String zuoJi;
 	
 	//审核意见
-	private String auditResults;
 	private String auditOpinion;
 	
 	private String creater;
@@ -82,7 +81,9 @@ public class OrderDto implements Serializable {
 	public OrderDto(Order order){
 		//BeanUtils是org.springframework.beans.BeanUtils，前给后
 		//BeanUtils是org.apache.commons.beanutils.BeanUtils，后给前
-		BeanUtils.copyProperties(order, this);
+		if(null != order){
+			BeanUtils.copyProperties(order, this);
+		}
 	}
 	public OrderDto(RoomDto room,CarDto car,JobDto job,SupplementaryDto supplementary,SpouseDto spouse,ContactsDto contacts){
 		this.room = room;

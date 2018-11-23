@@ -51,10 +51,6 @@ public class Order {
 	private String phone;
 	private String zuoJi;
 	
-	//审核意见
-	private String auditResults;
-	private String auditOpinion;
-	
 	private String creater;
 	@CreatedDate
 	@Temporal(TemporalType.TIMESTAMP)
