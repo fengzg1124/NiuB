@@ -10,6 +10,10 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
+import cn.com.niub.domain.User;
+import cn.com.niub.domain.UserExample;
+import cn.com.niub.mapper.OrderMapper;
+import com.github.pagehelper.PageHelper;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -47,6 +51,8 @@ public class OrderService {
 	SupplementaryService supplementaryService;
 	@Autowired
 	ContactsService contactsService;
+	@Autowired
+	OrderMapper orderMapper;
 	
 	public OrderDto findOrderById(String id){
 		return new OrderDto(orderRepository.findOne(id));
@@ -136,11 +142,10 @@ public class OrderService {
 			@Override
 			public Predicate toPredicate(Root<Order> root, CriteriaQuery<?> cq, CriteriaBuilder cb) {
 				List<Predicate> pl = new ArrayList<Predicate>();
-				
-				/*//用户名
-				if(StringUtils.isNotBlank(wafUserDto.getUserName())){
-					pl.add(cb.like(root.<String>get("userName"), "%"+wafUserDto.getUserName()+"%"));
-				}*/
+
+				if(StringUtils.isNotBlank(dto.getName())){
+					pl.add(cb.equal(root.<String>get("name"), dto.getName()));
+				}
 				
 				if(StringUtils.isNotBlank(dto.getCreater())){
 					pl.add(cb.equal(root.<String>get("creater"), dto.getCreater()));
@@ -164,6 +169,14 @@ public class OrderService {
 	    pag.setPages((int)page.getTotalElements());
 	    
 	    return pag;
+	}
+
+
+	//按条件查找 分页
+	public com.github.pagehelper.Page<OrderDto> findOrder(OrderDto dto, int pageNum, int pageSize){
+		PageHelper.startPage(pageNum, pageSize);
+		com.github.pagehelper.Page<OrderDto> orders = (com.github.pagehelper.Page<OrderDto>)orderMapper.findOrder(dto);
+		return orders;
 	}
 
 }

@@ -5,10 +5,12 @@ import javax.servlet.http.HttpSession;
 
 import cn.com.niub.dto.*;
 import cn.com.niub.service.AuditContentService;
+import com.github.pagehelper.Page;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -31,8 +33,8 @@ public class OrderController {
 	@Autowired
 	AuditContentService auditContentService;
 	
-	@RequestMapping(value="/orderList")
-	public String orderList(Model model,HttpServletRequest request,OrderDto dto,
+	@RequestMapping(value="/orderList/{role}")
+	public String orderList(Model model,HttpServletRequest request,OrderDto dto,@PathVariable("role") String role,
 			String pageNum,String pageSize){
 		
 		HttpSession session = request.getSession();
@@ -41,11 +43,24 @@ public class OrderController {
 		if(null == dto){
 			dto = new OrderDto();
 		}
-		//查询当前人创建的订单
-		dto.setCreater(adminuser.getId());
-		
-		Pagination<OrderDto> page = PageUtils.newPagination(pageNum, pageSize);
-		page = orderService.findOrder(dto,page);
+
+		if("kh".equals(role)){
+			//查询当前人创建的订单
+			dto.setCreater(adminuser.getId());
+		}else{
+			dto.setManagerId(adminuser.getId());
+		}
+
+		//Pagination<OrderDto> page = PageUtils.newPagination(pageNum, pageSize);
+		//page = orderService.findOrder(dto,page);
+		//分页页码
+		pageNum = StringUtils.isBlank(pageNum)?"1":pageNum;
+		//列表行数
+		pageSize = StringUtils.isBlank(pageSize)?"10":pageSize;
+
+		//查询用户列表
+		Page<OrderDto> page = orderService.findOrder(dto,Integer.valueOf(pageNum),Integer.valueOf(pageSize));
+
 		model.addAttribute("page", page);
 		model.addAttribute("dto", dto);
 		return "admin/order/orderList";

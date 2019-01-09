@@ -86,13 +86,15 @@
 											<button type="button" th:attr="onclick='javascript:toOrderView(\''+${order.id}+'\');'" class="btn btn-primary btn-xs">查看</button>
 										</td>
                                         <td>
-                                            <span th:if="${order.status=='1'}" >待审核</span>
-                                            <span th:if="${order.status=='2'}" >征信审核通过</span>
-                                            <span th:if="${order.status=='3'}" >征信审核不通过</span>
-                                            <span th:if="${order.status=='4'}">材料审核通过</span>
-                                            <span th:if="${order.status=='5'}">材料审核不通过</span>
-                                            <span th:if="${order.status=='6'}">银行审核通过</span>
-                                            <span th:if="${order.status=='7'}">银行审核不通过</span>
+											<span th:if="${order.status=='1'}" >待审核</span>
+											<span th:if="${order.status=='2'}" >初审通过</span>
+											<span th:if="${order.status=='3'}" >初审不通过</span>
+											<span th:if="${order.status=='4'}">征信审核通过</span>
+											<span th:if="${order.status=='5'}">征信审核不通过</span>
+											<span th:if="${order.status=='6'}">中介合同提交</span>
+											<span th:if="${order.status=='7'}">银行材料提交</span>
+											<span th:if="${order.status=='8'}">银行审核通过</span>
+											<span th:if="${order.status=='9'}">银行审核不通过</span>
                                         </td>
 										<td th:text="${order.name}"></td>
 										<td th:text="${order.jieKuanSum}"></td>

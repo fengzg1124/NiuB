@@ -522,7 +522,11 @@
 			<div class="col-lg-12">
 				<div class="ibox float-e-margins">
 					<div class="ibox-title">
-						<h5>审核信息</h5>
+						<h5>
+                            <span th:if="${dto.status=='1'}">初审信息</span>
+                            <span th:if="${dto.status=='2'}">征信审核信息</span>
+                            <span th:if="${dto.status=='7'}">银行审核信息</span>
+                        </h5>
 					</div>
 					<div class="ibox-content">
 						<div class="form-group">
@@ -538,13 +542,23 @@
                                     <option value="4" >通过</option>
                                     <option value="5" >不通过</option>
                                 </select>
-                                <select th:if="${dto.status=='4'}" name="status" class="form-control m-b">
+                                <select th:if="${dto.status=='7'}" name="status" id="status7" class="form-control m-b" onchange="money()">
                                     <option value="" >请选择</option>
-                                    <option value="6" >通过</option>
-                                    <option value="7" >不通过</option>
+                                    <option value="8" >通过</option>
+                                    <option value="9" >不通过</option>
                                 </select>
                             </div>
                         </div>
+                        <div id="money" style="display:none;">
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">银行批复金额（元）</label>
+                                <div class="col-sm-2">
+                                    <input type="text" id="approvalAmount" name="approvalAmount" class="form-control" />
+                                </div>
+                            </div>
+                        </div>
+
                         <div class="hr-line-dashed"></div>
                         <div class="form-group">
 							<label class="col-sm-2 control-label">审核意见</label>
@@ -607,7 +621,7 @@
 		    success: function(data) { 
 		    	if("1"==data){
 	 				toastr.success("审核成功！");
-	 				$("#right").load("/orderAudit/orderAuditList"+status);
+	 				$("#right").load("/orderAudit/orderAuditList/"+status);
 	 			}else if("-1"==data){
 	 				toastr.warning("审核失败,提交内容为空！");
 	 			}
@@ -623,7 +637,18 @@
 	}
  	//取消
  	function cancel() {
- 		$("#right").load("/orderAudit/orderAuditList");
+        var status = $("#status").val();
+ 		$("#right").load("/orderAudit/orderAuditList/"+status);
 	}
+
+	function money() {
+        var status = $("#status7").val();
+        if(status=='8'){
+            $("#money").show();
+            $('#approvalAmount').removeAttr("readonly");
+        }else{
+            $("#money").hide();
+        }
+    }
 	/*]]>*/
 </script> 

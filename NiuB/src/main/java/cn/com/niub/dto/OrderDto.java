@@ -43,6 +43,9 @@ public class OrderDto implements Serializable {
 	private String sheBao;
 	private String phone;
 	private String zuoJi;
+
+	//财富经理id
+	private String managerId;
 	
 	//审核意见
 	private String auditOpinion;
@@ -55,6 +58,11 @@ public class OrderDto implements Serializable {
 	private Date updateTime;
 	private Integer delFlag;
 	private String status;
+
+	//服务费
+	private String serviceFee;
+	//银行批复金额
+	private String approvalAmount;
 	
 	//房
 	RoomDto room;

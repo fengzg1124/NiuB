@@ -6,7 +6,7 @@
             <li>
                 <a href="/adminLogin">首页</a>
             </li>
-            
+
             <li class="active">
                 <strong>订单审核列表</strong>
             </li>
@@ -33,24 +33,25 @@
 					<div class="ibox-content">
 						<form id="mainForm" action=""  class="form-horizontal" >
 							<!-- 数据缓存区 开始 -->
+							<input type="hidden" id="status" th:value="${status}" />
 							<!-- 数据缓存区 结束 -->
 							<div class="form-group">
 								<label class="col-sm-2 control-label">贷款人姓名</label>
 	                            <div class="col-sm-2">
 	                            	<input type="text" id="name" name="name" th:value="${dto.name}" class="form-control"/>
 	                            </div>
-	                        
+
 	                        	<label class="col-sm-1 control-label"></label>
 	                            <div class="col-sm-2">
 	                            </div>
-	                        	
+
 	                        	<label class="col-sm-1 control-label">贷款类型</label>
 	                            <div class="col-sm-2">
 	                            	<input type="text" id="daikuanType" name="daikuanType" th:value="${dto.daikuanType}" class="form-control"/>
 	                            </div>
-	                            
+
 	                        </div>
-	                        
+
 	                        <div class="form-group">
                                 <div class="col-sm-4 col-sm-offset-5">
                                     <button class="btn btn-primary" type="button" onclick="search()">查询</button>
@@ -59,7 +60,7 @@
                                 </div>
                             </div>
                             <div class="hr-line-dashed"></div>
-						
+
 						<div class="table-responsive">
 							<!--<button type="button" id="addR" onclick="toOrderAdd()" class="btn btn-primary btn-sm">新增</button>
 							&lt;!&ndash; <button type="button" id="editR" onclick="toOrderEdit()" class="btn btn-primary btn-sm">修改</button> &ndash;&gt;
@@ -82,17 +83,21 @@
 										<td><input name="orderId" type="checkbox" th:value="${order.id}"/></td>
 										<td th:text="${orderstate.count}"></td>
 										<td>
-											<button th:if="${order.status=='1' or order.status=='2' or order.status=='4'}" type="button" id="disabled" th:attr="onclick='javascript:toOrderAudit(\''+${order.id}+'\');'" class="btn btn-primary btn-xs">审核</button>
+											<button th:if="${order.status=='1' or order.status=='2' or order.status=='7'}" type="button" th:attr="onclick='javascript:toOrderAudit(\''+${order.id}+'\');'" class="btn btn-primary btn-xs">审核</button>
+											<button th:if="${order.status=='4'}" type="button" th:attr="onclick='javascript:toOrderAudit(\''+${order.id}+'\');'" class="btn btn-primary btn-xs">提交合同</button>
+                                            <button th:if="${order.status=='6'}" type="button" th:attr="onclick='javascript:submitBank(\''+${order.id}+'\');'" class="btn btn-primary btn-xs">提交银行材料</button>
 											<button type="button" th:attr="onclick='javascript:toOrderView(\''+${order.id}+'\');'" class="btn btn-primary btn-xs">查看</button>
 										</td>
 										<td>
 											<span th:if="${order.status=='1'}" >待审核</span>
-											<span th:if="${order.status=='2'}" >征信审核通过</span>
-											<span th:if="${order.status=='3'}" >征信审核不通过</span>
-											<span th:if="${order.status=='4'}">材料审核通过</span>
-											<span th:if="${order.status=='5'}">材料审核不通过</span>
-											<span th:if="${order.status=='6'}">银行审核通过</span>
-											<span th:if="${order.status=='7'}">银行审核不通过</span>
+											<span th:if="${order.status=='2'}" >初审通过</span>
+											<span th:if="${order.status=='3'}" >初审不通过</span>
+											<span th:if="${order.status=='4'}">征信审核通过</span>
+											<span th:if="${order.status=='5'}">征信审核不通过</span>
+											<span th:if="${order.status=='6'}">中介合同提交</span>
+											<span th:if="${order.status=='7'}">银行材料提交</span>
+											<span th:if="${order.status=='8'}">银行审核通过</span>
+											<span th:if="${order.status=='9'}">银行审核不通过</span>
 										</td>
 										<td th:text="${order.name}"></td>
 										<td th:text="${order.jieKuanSum}"></td>
@@ -147,16 +152,16 @@
 	</div>
 </div>
 
-<script th:inline="javascript">  
-/*<![CDATA[*/  
-	
+<script th:inline="javascript">
+/*<![CDATA[*/
+
  	$(function() {
  		/****************************翻页开始*****************************/
  		//当前页码
  		var pageNum = $("#pageNum").val();
  		//总页码
  		var pages = $("#pages").val();
- 		
+
  		//首页上一页按钮释放
  		if(parseInt(pageNum) > 1){
 			$("#first").removeClass("disabled");
@@ -167,17 +172,17 @@
 			$("#next").removeClass("disabled");
 			$("#end").removeClass("disabled");
 		}
-		
+
  		//改变表格行数
  		$('#pageSize').change(function(){
  			search();
  		});
- 		
+
  		//跳转到指定页
 		$("#go").click(function(){
 			//转到多少页
 	 		var toPageNum = $("#toPageNum").val();
-			
+
 	 		if(toPageNum == ""){
 	 			toastr.warning("请输入要跳转页面的页数！");
  				$("#toPageNum").focus();
@@ -218,7 +223,7 @@
  			search();
 		});
 		/****************************翻页结束*****************************/
-		
+
 		//初始禁用修改删除按钮
 		$("#editR").attr("disabled",true);
 		$("#deleteR").attr("disabled",true);
@@ -261,17 +266,18 @@
 			}
 		});
  	});
- 	
+
 	//查询
 	function search() {
 		var pageNum = $("#pageNum").val();
 		var pageSize = $('#pageSize').val();
+        var status = $("#status").val();
 		var formData = arrayToJson($('#mainForm').serializeArray());
-		$("#right").load("/orderAudit/orderAuditList", {
+		$("#right").load("/orderAudit/orderAuditList/"+status, {
 			pageNum : pageNum,
 			pageSize : pageSize,
 			formData : formData
-		}); 
+		});
 	}
 
 	//审核
@@ -283,5 +289,11 @@
 		$("#right").load("/order/toOrderView", {id:id});
 	}
 
+    //提交银行材料
+    function submitBank(id) {
+        $("#right").load("/orderAudit/submitBank", {id:id},function(data){
+            toastr.success("提交成功！");
+        });
+    }
 	/*]]>*/
 </script> 

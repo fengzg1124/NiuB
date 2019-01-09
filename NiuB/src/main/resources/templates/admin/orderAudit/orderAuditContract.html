@@ -1,0 +1,645 @@
+
+
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>订单查看</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a href="/adminLogin">首页</a>
+            </li>
+            <li>
+                <a>订单管理</a>
+            </li>
+            <li class="active">
+                <strong>订单查看</strong>
+            </li>
+        </ol>
+    </div>
+    <div class="col-lg-2">
+    </div>
+</div>
+<div class="wrapper wrapper-content animated fadeIn">
+	<div class="p-w-md m-t-sm">
+		<div class="row">
+			<form id="mainForm" action=""  class="form-horizontal" enctype="multipart/form-data">
+			<!-- 数据存储区 -->
+			<input type="hidden" name="id" id="id" th:value="${dto.id}" />
+            <input type="hidden" id="status" th:value="${dto.status}" />
+            <input type="hidden" name="status" value="6" />
+			
+			<div class="col-lg-12">
+				<div class="ibox float-e-margins">
+					<div class="ibox-title">
+						<h5>贷款事项</h5>
+						<!-- <div class="ibox-tools">
+							<a class="collapse-link"> <i class="fa fa-chevron-up"></i>
+							</a> <a class="close-link"> <i class="fa fa-times"></i>
+							</a>
+						</div> -->
+					</div>
+					<div class="ibox-content">
+						<div class="form-group">
+							<label class="col-sm-2 control-label">贷款类型</label>
+                            <div class="col-sm-2">
+                            	<input type="text" id="daikuanType" name="daikuanType" th:value="${dto.daikuanType}" class="form-control" />
+                            </div>
+                            
+							<label class="col-sm-2 control-label">贷款用途</label>
+                            <div class="col-sm-2">
+                            	<input type="text" id="daiKuanYongTu" name="daiKuanYongTu" th:value="${dto.daiKuanYongTu}" class="form-control" />
+                            </div>
+                            
+                            <label class="col-sm-2 control-label">贷款期限</label>
+                            <div class="col-sm-2">
+                               	<input type="text" id="qiXian" name="qiXian" th:value="${dto.qiXian}" class="form-control" />
+                            </div>
+                            
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                        	<label class="col-sm-2 control-label">申请额度</label>
+                            <div class="col-sm-2">
+                            	<input type="text" id="jieKuanSum" name="jieKuanSum" th:value="${dto.jieKuanSum}" class="form-control" />
+                            </div>
+                            
+							<label class="col-sm-2 control-label">担保方式</label>
+                            <div class="col-sm-2">
+                            	<input type="text" id="danBaoType" name="danBaoType" th:value="${dto.danBaoType}" class="form-control" />
+                            </div>
+                            
+                            <label class="col-sm-2 control-label">还款方式</label>
+                            <div class="col-sm-2">
+                               	<input type="text" id="huanKuanType" name="huanKuanType" th:value="${dto.huanKuanType}" class="form-control" />
+                            </div>
+                        </div>
+					</div>
+				</div>
+			</div>
+			<!-- 个人资料  -->
+			<div class="col-lg-12">
+				<div class="ibox float-e-margins">
+					<div class="ibox-title">
+						<h5>个人资料</h5>
+					</div>
+					<div class="ibox-content">
+						<div class="form-group">
+							<label class="col-sm-2 control-label">姓名</label>
+                            <div class="col-sm-2">
+                            	<input type="text" id="name" name="name" th:value="${dto.name}" class="form-control" />
+                            </div>
+                            
+                            <label class="col-sm-2 control-label">性别</label>
+                            <div class="col-sm-2">
+                            	<input type="text" id="sex" name="sex" th:value="${dto.sex}" class="form-control" />
+                            </div>
+                            
+                            <label class="col-sm-2 control-label">年龄</label>
+                            <div class="col-sm-2">
+                            	<input type="text" id="age" name="age" th:value="${dto.age}" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+							<label class="col-sm-2 control-label">出生日期</label>
+                           	<div class=" date col-sm-2" style="display: table;">
+                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                <input type="text" id="chuShengRiQi" name="chuShengRiQi" class="form-control" th:value="${dto.chuShengRiQi}? ${#dates.format(dto.chuShengRiQi, 'yyyy-MM-dd')}" />
+                            </div>
+                            
+                            <label class="col-sm-2 control-label">籍贯</label>
+                            <div class="col-sm-2">
+                               	<input type="text" id="jiGuan" name="jiGuan" th:value="${dto.jiGuan}" class="form-control" />
+                            </div>
+                            <label class="col-sm-2 control-label">婚姻</label>
+                           	<div class="col-sm-2">
+                           		<input type="text" id="hunYin" name="hunYin" th:value="${dto.hunYin}" class="form-control" />
+                            </div>
+                            
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                        	<!-- <label class="col-sm-2 control-label">证件类型</label>
+                            <div class="col-sm-2">
+                            	<select id="sex" name="sex" class="form-control m-b">
+	                                <option value="身份证" th:selected="${dto.sex=='身份证'}">身份证</option>
+	                                <option value="护照" th:selected="${dto.sex=='护照'}">护照</option>
+	                                <option value="其他" th:selected="${dto.sex=='其他'}">其他</option>
+	                            </select>
+                            </div> -->
+							<label class="col-sm-2 control-label">身份证号码</label>
+                           	<div class="col-sm-10">
+                               	<input type="text" id="icard" name="icard" th:value="${dto.icard}" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">地址</label>
+                            <div class="col-sm-10">
+                               	<input type="text" id="diZhi" name="diZhi" th:value="${dto.diZhi}" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">学历</label>
+                            <div class="col-sm-2">
+                            	<input type="text" id="xueLi" name="xueLi" th:value="${dto.xueLi}" class="form-control" />
+                            </div>
+                            
+                            <label class="col-sm-2 control-label">社保卡号</label>
+                            <div class="col-sm-6">
+                               	<input type="text" id="sheBao" name="sheBao" th:value="${dto.sheBao}" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+							<label class="col-sm-2 control-label">移动电话</label>
+                           	<div class="col-sm-2">
+                               	<input type="text" id="phone" name="phone" th:value="${dto.phone}" class="form-control" />
+                            </div>
+                            
+                            <label class="col-sm-2 control-label">住宅电话</label>
+                            <div class="col-sm-2">
+                               	<input type="text" id="zuoJi" name="zuoJi" th:value="${dto.zuoJi}" class="form-control" />
+                            </div>
+                            
+                            <label class="col-sm-2 control-label"></label>
+                            <div class="col-sm-2">
+                            </div>
+                        </div>
+					</div>
+				</div>
+			</div>
+			<!-- 个人资产登记  房产（地产） -->
+			<div class="col-lg-12">
+				<div class="ibox float-e-margins">
+					<div class="ibox-title">
+						<h5>房产（地产）</h5>
+					</div>
+					<div class="ibox-content">
+						<div class="form-group">
+							<label class="col-sm-2 control-label">房产类别</label>
+                            <div class="col-sm-2">
+                            	<input type="text" id="ffangChanType" name="ffangChanType" th:value="${dto.room.ffangChanType}" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">购买价格（元）</label>
+                           	<div class="col-sm-2">
+                               	<input type="text" id="fjiaGe" name="fjiaGe" th:value="${dto.room.fjiaGe}" class="form-control" />
+                            </div>
+                            <label class="col-sm-2 control-label">证号</label>
+                            <div class="col-sm-6">
+                               	<input type="text" id="ffangZheng" name="ffangZheng" th:value="${dto.room.ffangZheng}" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">建筑年份</label>
+                            <div class="col-sm-2">
+                               	<input type="text" id="fjianZhuNianFen" name="fjianZhuNianFen" th:value="${dto.room.fjianZhuNianFen}" class="form-control" />
+                            </div>
+                            <label class="col-sm-2 control-label">建筑面积（平方米）</label>
+                            <div class="col-sm-2">
+                            	<input type="text" id="fmianJi" name="fmianJi" th:value="${dto.room.fmianJi}" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                        	<label class="col-sm-2 control-label">贷款总额（元）</label>
+                            <div class="col-sm-2">
+                               	<input type="text" id="fdaiKuanZongE" name="fdaiKuanZongE" th:value="${dto.room.fdaiKuanZongE}" class="form-control" />
+                            </div>
+                            
+							<label class="col-sm-2 control-label">贷款年限</label>
+                           	<div class="col-sm-2">
+                               	<input type="text" id="fdaiKuanNianXian" name="fdaiKuanNianXian" th:value="${dto.room.fdaiKuanNianXian}" class="form-control" />
+                            </div>
+                            
+                            <label class="col-sm-2 control-label">月供（元）</label>
+                            <div class="col-sm-2">
+                               	<input type="text" id="fyueGong" name="fyueGong" th:value="${dto.room.fyueGong}" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                        	<label class="col-sm-2 control-label">按揭银行</label>
+                            <div class="col-sm-2">
+                               	<input type="text" id="fanJieYinHang" name="fanJieYinHang" th:value="${dto.room.fanJieYinHang}" class="form-control" />
+                            </div>
+							<label class="col-sm-2 control-label">尚欠贷款金额（元）</label>
+                           	<div class="col-sm-2">
+                               	<input type="text" id="fqianKuan" name="fqianKuan" th:value="${dto.room.fqianKuan}" class="form-control" />
+                            </div>
+                        </div>
+					</div>
+				</div>
+			</div>
+			<!-- 个人资产登记  汽车 -->
+			<div class="col-lg-12">
+				<div class="ibox float-e-margins">
+					<div class="ibox-title">
+						<h5>汽车</h5>
+					</div>
+					<div class="ibox-content">
+						<div class="form-group">
+							<label class="col-sm-2 control-label">品牌型号</label>
+                            <div class="col-sm-2">
+                            	<input type="text" id="cpinPai" name="cpinPai" th:value="${dto.car.cpinPai}" class="form-control" />
+                            </div>
+                            
+                            <label class="col-sm-2 control-label">数量</label>
+                            <div class="col-sm-2">
+                               	<input type="text" id="cshuLiang" name="cshuLiang" th:value="${dto.car.cshuLiang}" class="form-control" />
+                            </div>
+                            
+                            <label class="col-sm-2 control-label">车牌号码</label>
+                            <div class="col-sm-2">
+                            	<input type="text" id="chaoMa" name="chaoMa" th:value="${dto.car.chaoMa}" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+							<label class="col-sm-2 control-label">入牌年份</label>
+                           	<div class="col-sm-2">
+                               	<input type="text" id="cnianFei" name="cnianFei" th:value="${dto.car.cnianFei}" class="form-control" />
+                            </div>
+                            
+                            <label class="col-sm-2 control-label">购买方式</label>
+                            <div class="col-sm-2">
+                            	<input type="text" id="cgouRuFangShi" name="cgouRuFangShi" th:value="${dto.car.cgouRuFangShi}" class="form-control" />
+                            </div>
+                            <label class="col-sm-2 control-label"></label>
+                            <div class="col-sm-2">
+                            </div>
+                        </div>
+					</div>
+				</div>
+			</div>
+			<!-- 职业资料/公司资料 -->
+			<div class="col-lg-12">
+				<div class="ibox float-e-margins">
+					<div class="ibox-title">
+						<h5>职业资料/公司资料</h5>
+					</div>
+					<div class="ibox-content">
+						<div class="form-group">
+							<label class="col-sm-2 control-label">单位名称</label>
+                            <div class="col-sm-10">
+                            	<input type="text" id="zname" name="zname" th:value="${dto.job.zname}" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">单位地址</label>
+                            <div class="col-sm-10">
+                               	<input type="text" id="zhao" name="zhao" th:value="${dto.job.zhao}" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+							<label class="col-sm-2 control-label">单位性质</label>
+                           	<div class="col-sm-2">
+                           		<input type="text" id="zdanWeiType" name="zdanWeiType" th:value="${dto.job.zdanWeiType}" class="form-control" />
+                            </div>
+                            <label class="col-sm-2 control-label">单位电话</label>
+                            <div class="col-sm-2">
+                               	<input type="text" id="zdanWeiPhone" name="zdanWeiPhone" th:value="${dto.job.zdanWeiPhone}" class="form-control" />
+                            </div>
+                            <label class="col-sm-2 control-label">单位网址</label>
+                            <div class="col-sm-2">
+                               	<input type="text" id="zdanWeiUrl" name="zdanWeiUrl" th:value="${dto.job.zdanWeiUrl}" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                        	<label class="col-sm-2 control-label">邮编</label>
+                            <div class="col-sm-2">
+                            	<input type="text" id="zyouBian" name="zyouBian" th:value="${dto.job.zyouBian}" class="form-control" />
+                            </div>
+							<label class="col-sm-2 control-label">职位</label>
+                           	<div class="col-sm-2">
+                               	<input type="text" id="zzhiWei" name="zzhiWei" th:value="${dto.job.zzhiWei}" class="form-control" />
+                            </div>
+                            <label class="col-sm-2 control-label">服务年数</label>
+                            <div class="col-sm-2">
+                               	<input type="text" id="zGongLing" name="zGongLing" th:value="${dto.job.zGongLing}" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                        	<label class="col-sm-2 control-label">部门</label>
+                            <div class="col-sm-2">
+                               	<input type="text" id="zbuMen" name="zbuMen" th:value="${dto.job.zbuMen}" class="form-control" />
+                            </div>
+							<label class="col-sm-2 control-label">每月收入（元）</label>
+                           	<div class="col-sm-2">
+                               	<input type="text" id="zgongZi" name="zgongZi" th:value="${dto.job.zgongZi}" class="form-control" />
+                            </div>
+                            <label class="col-sm-2 control-label">每月支付日</label>
+                            <div class="col-sm-2">
+                               	<input type="text" id="zfaGongZiRi" name="zfaGongZiRi" th:value="${dto.job.zfaGongZiRi}" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">支付方式</label>
+                            <div class="col-sm-2">
+                               	<input type="text" id="zZhiFuFangShi" name="zZhiFuFangShi" th:value="${dto.job.zZhiFuFangShi}" class="form-control" />
+                            </div>
+                        </div>
+					</div>
+				</div>
+			</div>
+			<!-- 补充资料  -->
+			<div class="col-lg-12">
+				<div class="ibox float-e-margins">
+					<div class="ibox-title">
+						<h5>补充资料</h5>
+					</div>
+					<div class="ibox-content">
+						<div class="form-group">
+							<label class="col-sm-2 control-label">个体经营类型</label>
+                            <div class="col-sm-2">
+                            	<input type="text" id="bjingYingType" name="bjingYingType" th:value="${dto.supplementary.bjingYingType}" class="form-control" />
+                            </div>
+                            
+                            <label class="col-sm-2 control-label">工商登记号</label>
+                            <div class="col-sm-6">
+                               	<input type="text" id="bgongShangHao" name="bgongShangHao" th:value="${dto.supplementary.bgongShangHao}" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                        	<label class="col-sm-2 control-label">经营场所</label>
+                            <div class="col-sm-2">
+                            	<input type="text" id="bchangSuo" name="bchangSuo" th:value="${dto.supplementary.bchangSuo}" class="form-control" />
+                            </div>
+							<label class="col-sm-2 control-label">成立日期</label>
+                           	<div class=" date col-sm-2" style="display: table;">
+                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                <input type="text" id="bchengLiDate" name="bchengLiDate" class="form-control" th:value="${dto.supplementary.bchengLiDate}? ${#dates.format(dto.supplementary.bchengLiDate, 'yyyy-MM-dd')}" />
+                            </div>
+                            <label class="col-sm-2 control-label">雇员人数</label>
+                           	<div class="col-sm-2">
+                               	<input type="text" id="brenShu" name="brenShu" th:value="${dto.supplementary.brenShu}" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+							<label class="col-sm-2 control-label">全年盈利（元）</label>
+                            <div class="col-sm-2">
+                               	<input type="text" id="bnianYingLi" name="bnianYingLi" th:value="${dto.supplementary.bnianYingLi}" class="form-control" />
+                            </div>
+                            <label class="col-sm-2 control-label">税政编号</label>
+                            <div class="col-sm-6">
+                               	<input type="text" id="bshuiZhengNumber" name="bshuiZhengNumber" th:value="${dto.supplementary.bshuiZhengNumber}" class="form-control" />
+                            </div>
+                        </div>
+					</div>
+				</div>
+			</div>
+			<!-- 配偶资料  -->
+			<div class="col-lg-12">
+				<div class="ibox float-e-margins">
+					<div class="ibox-title">
+						<h5>配偶资料</h5>
+					</div>
+					<div class="ibox-content">
+						<div class="form-group">
+							<label class="col-sm-2 control-label">姓名</label>
+                            <div class="col-sm-2">
+                            	<input type="text" id="pname" name="pname" th:value="${dto.spouse.pname}" class="form-control" />
+                            </div>
+                            
+                            <label class="col-sm-2 control-label">联络电话</label>
+                            <div class="col-sm-2">
+                               	<input type="text" id="pphone" name="pphone" th:value="${dto.spouse.pphone}" class="form-control" />
+                            </div>
+                            
+                            <label class="col-sm-2 control-label">每月收入（元）</label>
+                            <div class="col-sm-2">
+                            	<input type="text" id="pshouRu" name="pshouRu" th:value="${dto.spouse.pshouRu}" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+							<label class="col-sm-2 control-label">身份证号</label>
+                           	<div class="col-sm-10">
+                               	<input type="text" id="piCard" name="piCard" th:value="${dto.spouse.piCard}" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                        	<label class="col-sm-2 control-label">单位名称</label>
+                            <div class="col-sm-10">
+                               	<input type="text" id="pdanWeiName" name="pdanWeiName" th:value="${dto.spouse.pdanWeiName}" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                        	<label class="col-sm-2 control-label">单位地址</label>
+                            <div class="col-sm-10">
+                               	<input type="text" id="pdwhao" name="pdwhao" th:value="${dto.spouse.pdwhao}" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+							<label class="col-sm-2 control-label">单位电话</label>
+                           	<div class="col-sm-2">
+                               	<input type="text" id="pdwPhone" name="pdwPhone" th:value="${dto.spouse.pdwPhone}" class="form-control" />
+                            </div>
+                            
+                            <label class="col-sm-2 control-label">职位</label>
+                            <div class="col-sm-2">
+                               	<input type="text" id="pzhiwei" name="pzhiwei" th:value="${dto.spouse.pzhiwei}" class="form-control" />
+                            </div>
+                            
+                            <label class="col-sm-2 control-label"></label>
+                            <div class="col-sm-2">
+                            </div>
+                        </div>
+					</div>
+				</div>
+			</div>
+			<!-- 联系人资料  -->
+			<div class="col-lg-12">
+				<div class="ibox float-e-margins">
+					<div class="ibox-title">
+						<h5>联系人资料</h5>
+					</div>
+					<div class="ibox-content">
+						<div class="form-group">
+							<label class="col-sm-2 control-label">姓名</label>
+                            <div class="col-sm-2">
+                            	<input type="text" id="lname" name="lname" th:value="${dto.contacts.lname}" class="form-control" />
+                            </div>
+                            
+                            <label class="col-sm-2 control-label">与申请人关系</label>
+                            <div class="col-sm-2">
+                               	<input type="text" id="lguanXi" name="lguanXi" th:value="${dto.contacts.lguanXi}" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+							<label class="col-sm-2 control-label">地址</label>
+                           	<div class="col-sm-10">
+                               	<input type="text" id="lhao" name="lhao" th:value="${dto.contacts.lhao}" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                        	<label class="col-sm-2 control-label">电话</label>
+                            <div class="col-sm-2">
+                               	<input type="text" id="lphone" name="lphone" th:value="${dto.contacts.lphone}" class="form-control" />
+                            </div>
+							<label class="col-sm-2 control-label">身份证号</label>
+                            <div class="col-sm-6">
+                            	<input type="text" id="licard" name="licard" th:value="${dto.contacts.licard}" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                        	<label class="col-sm-2 control-label">单位名称</label>
+                            <div class="col-sm-10">
+                               	<input type="text" id="ldwName" name="ldwName" th:value="${dto.contacts.ldwName}" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+							<label class="col-sm-2 control-label">单位电话</label>
+                           	<div class="col-sm-2">
+                               	<input type="text" id="ldwPhone" name="ldwPhone" th:value="${dto.contacts.ldwPhone}" class="form-control" />
+                            </div>
+                            <label class="col-sm-2 control-label">职位</label>
+                            <div class="col-sm-2">
+                               	<input type="text" id="lzhiWei" name="lzhiWei" th:value="${dto.contacts.lzhiWei}" class="form-control" />
+                            </div>
+                        </div>
+					</div>
+				</div>
+			</div>
+			<!-- 审核信息  -->
+			<div class="col-lg-12">
+				<div class="ibox float-e-margins">
+					<div class="ibox-title">
+						<h5>合同信息</h5>
+					</div>
+					<div class="ibox-content">
+						<div class="form-group">
+							<label class="col-sm-2 control-label">上传合同</label>
+                            <div class="col-sm-10">
+                                <!--<input type="text" id="ldwPhone" name="ldwPhone" class="form-control" />-->
+                                <!--<label title="Upload image file" for="inputImage" class="btn btn-primary">
+                                    <input type="file" name="file" id="file" >
+                                    上传
+                                </label>-->
+                                <input type="file" name="file" id="file" >
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+							<label class="col-sm-2 control-label">服务费（元）</label>
+                            <div class="col-sm-2">
+                                <input type="text" id="serviceFee" name="serviceFee" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <div class="col-sm-4 col-sm-offset-5">
+                                <button class="btn btn-primary" type="button" onclick="tijiao()">提交</button>
+                                &nbsp;&nbsp;&nbsp;&nbsp;
+                                <button class="btn btn-white" type="button" onclick="cancel()">取消</button>
+                            </div>
+                        </div>
+					</div>
+				</div>
+			</div>
+			</form>
+		</div>
+	</div>
+</div>
+
+<script th:inline="javascript">  
+/*<![CDATA[*/  
+	
+	var validator;
+ 	
+ 	$(document).ready(function(){
+ 		
+ 		$('input:text').attr("readonly","readonly");
+        $('#serviceFee').removeAttr("readonly");
+
+ 		
+		validator = $("#mainForm").validate({
+			/* rules : {
+				roleName : {
+					required : true,
+					maxlength : 10
+				},
+				roleCode : {
+					required : true,
+					maxlength : 20
+				}
+			} */
+			
+		});
+		
+	});
+ 	
+	function tijiao() {
+ 		if(!validator.form()){
+ 			return false;
+ 		}
+        var status = $("#status").val();
+ 		//var formData = $('#mainForm').serializeArray();
+        /*var formData = new FormData($("#mainForm"));
+ 		$.ajax({
+            url: '/orderAudit/orderAuditContractSave',
+            data: formData,
+            type: 'post',
+            dataType: "text",
+            cache: false,
+            contentType: false, //不设置内容类型
+            processData: false, //不处理数据
+            success: function(data) {
+                if("1"==data){
+                    toastr.success("审核成功！");
+                    $("#right").load("/orderAudit/orderAuditList/"+status);
+                }else if("-1"==data){
+                    toastr.warning("审核失败,提交内容为空！");
+                }
+            },
+            error: function() {
+                toastr.warning("审核失败！");
+            }
+        });*/
+
+
+        var form = $("#mainForm");
+        var options = {
+            url:'/orderAudit/orderAuditContractSave', //上传文件的路径
+            type:'post',
+            success:function(data){
+                if("1"==data){
+                    toastr.success("审核成功！");
+                    $("#right").load("/orderAudit/orderAuditList/"+status);
+                }else if("-1"==data){
+                    toastr.warning("审核失败,提交内容为空！");
+                }
+            }
+        };
+        form.ajaxSubmit(options);
+
+
+        /* var formData = $('#mainForm').serializeArray();
+       $("#right").load("/order/orderSave", formData);  */
+		
+	}
+ 	//取消
+ 	function cancel() {
+        var status = $("#status").val();
+ 		$("#right").load("/orderAudit/orderAuditList/"+status);
+	}
+	/*]]>*/
+</script> 

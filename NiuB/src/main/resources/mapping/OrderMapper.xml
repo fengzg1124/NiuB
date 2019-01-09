@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.com.niub.mapper.OrderMapper">
+    <select id="findOrder" resultType="cn.com.niub.dto.OrderDto"
+            parameterType="cn.com.niub.dto.OrderDto">
+        select o.* from tbl_order o,tbl_user_info u
+        <where>
+            o.phone = u.phone_number
+            and o.del_Flag = 1
+            <if test="managerId!=null and managerId != ''">
+                and u.hierarchy_id LIKE CONCAT(CONCAT('%',#{managerId}),'%')
+            </if>
+            <if test="name != null and name != ''" >
+                and o.name LIKE CONCAT(CONCAT('%',#{name}),'%')
+            </if>
+            <if test="daikuanType!=null and daikuanType != ''">
+                and o.daikuan_type = #{daikuanType}
+            </if>
+            <if test="status!=null and status != ''">
+                and o.status in (${status})
+            </if>
+            <if test="creater!=null and creater != ''">
+                and o.creater = #{creater}
+            </if>
+
+        </where>
+    </select>
+</mapper>

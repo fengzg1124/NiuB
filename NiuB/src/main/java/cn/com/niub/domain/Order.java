@@ -61,6 +61,11 @@ public class Order {
 	private Date updateTime;
 	private Integer delFlag;
 	private String status;
+
+	//服务费
+	private String serviceFee;
+	//银行批复金额
+	private String approvalAmount;
 	
 	//房
 	

@@ -37,6 +37,7 @@ public class MenuService {
 			criteria.andMarkEqualTo(dto.getMark());
 		}
 		criteria.andDelFlagEqualTo(AbleStatus.usable_1.getCode());
+		example.setOrderByClause("menu_index");
 		return menuMapper.selectByExamplePage(example);
 	}
 	//按主键id查找
