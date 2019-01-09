@@ -25,7 +25,7 @@
 			<!-- 数据存储区 -->
 			<input type="hidden" name="id" id="id" th:value="${dto.id}" />
 			<input type="hidden" name="status" id="status" th:value="${dto.status}" />
-			
+            <input type="hidden" name="role" id="role" th:value="${role}" />
 			<div class="col-lg-12">
 				<div class="ibox float-e-margins">
 					<div class="ibox-title">
@@ -620,6 +620,7 @@
  			return false;
  		}
 		$("#status").val("0");
+        var role = $("#role").val();
  		var formData = $('#mainForm').serializeArray();
  		$.ajax({
 		    url: '/order/orderSave',
@@ -629,7 +630,7 @@
 		    success: function(data) { 
 		    	if("1"==data){
 	 				toastr.success("保存成功！");
-	 				$("#right").load("/order/orderList");
+	 				$("#right").load("/order/orderList/"+role);
 	 			}else if("-1"==data){
 	 				toastr.warning("保存失败,提交内容为空！");
 	 			}
@@ -650,6 +651,7 @@
  			return false;
  		}
  		$("#status").val("1");
+        var role = $("#role").val();
  		var formData = $('#mainForm').serializeArray();
  		$.ajax({
 		    url: '/order/orderSave',
@@ -659,7 +661,7 @@
 		    success: function(data) { 
 		    	if("1"==data){
 	 				toastr.success("提交成功！");
-	 				$("#right").load("/order/orderList");
+	 				$("#right").load("/order/orderList/"+role);
 	 			}else if("-1"==data){
 	 				toastr.warning("提交失败,提交内容为空！");
 	 			}
@@ -675,7 +677,8 @@
 	}
  	//取消
  	function cancel() {
- 		$("#right").load("/order/orderList");
+        var role = $("#role").val();
+ 		$("#right").load("/order/orderList/"+role);
 	}
 	/*]]>*/
 </script> 

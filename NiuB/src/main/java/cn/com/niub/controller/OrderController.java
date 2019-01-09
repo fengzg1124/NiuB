@@ -61,28 +61,30 @@ public class OrderController {
 		//查询用户列表
 		Page<OrderDto> page = orderService.findOrder(dto,Integer.valueOf(pageNum),Integer.valueOf(pageSize));
 
+		model.addAttribute("role", role);
 		model.addAttribute("page", page);
 		model.addAttribute("dto", dto);
 		return "admin/order/orderList";
 	}
 	
 	@RequestMapping(value="/toOrderAdd")
-	private String toRoleAdd(Model model) {
+	private String toRoleAdd(Model model,String role) {
 		OrderDto dto = new OrderDto();
-		
+
+		model.addAttribute("role", role);
 		model.addAttribute("dto", dto);
 		return "admin/order/orderAdd";
 	}
 	
 	@RequestMapping(value="/toOrderUpdate")
-	private String toOrderUpdate(Model model, String id) {
+	private String toOrderUpdate(Model model, String id,String role) {
 		
 		OrderDto dto = new OrderDto();
 		
 		if(StringUtils.isNotBlank(id)){
 			dto = orderService.findOrderAllById(id);
 		}
-		
+		model.addAttribute("role", role);
 		model.addAttribute("dto", dto);
 		return "admin/order/orderAdd";
 	}
@@ -127,6 +129,7 @@ public class OrderController {
 				dto.setCreateTime(od.getCreateTime());
 				dto.setStatus(od.getStatus());
 				dto.setUpdater(adminuser.getId());
+				dto.setDelFlag(AbleStatus.usable_1.getCode());
 				orderService.saveOrder(dto);
 			}
 			message = "1";
@@ -135,7 +138,7 @@ public class OrderController {
 	}
 	
 	@RequestMapping(value="/orderDelete")
-	private String orderDelete(Model model,HttpServletRequest request, String orderIds) {
+	private String orderDelete(Model model,HttpServletRequest request, String orderIds,String role) {
 		
 		HttpSession session = request.getSession();
 		User adminuser = (User) session.getAttribute("adminUser");
@@ -150,8 +153,7 @@ public class OrderController {
 				orderService.saveOrder(od);
 			}
 		}
-		
-		return "redirect:/order/orderList";
+		return "redirect:/order/orderList/"+role;
 	}
 	
 }
