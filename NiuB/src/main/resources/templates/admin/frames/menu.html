@@ -26,18 +26,20 @@
 					<div class="logo-element">猎多金</div>
 				</li>
 				
-				<li th:each="menu: ${menus}" th:if="${menu.mark=='1' and menu.menuIndex != '1'}">
+				<li th:each="menu,menuStart:${menus}" th:if="${menu.mark=='1'}">
+					<input type="hidden" name="menu1" th:value="${menu.menuUrl}">
+
 					<a th:if="${menu.subset == '0'}" th:attr="onclick='load(\''+${menu.menuUrl}+'\');'">
 						<i class="fa fa-th-large"></i> 
 						<span class="nav-label" th:text="${menu.menuName}"></span>
 					</a>
 					
 					<a th:if="${menu.subset != '0'}" href="">
-						<i class="fa fa-th-large"></i> 
+						<i class="fa fa-th-large"></i>
 						<span class="nav-label" th:text="${menu.menuName}"></span>
 						<span class="fa arrow"></span>
 					</a>
-					<ul class="nav nav-second-level">
+					<ul th:if="${menu.subset != '0'}" class="nav nav-second-level">
 						<li th:if="${menuer.parentId==menu.id}" th:each="menuer:${menus}">
 							<a href="javascript:void(0);" class="active"  th:text="${menuer.menuName}"
 							th:attr="onclick='load(\''+${menuer.menuUrl}+'\');'"></a>

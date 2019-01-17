@@ -255,13 +255,9 @@ public class HomeController {
 		User adminuser = (User) session.getAttribute("adminUser");
 		if(null!=adminuser){
 			//查询用户列表
-			Page<User> users = getUserList(adminuser.getId(),1,10);
-			model.addAttribute("page", users);
-			
+			//getUserList(adminuser.getId(),1,10,model);
+
 			List<MenuDto> menus= menuService.findByUserId(adminuser.getId());
-			
-			UserDto dto = new UserDto();
-			model.addAttribute("dto", dto);
 			model.addAttribute("menus", menus);
 			return "admin/frames/sysframe_index";
 		}
@@ -271,33 +267,31 @@ public class HomeController {
 			//model.addAttribute("mes", "登录失败,登录信息填写不完整！");
 			return "admin/adminLogin";
 		}
-		
+
+		//校验用户密码
 		UserExample example = new UserExample();
 		Criteria criteria = example.createCriteria();
 		criteria.andPhoneNumberEqualTo(user.getPhoneNumber());
 		criteria.andPasswordEqualTo(user.getPassword());
-		criteria.andStateEqualTo(1);
+		//criteria.andStateEqualTo(1);
 		List<User> users = userService.findUsers(example);
 		if(users.size()!=1){
 			log.setLog("登录失败");
 			model.addAttribute("mes", "登录失败,手机号或密码错误！");
 			return "admin/adminLogin";
 		}
-		
 		session.setAttribute("adminUser", users.get(0));
-		
+
+
 		model.addAttribute("phid", users.get(0).getId());
 		model.addAttribute("mes", users.get(0).getUserName()+",登录成功");
 		model.addAttribute("userName", users.get(0).getUserName());
 		
 		//查询用户列表
-		Page<User> page = getUserList(users.get(0).getId(),1,10);
-		model.addAttribute("page", page);
-		
+		//getUserList(users.get(0).getId(),1,10,model);
+
+		//菜单
 		List<MenuDto> menus= menuService.findByUserId(users.get(0).getId());
-		
-		UserDto dto = new UserDto();
-		model.addAttribute("dto", dto);
 		model.addAttribute("menus", menus);
 		
 		log.setUserId(user.getId());
@@ -309,7 +303,7 @@ public class HomeController {
 	}
 	
 	//查询用户列表
-	public Page<User> getUserList(String userid,int pageNo,int pageSize){
+	public void getUserList(String userid,int pageNo,int pageSize, Model model){
 		//查询用户信息
 		UserExample examplec = new UserExample();
 		Criteria criteriac = examplec.createCriteria();
@@ -327,7 +321,9 @@ public class HomeController {
 				}
 			}
 		}
-		return users;
+		model.addAttribute("page", users);
+		UserDto dto = new UserDto();
+		model.addAttribute("dto", dto);
 	}
 	/*//管理员注册
 	@RequestMapping(value="/adminRegister")

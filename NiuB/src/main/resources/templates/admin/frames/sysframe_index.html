@@ -150,7 +150,14 @@
 							yaxis : {},
 							tooltip : false
 						});
-	
+
+                var menu = "";
+				$("input[name='menu1']").each(function(){
+					if(menu == ""){
+                        menu=$(this).val();
+					}
+                })
+                load(menu);
 			});
 			
 			//默认加载右侧内容

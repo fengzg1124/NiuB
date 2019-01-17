@@ -1,6 +1,7 @@
 package cn.com.niub.dto;
 
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.beans.BeanUtils;
 
@@ -52,6 +53,8 @@ public class UserDto {
     private Date startTime;
     
     private Date endTime;
+
+    private List<RoleDto> roleDtos;
 
     public UserDto() {
 	}
@@ -246,6 +249,7 @@ public class UserDto {
 		this.endTime = endTime;
 	}
 
+
 	@Override
     public boolean equals(Object that) {
         if (this == that) {
@@ -311,5 +315,13 @@ public class UserDto {
         result = prime * result + ((getStartTime() == null) ? 0 : getStartTime().hashCode());
         result = prime * result + ((getEndTime() == null) ? 0 : getEndTime().hashCode());
         return result;
+    }
+
+    public List<RoleDto> getRoleDtos() {
+        return roleDtos;
+    }
+
+    public void setRoleDtos(List<RoleDto> roleDtos) {
+        this.roleDtos = roleDtos;
     }
 }
